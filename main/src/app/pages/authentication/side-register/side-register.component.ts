@@ -12,34 +12,18 @@ import { CommonModule } from '@angular/common';
 
 const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
-// Validador para confirmar contraseñas
 function passwordMatch(group: AbstractControl): ValidationErrors | null {
   const pass = group.get('password')?.value;
-  const confirmCtrl = group.get('nPassword');
+  const confirm = group.get('nPassword')?.value;
 
-  if (!confirmCtrl) return null;
-  const confirm = confirmCtrl.value;
-
-  // ¿Hay mismatch?
-  const mismatch = pass && confirm && pass !== confirm;
-
-  // Asegura que el error viva en el control nPassword (para que <mat-error> lo muestre)
-  if (mismatch) {
-    const currentErrors = confirmCtrl.errors || {};
-    if (!currentErrors['passwordMismatch']) {
-      confirmCtrl.setErrors({ ...currentErrors, passwordMismatch: true });
-    }
+  // Si ambos existen y no coinciden, devolver error
+  if (pass && confirm && pass !== confirm) {
     return { passwordMismatch: true };
-  } else {
-    // Limpia solo este error si ya coincide
-    if (confirmCtrl.errors?.['passwordMismatch']) {
-      const { passwordMismatch, ...rest } = confirmCtrl.errors;
-      confirmCtrl.setErrors(Object.keys(rest).length ? rest : null);
-    }
-    return null;
   }
-}
 
+  // Si coinciden (o están vacíos), no hay error
+  return null;
+}
 @Component({
   selector: 'app-side-register',
   standalone: true,
@@ -80,7 +64,7 @@ export class AppSideRegisterComponent {
       return;
     }
 
-    const { nombreCompleto, email, password, rol } = this.form.getRawValue();
+    const { nombreCompleto, email, password, rol } = this.form.value;
 
     const usuario: Usuario = {
       nombreCompleto: nombreCompleto!,

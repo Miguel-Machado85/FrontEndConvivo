@@ -40,28 +40,21 @@
             <!-- Contraseña -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" formControlName="password" placeholder="Ingrese su contraseña" />
-              <mat-hint align="end">Mínimo 8 caracteres, 1 mayúscula y 1 número</mat-hint>
-
-              <mat-error *ngIf="f.password.errors?.['required']">
-                La contraseña es obligatoria
-              </mat-error>
-              <mat-error *ngIf="f.password.errors?.['pattern']">
-                Debe tener mínimo 8 caracteres, al menos una mayúscula y un número
+              <input matInput type="password" placeholder="Contraseña" formControlName="password">
+              <mat-error *ngIf="f.password.hasError('required')">Contraseña obligatoria</mat-error>
+              <mat-error *ngIf="f.password.hasError('pattern')">
+                Debe tener mínimo 8 caracteres, una mayúscula y un número
               </mat-error>
             </mat-form-field>
 
             <!-- Confirmación de Contraseña -->
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Reingrese su Contraseña</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" formControlName="nPassword" placeholder="Confirme su contraseña" />
-              <mat-error *ngIf="f.nPassword.errors?.['required']">
-                Debe confirmar la contraseña
+              <input matInput type="password" placeholder="Confirmar contraseña" formControlName="nPassword">
+              <mat-error *ngIf="f.nPassword.hasError('required')">
+                Confirme la contraseña
               </mat-error>
-              <mat-error *ngIf="f.nPassword.errors?.['pattern']">
-                Debe tener mínimo 8 caracteres, al menos una mayúscula y un número
-              </mat-error>
-              <mat-error *ngIf="passwordMismatch">
+              <mat-error *ngIf="form.hasError('passwordMismatch') && f.nPassword.touched">
                 Las contraseñas no coinciden
               </mat-error>
             </mat-form-field>
