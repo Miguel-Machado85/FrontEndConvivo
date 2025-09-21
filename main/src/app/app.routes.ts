@@ -29,6 +29,11 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
       },
+      {
+        path: 'menu',
+        loadChildren: () =>
+          import('./pages/menu/menu.routes').then((m) => m.MenuRoutes),
+      }
     ],
   },
   {

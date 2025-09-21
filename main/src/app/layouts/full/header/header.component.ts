@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -29,4 +30,12 @@ export class HeaderComponent {
   @Input() showToggle = true;
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
+
+  constructor(private router: Router){}
+
+  logOut(){
+    localStorage.removeItem('AuthToken');
+    localStorage.removeItem('id');  
+    this.router.navigate(['/authentication/login']);
+  }
 }
