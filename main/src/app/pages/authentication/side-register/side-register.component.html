@@ -57,6 +57,9 @@
               <mat-error *ngIf="form.hasError('passwordMismatch') && f.nPassword.touched">
                 Las contraseñas no coinciden
               </mat-error>
+              <mat-error *ngIf="form.hasError('noPassError') && f.nPassword.touched">
+                Ingrese una contraseña valida 
+              </mat-error>
             </mat-form-field>
 
             <!-- Rol -->

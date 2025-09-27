@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CoreService } from 'src/app/services/core.service';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -9,6 +9,8 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { Rol } from 'src/app/models/usuario.model';
 import { CommonModule } from '@angular/common';
+import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
@@ -21,9 +23,17 @@ function passwordMatch(group: AbstractControl): ValidationErrors | null {
     return { passwordMismatch: true };
   }
 
+  if(confirm && !pass){
+    return { noPassError: true }
+  }
+
   // Si coinciden (o están vacíos), no hay error
   return null;
 }
+
+
+
+
 @Component({
   selector: 'app-side-register',
   standalone: true,
@@ -53,10 +63,11 @@ export class AppSideRegisterComponent {
       Validators.pattern(PASSWORD_REGEX) // mismas reglas que password
     ]),
     rol: new FormControl<Rol>(Rol.Vecino, [Validators.required])
-  }, { validators: passwordMatch });
+  }, { validators: passwordMatch});
 
   get f() { return this.form.controls; }
   get passwordMismatch() { return this.form.hasError('passwordMismatch'); }
+  get noPassError(){ return this.form.hasError('noPassError') }
 
   addUsuario() {
     if (this.form.invalid) {
@@ -80,7 +91,12 @@ export class AppSideRegisterComponent {
       },
       error: (err) => {
         console.error(err);
+
+        if (err.status === 400) {
+        alert('El correo ingresado ya esta registrado.');
+      } else {
         alert('Error al registrar el usuario');
+      }
       }
     });
   }

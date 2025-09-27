@@ -35,6 +35,13 @@ export class UsuarioService {
         return this.http.get<Usuario[]>(endpoint, { headers });
     }
 
-
+    getUsuarioByCorreo(correo: string){
+        const endpoint = `${this.api_url}/verUsuario/${correo}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<Usuario>(endpoint, { headers });
+    }
 
 }

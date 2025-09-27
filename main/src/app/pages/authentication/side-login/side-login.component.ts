@@ -27,20 +27,28 @@ export class AppSideLoginComponent {
   }
 
   submit() {
-    const { email, password } = this.form.value;
-    this.authService.authenticate(email || '', password || '').subscribe({
-      next: (res)=>{
-        localStorage.setItem("AuthToken", res.token);
-        localStorage.setItem("id", res.id);
-        console.log(res);
-        this.router.navigate(['/']);
-        console.log(res.token);
-        console.log(res.id);
-      },
-      error: (err)=>{
-        console.log(err);
-        alert('Credenciales invalidas');
+  const { email, password } = this.form.value;
+
+  this.authService.authenticate(email || '', password || '').subscribe({
+    next: (res) => {
+      localStorage.setItem("AuthToken", res.token);
+      localStorage.setItem("id", res.id);
+      this.router.navigate(['/']);
+    },
+    error: (err) => {
+      console.error('Error al iniciar sesión:', err);
+
+      if (err.status === 404) {
+        alert('El correo ingresado no está registrado.');
+      } else if (err.status === 401) {
+        alert('Contraseña incorrecta.');
+      } else if (err.status === 500) {
+        alert('Error del servidor. Intenta más tarde.');
+      } else {
+        alert('Ocurrió un error inesperado.');
       }
-    })
-  }
+    }
+  });
+}
+
 }
