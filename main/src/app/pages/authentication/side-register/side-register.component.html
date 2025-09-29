@@ -9,51 +9,83 @@
             </a>
           </div>
 
-          <div class="row m-t-24 custom-row">
-            <div class="col-6">
-              <button mat-stroked-button class="w-100">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
-                  <span class="d-none d-lg-block">Sign in with Google</span>
-                </div>
-              </button>
-            </div>
-            <div class="col-6">
-              <button mat-stroked-button class="w-100 d-flex align-items-center">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/facebook-icon.svg" alt="facebook" width="40" class="m-r-4" />
-                  <span class="d-none d-lg-block">Sign in with FB</span>
-                </div>
-              </button>
-            </div>
-          </div>
+          <div class="or-border m-t-30">Registrarse</div>
 
-          <div class="or-border m-t-30">or sign up with</div>
+          <form class="m-t-30" [formGroup]="form" (ngSubmit)="addUsuario()">
 
-          <form class="m-t-30">
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Name</mat-label>
+            <!-- Nombre Completo -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Nombre Completo</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput />
-            </mat-form-field>
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="email" />
-            </mat-form-field>
-            <!-- password -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput type="password" />
+              <input matInput formControlName="nombreCompleto" placeholder="Ingrese su nombre completo" />
+              <mat-error *ngIf="f.nombreCompleto.errors?.['required']">
+                El nombre es obligatorio
+              </mat-error>
+              <mat-error *ngIf="f.nombreCompleto.errors?.['minlength']">
+                Debe tener al menos 6 caracteres
+              </mat-error>
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
+            <!-- Email -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="email" placeholder="Ingrese su correo electrónico" />
+              <mat-error *ngIf="f.email.errors?.['required']">
+                El correo es obligatorio
+              </mat-error>
+              <mat-error *ngIf="f.email.errors?.['email']">
+                Correo inválido
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Contraseña -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Contraseña</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" placeholder="Contraseña" formControlName="password">
+              <mat-error *ngIf="f.password.hasError('required')">Contraseña obligatoria</mat-error>
+              <mat-error *ngIf="f.password.hasError('pattern')">
+                Debe tener mínimo 8 caracteres, una mayúscula y un número
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Confirmación de Contraseña -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Reingrese su Contraseña</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password" placeholder="Confirmar contraseña" formControlName="nPassword">
+              <mat-error *ngIf="f.nPassword.hasError('required')">
+                Confirme la contraseña
+              </mat-error>
+              <mat-error *ngIf="form.hasError('passwordMismatch') && f.nPassword.touched">
+                Las contraseñas no coinciden
+              </mat-error>
+              <mat-error *ngIf="form.hasError('noPassError') && f.nPassword.touched">
+                Ingrese una contraseña valida 
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Rol -->
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Rol</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <mat-select formControlName="rol" placeholder="Seleccione un rol">
+                <mat-option *ngFor="let r of roles" [value]="r">
+                  {{ r | titlecase }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="f.rol.errors?.['required']">
+                Debe seleccionar un rol
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Botón -->
+            <button mat-flat-button color="primary" class="w-100" type="submit" [disabled]="form.invalid">
               Sign Up
-            </a>
-            <!-- input -->
+            </button>
           </form>
-          <span class="d-block f-w-500 text-center m-t-24">Already have an Account?
 
+          <span class="d-block f-w-500 text-center m-t-24">
+            ¿Ya tienes una cuenta?
             <a [routerLink]="['/authentication/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
-              Sign In</a>
+              Inicia Sesión
+            </a>
           </span>
         </mat-card-content>
       </mat-card>
