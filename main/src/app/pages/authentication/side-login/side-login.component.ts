@@ -33,7 +33,13 @@ export class AppSideLoginComponent {
     next: (res) => {
       localStorage.setItem("AuthToken", res.token);
       localStorage.setItem("id", res.id);
-      this.router.navigate(['/']);
+      localStorage.setItem("rol", res.rol)
+
+      if(res.rol == 'administrador'){
+        this.router.navigate(['/menu-admin']);
+      } else {
+        this.router.navigate(['/menu-vecino']);
+      }
     },
     error: (err) => {
       console.error('Error al iniciar sesión:', err);
