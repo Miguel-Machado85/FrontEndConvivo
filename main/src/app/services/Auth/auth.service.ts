@@ -23,4 +23,9 @@ export class AuthenticationService {
         return this.http.post(endpoint,body)
 
     }
+
+    validarToken(token: string) {
+        const endpoint=`${this.api_url}/validarToken?token=${token}`
+        return this.http.get(endpoint);
+    }
 }

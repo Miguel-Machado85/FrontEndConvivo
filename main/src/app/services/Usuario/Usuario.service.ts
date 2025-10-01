@@ -44,4 +44,10 @@ export class UsuarioService {
         return this.http.get<Usuario>(endpoint, { headers });
     }
 
+    changePassword(token: string, newPassword: string){
+        const endpoint = `${this.api_url}/password`;
+        const body ={token, newPassword}
+        return this.http.patch(endpoint, body);
+    }
+
 }
