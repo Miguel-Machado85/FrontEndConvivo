@@ -36,9 +36,9 @@ export class AppSideLoginComponent {
       localStorage.setItem("rol", res.rol)
 
       if(res.rol == 'administrador'){
-        this.router.navigate(['/menu-admin']);
+        this.router.navigate(['/menu/admin']);
       } else {
-        this.router.navigate(['/menu-vecino']);
+        this.router.navigate(['/menu/vecino']);
       }
     },
     error: (err) => {
