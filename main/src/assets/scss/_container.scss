@@ -39,7 +39,7 @@ body {
 
 .body-wrapper {
   border-radius: 20px;
-  background-color: $layout-bg;
+  background: linear-gradient(to top, #1268c4, #FFFFFF);
   margin-bottom: 30px;
   min-height: calc(100% - 102px);
 }
