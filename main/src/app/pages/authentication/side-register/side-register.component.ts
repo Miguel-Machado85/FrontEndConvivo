@@ -7,10 +7,13 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
+import { ConjuntoService } from 'src/app/services/Conjunto/conjunto.service';
 import { Rol } from 'src/app/models/usuario.model';
 import { CommonModule } from '@angular/common';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { UsuarioRequest } from 'src/app/models/usuarioRequest.model';
+import { Conjunto } from 'src/app/models/conjunto.model';
 
 const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
@@ -23,7 +26,7 @@ function passwordMatch(group: AbstractControl): ValidationErrors | null {
     return { passwordMismatch: true };
   }
 
-  if(confirm && !pass){
+  if (confirm && !pass) {
     return { noPassError: true }
   }
 
@@ -44,12 +47,18 @@ function passwordMatch(group: AbstractControl): ValidationErrors | null {
 export class AppSideRegisterComponent {
   Rol = Rol;
   roles: Rol[] = [Rol.Vecino, Rol.Administrador];
+  listaConjuntos: Conjunto[] = [];
 
   constructor(
     private settings: CoreService,
     private router: Router,
-    private usuarioService: UsuarioService
-  ) {}
+    private usuarioService: UsuarioService,
+    private conjuntoService: ConjuntoService
+  ) { }
+
+  ngOnInit(){
+    this.getConjuntos();
+  }
 
   form = new FormGroup({
     nombreCompleto: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -62,12 +71,13 @@ export class AppSideRegisterComponent {
       Validators.required,
       Validators.pattern(PASSWORD_REGEX) // mismas reglas que password
     ]),
-    rol: new FormControl<Rol>(Rol.Vecino, [Validators.required])
-  }, { validators: passwordMatch});
+    numeroApartamento: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
+    conjunto: new FormControl<string | null>(null, [Validators.required])
+  }, { validators: passwordMatch });
 
   get f() { return this.form.controls; }
   get passwordMismatch() { return this.form.hasError('passwordMismatch'); }
-  get noPassError(){ return this.form.hasError('noPassError') }
+  get noPassError() { return this.form.hasError('noPassError') }
 
   addUsuario() {
     if (this.form.invalid) {
@@ -75,13 +85,15 @@ export class AppSideRegisterComponent {
       return;
     }
 
-    const { nombreCompleto, email, password, rol } = this.form.value;
+    const { nombreCompleto, email, password, numeroApartamento, conjunto } = this.form.value;
 
-    const usuario: Usuario = {
+    const usuario: UsuarioRequest = {
       nombreCompleto: nombreCompleto!,
       correo: email!,
       password: password!,
-      rol: rol!
+      rol: Rol.Vecino,
+      conjuntoId: conjunto!,
+      numeroApartamento: numeroApartamento!,
     };
 
     this.usuarioService.addUsuario(usuario).subscribe({
@@ -90,14 +102,26 @@ export class AppSideRegisterComponent {
         this.router.navigate(['/authentication/login']);
       },
       error: (err) => {
-        console.error(err);
+        console.log(err);
 
         if (err.status === 400) {
-        alert('El correo ingresado ya esta registrado.');
-      } else {
-        alert('Error al registrar el usuario');
-      }
+          alert('El correo ingresado ya esta registrado.');
+        } else {
+          alert('Error al registrar el usuario');
+        }
       }
     });
+  }
+
+  getConjuntos(){
+    this.conjuntoService.getConjuntos().subscribe({
+      next: (res) =>{
+        this.listaConjuntos = res;
+      },
+      error: (err) =>{
+        console.error(err);
+        
+      }
+    })
   }
 }
