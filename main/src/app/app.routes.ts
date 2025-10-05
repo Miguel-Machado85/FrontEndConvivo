@@ -69,6 +69,13 @@ export const routes: Routes = [
             (m) => m.AuthenticationRoutes
           ),
       },
+      {
+        path: 'conjunto',
+        loadChildren: () =>
+          import('./pages/conjunto/conjunto.routes').then(
+            (m) => m.ConjuntoRoutes
+          )
+      }
     ],
   },
   {

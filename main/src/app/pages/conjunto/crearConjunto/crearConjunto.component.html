@@ -1,0 +1,174 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1 class="page-title">Crear Nuevo Conjunto Residencial</h1>
+    <p class="page-description">
+      Completa el formulario para crear un nuevo conjunto residencial y asignar su administrador
+    </p>
+  </div>
+
+  <form [formGroup]="form" class="form-container">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-content">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 15.3334V3.33336C4 2.97974 4.14048 2.6406 4.39052 2.39055C4.64057 2.14051 4.97971 2.00003 5.33333 2.00003H10.6667C11.0203 2.00003 11.3594 2.14051 11.6095 2.39055C11.8595 2.6406 12 2.97974 12 3.33336V15.3334H4Z" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.99992 8.66669H2.66659C2.31296 8.66669 1.97382 8.80716 1.72378 9.05721C1.47373 9.30726 1.33325 9.6464 1.33325 10V14C1.33325 14.3536 1.47373 14.6928 1.72378 14.9428C1.97382 15.1929 2.31296 15.3334 2.66659 15.3334H3.99992" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 6.66669H13.3333C13.687 6.66669 14.0261 6.80716 14.2761 7.05721C14.5262 7.30726 14.6667 7.6464 14.6667 8.00002V14C14.6667 14.3536 14.5262 14.6928 14.2761 14.9428C14.0261 15.1929 13.687 15.3334 13.3333 15.3334H12" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66675 4.66669H9.33341" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66675 7.33334H9.33341" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66675 10H9.33341" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66675 12.6667H9.33341" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="card-header-text">
+            <h2 class="card-title">Información del Conjunto Residencial</h2>
+            <p class="card-description">Datos básicos del conjunto a crear</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-content">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 15.3334V3.33336C4 2.97974 4.14048 2.6406 4.39052 2.39055C4.64057 2.14051 4.97971 2.00003 5.33333 2.00003H10.6667C11.0203 2.00003 11.3594 2.14051 11.6095 2.39055C11.8595 2.6406 12 2.97974 12 3.33336V15.3334H4Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.99992 8.66669H2.66659C2.31296 8.66669 1.97382 8.80716 1.72378 9.05721C1.47373 9.30726 1.33325 9.6464 1.33325 10V14C1.33325 14.3536 1.47373 14.6928 1.72378 14.9428C1.97382 15.1929 2.31296 15.3334 2.66659 15.3334H3.99992" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 6.66669H13.3333C13.687 6.66669 14.0261 6.80716 14.2761 7.05721C14.5262 7.30726 14.6667 7.6464 14.6667 8.00002V14C14.6667 14.3536 14.5262 14.6928 14.2761 14.9428C14.0261 15.1929 13.687 15.3334 13.3333 15.3334H12" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66675 4.66669H9.33341" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66675 7.33334H9.33341" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66675 10H9.33341" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.66675 12.6667H9.33341" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Nombre del Conjunto
+            </label>
+            <input type="text" class="form-input" formControlName="nombreConjunto" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.3334 7.33336C13.3334 10.662 9.64075 14.1287 8.40075 15.1994C8.28523 15.2862 8.14461 15.3332 8.00008 15.3332C7.85555 15.3332 7.71493 15.2862 7.59941 15.1994C6.35941 14.1287 2.66675 10.662 2.66675 7.33336C2.66675 5.91888 3.22865 4.56232 4.22885 3.56213C5.22904 2.56193 6.58559 2.00003 8.00008 2.00003C9.41457 2.00003 10.7711 2.56193 11.7713 3.56213C12.7715 4.56232 13.3334 5.91888 13.3334 7.33336Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 9.33334C9.10457 9.33334 10 8.43791 10 7.33334C10 6.22877 9.10457 5.33334 8 5.33334C6.89543 5.33334 6 6.22877 6 7.33334C6 8.43791 6.89543 9.33334 8 9.33334Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Ciudad
+            </label>
+            <input type="text" class="form-input" formControlName="ciudad" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.3334 7.33336C13.3334 10.662 9.64075 14.1287 8.40075 15.1994C8.28523 15.2862 8.14461 15.3332 8.00008 15.3332C7.85555 15.3332 7.71493 15.2862 7.59941 15.1994C6.35941 14.1287 2.66675 10.662 2.66675 7.33336C2.66675 5.91888 3.22865 4.56232 4.22885 3.56213C5.22904 2.56193 6.58559 2.00003 8.00008 2.00003C9.41457 2.00003 10.7711 2.56193 11.7713 3.56213C12.7715 4.56232 13.3334 5.91888 13.3334 7.33336Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 9.33334C9.10457 9.33334 10 8.43791 10 7.33334C10 6.22877 9.10457 5.33334 8 5.33334C6.89543 5.33334 6 6.22877 6 7.33334C6 8.43791 6.89543 9.33334 8 9.33334Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Dirección
+          </label>
+          <input type="text" class="form-input" formControlName="direccion" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.66675 6.66669H13.3334" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2.66675 10.6667H13.3334" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66659 2.66669L5.33325 14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.6666 2.66669L9.33325 14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Número de Apartamentos
+          </label>
+          <input type="number" class="form-input" formControlName="numeroApartamentos" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-content">
+          <div class="card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19 21V19C19 17.9391 18.5786 16.9217 17.8284 16.1716C17.0783 15.4214 16.0609 15 15 15H9C7.93913 15 6.92172 15.4214 6.17157 16.1716C5.42143 16.9217 5 17.9391 5 19V21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="card-header-text">
+            <h2 class="card-title">Información del Administrador</h2>
+            <p class="card-description">Datos del administrador del conjunto</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-content">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6666 14.6667V13.3334C12.6666 12.6261 12.3856 11.9478 11.8855 11.4477C11.3854 10.9476 10.7072 10.6667 9.99992 10.6667H5.99992C5.29267 10.6667 4.6144 10.9476 4.1143 11.4477C3.6142 11.9478 3.33325 12.6261 3.33325 13.3334V14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.99992 8.00002C9.47268 8.00002 10.6666 6.80611 10.6666 5.33335C10.6666 3.86059 9.47268 2.66669 7.99992 2.66669C6.52716 2.66669 5.33325 3.86059 5.33325 5.33335C5.33325 6.80611 6.52716 8.00002 7.99992 8.00002Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Nombre Completo
+            </label>
+            <input type="text" class="form-input" formControlName="nombreCompleto" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.6666 14.6667V13.3334C12.6666 12.6261 12.3856 11.9478 11.8855 11.4477C11.3854 10.9476 10.7072 10.6667 9.99992 10.6667H5.99992C5.29267 10.6667 4.6144 10.9476 4.1143 11.4477C3.6142 11.9478 3.33325 12.6261 3.33325 13.3334V14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7.99992 8.00002C9.47268 8.00002 10.6666 6.80611 10.6666 5.33335C10.6666 3.86059 9.47268 2.66669 7.99992 2.66669C6.52716 2.66669 5.33325 3.86059 5.33325 5.33335C5.33325 6.80611 6.52716 8.00002 7.99992 8.00002Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Correo
+            </label>
+            <input type="email" class="form-input" formControlName="email" />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M14.6666 5.33337L8.67258 9.15137C8.46918 9.26952 8.23814 9.33174 8.00292 9.33174C7.76769 9.33174 7.53666 9.26952 7.33325 9.15137L1.33325 5.33337" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13.3333 3.33337H2.66659C1.93021 3.33337 1.33325 3.93033 1.33325 4.66671V12.6667C1.33325 13.4031 1.93021 14 2.66659 14H13.3333C14.0696 14 14.6666 13.4031 14.6666 12.6667V4.66671C14.6666 3.93033 14.0696 3.33337 13.3333 3.33337Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Contraseña
+            </label>
+            <input type="password" class="form-input" formControlName="password" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9.22125 11.712C9.35894 11.7752 9.51405 11.7897 9.66105 11.753C9.80804 11.7162 9.93814 11.6305 10.0299 11.51L10.2666 11.2C10.3908 11.0344 10.5518 10.9 10.737 10.8074C10.9221 10.7149 11.1263 10.6667 11.3333 10.6667H13.3333C13.6869 10.6667 14.026 10.8071 14.2761 11.0572C14.5261 11.3072 14.6666 11.6464 14.6666 12V14C14.6666 14.3536 14.5261 14.6928 14.2761 14.9428C14.026 15.1929 13.6869 15.3333 13.3333 15.3333C10.1507 15.3333 7.09841 14.0691 4.84797 11.8186C2.59753 9.56818 1.33325 6.51593 1.33325 3.33333C1.33325 2.97971 1.47373 2.64057 1.72378 2.39052C1.97382 2.14048 2.31296 2 2.66659 2H4.66659C5.02021 2 5.35935 2.14048 5.60939 2.39052C5.85944 2.64057 5.99992 2.97971 5.99992 3.33333V5.33333C5.99992 5.54033 5.95173 5.74448 5.85915 5.92962C5.76658 6.11476 5.63218 6.2758 5.46658 6.4L5.15458 6.634C5.0322 6.72745 4.94593 6.86039 4.91045 7.01023C4.87496 7.16008 4.89244 7.31758 4.95992 7.456C5.87104 9.30658 7.36953 10.8032 9.22125 11.712Z" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Confirme la contraseña
+            </label>
+            <input type="password" class="form-input" formControlName="nPassword" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">
+            <svg class="label-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.66675 6.66669H13.3334" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2.66675 10.6667H13.3334" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.66659 2.66669L5.33325 14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M10.6666 2.66669L9.33325 14.6667" stroke="#1268C4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Teléfono
+          </label>
+          <input type="tel" class="form-input" formControlName="telefono" />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary">
+        Cancelar
+      </button>
+      <button type="submit" class="btn-primary" (click)="addConjunto()" [disabled]="form.invalid">
+        Crear Conjunto Residencial
+      </button>
+    </div>
+  </form>
+</div>
