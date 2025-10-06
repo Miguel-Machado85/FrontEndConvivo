@@ -39,8 +39,7 @@ body {
 
 .body-wrapper {
   border-radius: 20px;
-  background: linear-gradient(to top, #1268c4, #FFFFFF);
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   min-height: calc(100% - 102px);
 }
 
@@ -76,7 +75,7 @@ body {
 }
 
 .pageWrapper {
-  padding: 30px;
+  padding: 0px;
   min-height: calc(100vh - 100px);
   margin: 0 auto;
   &.maxWidth {

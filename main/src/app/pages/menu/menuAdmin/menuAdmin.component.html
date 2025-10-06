@@ -1,36 +1,57 @@
-<div class="container-fluid">
-  <!-- Encabezado estilizado -->
-  <div class="page-header mb-5 text-center">
-    <h1 class="page-title f-w-600" style="color: #1268c4;">¡Bienvenido a Convivo!</h1>
-    <p class="lead mt-3">Administre su conjunto de forma amigable</p>
-  </div>
-
-  <!-- Contenido central -->
-  <div class="row justify-content-center" style="min-height: 60vh;">
-    <div class="col-lg-8 col-md-10">
-      <mat-card class="cardWithShadow theme-card text-center p-4" style="line-height: 1;">
-        <mat-card-content>
-          <h1 class="mb-4 f-w-600">Tenga control sobre su conjunto y residentes</h1>
-          <p class="fs-5" style="font-size:x-large; line-height: 1;">
-            Cree horarios para sus <strong>espacios comunes</strong> y facilite a su comunidad la reserva de estos.
-          </p>
-          <p class="fs-5" style="font-size:x-large; line-height: 1;">
-            Regule los <strong>pagos de administracion</strong> de sus residentes, creando un cobro para todos y revisando cuales residentes tienen mora en sus pagos
-          </p>
-          <p class="fs-5" style="font-size:x-large; line-height: 1;">
-            Revise los <strong>comentarios</strong> hechos hacia un residente, conociendo mejor el contexto de cada residente para estar atento a cualquier eventualidad
-          </p>
-
-          <div class="mt-5">
-            <button mat-stroked-button color="accent" routerLink="" style="margin-right: 12px; color: #1268c4;">
-              Ver Vecinos
-            </button>
-            <button mat-stroked-button color="accent" routerLink="" style="margin-right: 12px; color: #1268c4;">
-              Generar Cobro
-            </button>
+<div class="menu-admin-bg">
+  <div class="menu-admin-container">
+    <div class="menu-admin-header">
+      <div class="menu-admin-title">¡Bienvenido a Convivo!</div>
+      <div class="menu-admin-subtitle">Administre su conjunto de forma amigable</div>
+    </div>
+    <div class="menu-admin-card">
+      <div class="menu-admin-card-content">
+        <div class="menu-admin-section-title">Tenga control sobre su conjunto y residentes</div>
+        <div class="menu-admin-description-list">
+          <div class="menu-admin-description">
+            Cree horarios para sus espacios comunes y facilite a su comunidad la reserva de estos.
           </div>
-        </mat-card-content>
-      </mat-card>
+          <div class="menu-admin-description">
+            Regule los pagos de administración de sus residentes, creando un cobro para todos y revisando cuales residentes tienen mora en sus pagos
+          </div>
+          <div class="menu-admin-description">
+            Revise los comentarios hechos hacia un residente, conociendo mejor el contexto de cada residente para estar atento a cualquier eventualidad
+          </div>
+        </div>
+        <div class="menu-admin-actions">
+          <button type ="button" class="menu-admin-action">
+            <div class="menu-admin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+                <path d="M21.3334 28.75V26.0833C21.3334 24.6688 20.7715 23.3123 19.7713 22.3121C18.7711 21.3119 17.4146 20.75 16.0001 20.75H8.00008C6.58559 20.75 5.22904 21.3119 4.22885 22.3121C3.22865 23.3123 2.66675 24.6688 2.66675 26.0833V28.75" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M21.3333 4.92065C22.4769 5.21715 23.4898 5.88501 24.2128 6.8194C24.9359 7.7538 25.3282 8.90184 25.3282 10.0833C25.3282 11.2648 24.9359 12.4128 24.2128 13.3472C23.4898 14.2816 22.4769 14.9495 21.3333 15.246" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M29.3333 28.75V26.0833C29.3324 24.9016 28.9391 23.7537 28.2151 22.8198C27.4911 21.8858 26.4774 21.2188 25.3333 20.9233" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.0001 15.4167C14.9456 15.4167 17.3334 13.0289 17.3334 10.0833C17.3334 7.13781 14.9456 4.75 12.0001 4.75C9.05456 4.75 6.66675 7.13781 6.66675 10.0833C6.66675 13.0289 9.05456 15.4167 12.0001 15.4167Z" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="menu-admin-action-content">
+              <div class="menu-admin-action-title">Ver Vecinos</div>
+              <div class="menu-admin-action-desc">
+                Gestiona y visualiza la información de todos los residentes del conjunto
+              </div>
+            </div>
+          </button>
+          <button type ="button" class="menu-admin-action">
+            <div class="menu-admin-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
+                <path d="M16 3.41663V30.0833" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M22.6667 7.41663H12.6667C11.429 7.41663 10.242 7.90829 9.36684 8.78346C8.49167 9.65863 8 10.8456 8 12.0833C8 13.321 8.49167 14.508 9.36684 15.3831C10.242 16.2583 11.429 16.75 12.6667 16.75H19.3333C20.571 16.75 21.758 17.2416 22.6332 18.1168C23.5083 18.992 24 20.1789 24 21.4166C24 22.6543 23.5083 23.8413 22.6332 24.7165C21.758 25.5916 20.571 26.0833 19.3333 26.0833H8" stroke="white" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="menu-admin-action-content">
+              <div class="menu-admin-action-title">Generar Cobro</div>
+              <div class="menu-admin-action-desc">
+                Crea y administra los cobros de administración para todos los residentes
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
