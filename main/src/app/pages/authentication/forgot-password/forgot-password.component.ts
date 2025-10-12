@@ -23,6 +23,8 @@ export class ForgotPasswordComponent {
         email: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
 
+      get f() { return this.form.controls; }
+
     submit() {
         const { email } = this.form.value
 

@@ -39,7 +39,7 @@ function passwordMatch(group: AbstractControl): ValidationErrors | null {
 export class CrearConjuntoComponent {
 
   form = new FormGroup({
-    nombreConjunto: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    nombreConjunto: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.minLength(5)] }),
     ciudad: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     direccion: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
     numeroApartamentos: new FormControl<number | null>(null, {
@@ -49,7 +49,7 @@ export class CrearConjuntoComponent {
       ]
     }),
 
-    nombreCompleto: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+    nombreCompleto: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.minLength(6)] }),
     email: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
     password: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.pattern(PASSWORD_REGEX)] }),
     nPassword: new FormControl<string>('', { nonNullable: true, validators: [Validators.required, Validators.pattern(PASSWORD_REGEX)]}),
@@ -114,12 +114,16 @@ export class CrearConjuntoComponent {
         this.usuarioService.addUsuario(admin).subscribe({
           next: (res) =>{
             alert("Administrador registrado correctamente");
-            this.router.navigate(['/']);
+            this.router.navigate(['/authentication/login']);
           },
           error: (err) =>{
-            alert("El admin no pudo ser creado");
             console.error(err);
-            
+
+            if(err.status === 400){
+              alert('El correo usado ya esta registrado')
+            } else {
+              alert("El admin no pudo ser creado");
+            }            
           }
         })
       },

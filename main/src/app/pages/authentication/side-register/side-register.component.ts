@@ -98,7 +98,7 @@ export class AppSideRegisterComponent {
 
     this.usuarioService.addUsuario(usuario).subscribe({
       next: () => {
-        alert('Usuario registrado correctamente');
+        alert('Vecino registrado correctamente');
         this.router.navigate(['/authentication/login']);
       },
       error: (err) => {
