@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   selector: 'app-menu-vecino',
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
   templateUrl: './menuVecino.component.html',
+  styleUrls: ['./style.scss']
 })
 
 export class MenuVecinoComponent {
