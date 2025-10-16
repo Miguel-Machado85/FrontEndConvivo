@@ -23,7 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
-  navItems: NavItem[] = [];
+  navList: NavItem[] = [];
   rol: string | null= null
   
   constructor() {}
@@ -32,12 +32,11 @@ export class SidebarComponent implements OnInit {
   @Output() toggleCollapsed = new EventEmitter<void>();
 
   ngOnInit(): void {
-    this.rol = localStorage.getItem('rol');
-
-    if (this.rol == 'administrador') {
-      this.navItems = navItemsAdmin;
-    } else {
-      this.navItems = navItemsVecino;
-    }
+    const rol = localStorage.getItem('rol');
+    if (rol === 'administrador') {
+      this.navList = navItemsAdmin;
+    } else if (rol === 'vecino') {
+      this.navList = navItemsVecino;
   }
+}
 }

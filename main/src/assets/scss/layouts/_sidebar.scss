@@ -55,6 +55,7 @@
       padding: 11px 16px !important;
       margin-bottom: 4px;
       width: 100%;
+      color: #1268C4;
       &.twoline {
         height: 60px;
         align-items: center;
@@ -78,7 +79,7 @@
       }
 
       &.activeMenu {
-        background-color: var(--mat-sys-primary);
+        background-color: #1268C4;
         box-shadow: 0 17px 20px -8px rgba(77, 91, 236, 0.231372549);
 
         .mdc-list-item__primary-text {
