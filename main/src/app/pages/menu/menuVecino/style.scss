@@ -1,0 +1,137 @@
+.menu-vecino-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #4A9FF5 0%, #1268C4 50%, #0D4A8F 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.menu-vecino-container {
+    width: 896px;
+    min-height: 711.5px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.menu-vecino-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-vecino-title {
+    color: white;
+    font-size: 36px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 40px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.menu-vecino-subtitle {
+    color: #DBEAFE;
+    font-size: 20px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: center;
+}
+
+.menu-vecino-card {
+    background: #fff;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    padding: 40px;
+    min-height: 599.5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+}
+
+.menu-vecino-section-title {
+    color: #1E2939;
+    font-size: 24px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.menu-vecino-description-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.menu-vecino-description {
+    color: #4A5565;
+    font-size: 18px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 29.25px;
+    text-align: center;
+}
+
+.menu-vecino-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.menu-vecino-action {
+    width: 320px;
+    min-height: 310px;
+    background: linear-gradient(135deg, #EFF6FF 0%, #fff 100%);
+    border-radius: 20px;
+    border: 3px solid #DBEAFE;
+    box-shadow: 0px 4px 24px 0px #1268C41A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    gap: 16px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    text-align: center;
+}
+
+.menu-vecino-action:focus,
+.menu-vecino-action:hover {
+    box-shadow: 0 0 0 4px #1268C433;
+}
+
+.menu-vecino-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #1268C4 0%, #155DFC 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.menu-vecino-action-title {
+    color: #101828;
+    font-size: 24px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 32px;
+    margin-bottom: 8px;
+}
+
+.menu-vecino-action-desc {
+    color: #4A5565;
+    font-size: 16px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 24px;
+}

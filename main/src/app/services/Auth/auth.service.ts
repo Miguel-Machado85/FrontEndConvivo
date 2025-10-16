@@ -16,4 +16,16 @@ export class AuthenticationService {
         const body = { correo: email, password };  
         return this.http.post(endpoint, body);
     }
+
+    sendResetEmail(email: string): Observable<any> {
+        const endpoint=`${this.api_url}/reset-password`; 
+        const body= {correo: email}
+        return this.http.post(endpoint,body)
+
+    }
+
+    validarToken(token: string) {
+        const endpoint=`${this.api_url}/validarToken?token=${token}`
+        return this.http.get(endpoint);
+    }
 }

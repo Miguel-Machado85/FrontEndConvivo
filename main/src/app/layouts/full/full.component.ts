@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { CoreService } from 'src/app/services/core.service';
-
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
@@ -14,12 +13,10 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
-import { navItems } from './sidebar/sidebar-data';
-import { AppTopstripComponent } from './top-strip/topstrip.component';
+import { navItemsAdmin, navItemsVecino } from './sidebar/sidebar-data';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
-
 
 @Component({
   selector: 'app-full',
@@ -31,22 +28,20 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
     SidebarComponent,
     NgScrollbarModule,
     TablerIconsModule,
-    HeaderComponent,
-    AppTopstripComponent
+    HeaderComponent
   ],
   templateUrl: './full.component.html',
   styleUrls: [],
   encapsulation: ViewEncapsulation.None,
 })
 export class FullComponent implements OnInit {
-  navItems = navItems;
+  navItems: typeof navItemsAdmin | typeof navItemsVecino = [];
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav;
   resView = false;
 
   @ViewChild('content', { static: true }) content!: MatSidenavContent;
-  //get options from service
   options = this.settings.getOptions();
   private layoutChangesSubscription = Subscription.EMPTY;
   private isMobileScreen = false;
@@ -67,7 +62,6 @@ export class FullComponent implements OnInit {
     this.layoutChangesSubscription = this.breakpointObserver
       .observe([MOBILE_VIEW, TABLET_VIEW])
       .subscribe((state) => {
-        // SidenavOpened must be reset true when layout changes
         this.options.sidenavOpened = true;
         this.isMobileScreen = state.breakpoints[MOBILE_VIEW];
         if (this.options.sidenavCollapsed == false) {
@@ -86,7 +80,14 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const rol = localStorage.getItem('rol');
+    if (rol === 'administrador') {
+      this.navItems = navItemsAdmin;
+    } else if (rol === 'vecino') {
+      this.navItems = navItemsVecino;
+  }
+}
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();
