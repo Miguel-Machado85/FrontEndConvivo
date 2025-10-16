@@ -1,3 +1,6 @@
+import { Admin } from "./admin.model";
+import { Vecino } from "./vecino.model";
+
 export enum Rol {
     Vecino = 'vecino',
     Administrador = 'administrador'
@@ -9,4 +12,6 @@ export interface Usuario {
     correo: string;
     password: string;
     rol: Rol;
+    admin?: Admin;
+    vecino?: Vecino;
 }

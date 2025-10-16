@@ -1,0 +1,26 @@
+.sidebar-section {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.branding img {
+  max-width: 140px;
+  height: auto;
+}
+
+.nav-section {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  color: #6c757d;
+}
+
+.nav-link {
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+}

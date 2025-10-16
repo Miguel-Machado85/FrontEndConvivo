@@ -4,6 +4,28 @@ import { FullComponent } from './layouts/full/full.component';
 
 export const routes: Routes = [
   {
+    path: 'menu-admin',
+    component: FullComponent,
+    children: [
+      {
+        path: 'admin',
+        loadChildren: () =>
+          import('./pages/menu/menu.routes').then((m) => m.MenuRoutes)
+      }
+    ]
+  },
+  {
+    path: 'menu-vecino',
+    component: FullComponent,
+    children: [
+      {
+        path: 'vecino',
+        loadChildren: () =>
+          import('./pages/menu/menu.routes').then((m) => m.MenuRoutes)
+      }
+    ]
+  },
+  {
     path: '',
     component: FullComponent,
     children: [
@@ -47,6 +69,13 @@ export const routes: Routes = [
             (m) => m.AuthenticationRoutes
           ),
       },
+      {
+        path: 'conjunto',
+        loadChildren: () =>
+          import('./pages/conjunto/conjunto.routes').then(
+            (m) => m.ConjuntoRoutes
+          )
+      }
     ],
   },
   {
