@@ -14,7 +14,7 @@
 
 <!-- Menú dinámico -->
 <div class="mt-3 sidebar-section">
-  <ng-container *ngFor="let item of navItems">
+  <ng-container *ngFor="let item of navList">
     <!-- Sección -->
     <div *ngIf="item.navCap" class="nav-section text-muted fw-bold small mb-1">
       {{ item.navCap }}
@@ -26,7 +26,7 @@
     <!-- Enlace -->
     <a *ngIf="item.displayName"
        [routerLink]="item.route"
-       class="d-flex align-items-center px-3 py-2 nav-link text-decoration-none rounded">
+       class="d-flex align-items-center px-3 py-2 nav-link text-decoration-none rounded nav-item-custom">
       <i-tabler *ngIf="item.iconName" [name]="item.iconName" class="me-2"></i-tabler>
       {{ item.displayName }}
     </a>

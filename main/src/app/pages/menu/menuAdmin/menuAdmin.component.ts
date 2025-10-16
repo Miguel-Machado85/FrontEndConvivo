@@ -7,7 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-menu-admin',
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
-  templateUrl: './menuAdmin.component.html'
+  templateUrl: './menuAdmin.component.html',
+  styleUrls: ['./style.scss']
 })
 
 export class MenuAdminComponent {

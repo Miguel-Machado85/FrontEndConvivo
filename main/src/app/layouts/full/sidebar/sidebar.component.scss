@@ -24,3 +24,17 @@
 .nav-link:hover {
   background: rgba(0, 0, 0, 0.05);
 }
+
+.nav-item-custom {
+  border-radius: 14px;
+  background: #1268C4;
+  box-shadow: 0 10px 15px -3px rgba(43, 127, 255, 0.20), 0 4px 6px -4px rgba(43, 127, 255, 0.20);
+  color: #fff;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+
+.nav-item-custom:hover,
+.nav-item-custom:focus {
+  box-shadow: 0 12px 20px -3px rgba(43, 127, 255, 0.30), 0 6px 8px -4px rgba(43, 127, 255, 0.30);
+  background: #155DFC;
+}

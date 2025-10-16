@@ -1,0 +1,148 @@
+.menu-admin-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #4A9FF5 0%, #1268C4 50%, #0D4A8F 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.menu-admin-container {
+    width: 896px;
+    min-height: 711.5px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.menu-admin-header {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+.menu-admin-title {
+    color: #fff;
+    font-size: 36px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 40px;
+    text-align: center;
+}
+
+.menu-admin-subtitle {
+    color: #DBEAFE;
+    font-size: 20px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: center;
+}
+
+.menu-admin-card {
+    background: #fff;
+    box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    padding: 40px;
+    min-height: 599.5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+}
+
+.menu-admin-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.menu-admin-section-title {
+    color: #1E2939;
+    font-size: 24px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 32px;
+    text-align: center;
+}
+
+.menu-admin-description-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.menu-admin-description {
+    color: #4A5565;
+    font-size: 18px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 29.25px;
+    text-align: center;
+}
+
+.menu-admin-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.menu-admin-action {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+    background: linear-gradient(135deg, #EFF6FF 0%, #fff 100%);
+    border-radius: 16px;
+    outline: 2px rgba(18, 104, 196, 0.20) solid;
+    padding: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    width: 50%;
+    transition: box-shadow 0.2s;
+}
+
+.menu-admin-action:focus,
+.menu-admin-action:hover {
+    box-shadow: 0 0 0 2px #1268C433;
+}
+
+.menu-admin-icon {
+    width: 72px;
+    height: 64px;
+    background: linear-gradient(135deg, #1268C4 0%, #155DFC 100%);
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-admin-action-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 344px;
+}
+
+.menu-admin-action-title {
+    color: #101828;
+    font-size: 20px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 28px;
+    text-align: center;
+}
+
+.menu-admin-action-desc {
+    color: #4A5565;
+    font-size: 14px;
+    font-family: Arimo, sans-serif;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+}
