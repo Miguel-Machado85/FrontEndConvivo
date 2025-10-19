@@ -15,6 +15,17 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'perfil',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/perfil/perfil.routes').then((m) => m.PerfilRoutes)
+      }
+    ]
+  },
+  {
     path: 'menu-vecino',
     component: FullComponent,
     children: [

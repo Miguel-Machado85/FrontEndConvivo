@@ -3,7 +3,7 @@ import { Usuario } from "./usuario.model";
 
 export interface Vecino {
     id?: string;
-    conjutoId: string;
+    conjuntoId: string;
     numeroApartamento: number;
 
     usuario?: Usuario;

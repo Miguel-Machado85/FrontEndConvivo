@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioRequest } from 'src/app/models/usuarioRequest.model';
+import { Vecino } from 'src/app/models/vecino.model'; // Import Vecino model
 
 
 @Injectable({
