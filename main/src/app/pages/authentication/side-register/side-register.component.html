@@ -86,6 +86,17 @@
               </mat-error>
             </mat-form-field>
 
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Telefono</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="tel" placeholder="Ingrese su telefono" formControlName="telefono">
+              <mat-error *ngIf="f.telefono.hasError('required')">
+                Debe ingresar su telefono
+              </mat-error>
+              <mat-error *ngIf="f.telefono.hasError('pattern')">
+                Número de telefono inválido
+              </mat-error>
+            </mat-form-field>
+
             <!-- Botón -->
             <button mat-flat-button color="primary" class="w-100" type="submit" [disabled]="form.invalid">
               Sign Up

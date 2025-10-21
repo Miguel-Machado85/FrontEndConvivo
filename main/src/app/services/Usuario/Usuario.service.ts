@@ -25,7 +25,7 @@ export class UsuarioService {
             'Content-Type': "application/json",
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
-        return this.http.get<Usuario>(endpoint, { headers });
+        return this.http.get<{ usuario: Usuario, detalle: any}>(endpoint, { headers });
     }
 
     getUsuarios(): Observable <Usuario[]> {
