@@ -35,4 +35,8 @@ export class PerfilAdminComponent {
       }
     })
   }
+
+  goToEditAdmin(id: string): void {
+    this.router.navigate(['/perfil/editAdmin', id])
+  }
 }

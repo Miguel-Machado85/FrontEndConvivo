@@ -35,4 +35,8 @@ export class PerfilVecinoComponent{
       }
     })
   }
+
+  goToEditVecino(id: string){
+    this.router.navigate(['/perfil/editVecino', id])
+  }
 }

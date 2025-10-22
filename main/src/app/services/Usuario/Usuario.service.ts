@@ -52,4 +52,22 @@ export class UsuarioService {
         return this.http.patch(endpoint, body);
     }
 
+    updateVecino(id: string, data: any){
+        const endpoint = `${this.api_url}/updateV/${id}`
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.patch(endpoint, data, {headers})
+    }
+
+    updateAdmin(id: string, data:any){
+        const endpoint = `${this.api_url}/updateA/${id}`
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.patch(endpoint, data, {headers})
+    }
+
 }
