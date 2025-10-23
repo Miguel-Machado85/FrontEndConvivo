@@ -1,0 +1,121 @@
+<div class="espacios-admin-page">
+  <div class="espacios-admin-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="title">Espacios Comunes</h1>
+        <p class="subtitle">Administra los espacios comunes del conjunto residencial</p>
+      </div>
+      <button class="create-btn" type="button" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+          <path d="M14.1365 5.89038V22.3826" stroke="white" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.89038 14.1365H22.3826" stroke="white" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Crear Nuevo Espacio</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="espacios-list">
+    <div class="espacio-card" *ngFor="let espacio of espacios">
+      <div class="card-header">
+        <div class="espacio-info">
+          <div class="espacio-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49" fill="none">
+              <path d="M36.7647 12.2353C36.7647 18.3824 28.3824 36.7647 24.5 42.6176C20.6176 36.7647 12.2353 18.3824 12.2353 12.2353C12.2353 8.76471 13.6765 5.44118 16.2059 2.91176C18.7353 0.382353 22.0588 -0.0588235 25.5294 -0.0588235C29  -0.0588235 32.3235 0.382353 34.8529 2.91176C37.3824 5.44118 38.8235 8.76471 38.8235 12.2353Z" stroke="#1268C4" stroke-width="3.08824" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M25.5294 16.6471C28.0294 16.6471 30.0588 14.6176 30.0588 12.1176C30.0588 9.61765 28.0294 7.58824 25.5294 7.58824C23.0294 7.58824 21 9.61765 21 12.1176C21 14.6176 23.0294 16.6471 25.5294 16.6471Z" stroke="#1268C4" stroke-width="3.08824" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="espacio-details">
+            <h3 class="espacio-name"><!-- Poner nombre --></h3>
+            <span class="status-badge active" *ngIf="espacio.activo">Activo</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="action-btn edit-btn" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M19.4048 1.90992C19.8735 1.44126 20.5091 1.17798 21.1719 1.17798C21.8347 1.17798 22.4703 1.44126 22.939 1.90992C23.4076 2.37857 23.6709 3.0142 23.6709 3.67698C23.6709 4.33975 23.4076 4.97538 22.939 5.44404L11.8213 16.5629C11.5416 16.8424 11.196 17.047 10.8164 17.1578L7.43192 18.1473C7.33055 18.1769 7.2231 18.1787 7.12081 18.1525C7.01853 18.1263 6.92516 18.0731 6.8505 17.9984C6.77583 17.9237 6.72261 17.8304 6.69641 17.7281C6.6702 17.6258 6.67197 17.5183 6.70154 17.417L7.69109 14.0325C7.80245 13.6532 8.00744 13.308 8.28718 13.0288L19.4048 1.90992Z" stroke="#1268C4" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16.6471 5.29412L22.2941 10.9412" stroke="#1268C4" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="action-btn delete-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M3.67676 7.05882H24.3235" stroke="#FB2C36" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M22.9412 7.05882V22.9412C22.9412 23.5661 22.693 24.1653 22.2511 24.6072C21.8093 25.049 21.21 25.2973 20.5851 25.2973H8.4149C7.79 25.2973 7.19072 25.049 6.74887 24.6072C6.30702 24.1653 6.05882 23.5661 6.05882 22.9412V7.05882M9.41176 7.05882V4.70588C9.41176 4.081 9.65998 3.48172 10.1018 3.03987C10.5437 2.59802 11.1429 2.34981 11.7678 2.34981H17.2322C17.8571 2.34981 18.4564 2.59802 18.8982 3.03987C19.3401 3.48172 19.5882 4.081 19.5882 4.70588V7.05882" stroke="#FB2C36" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M11.7678 12.7059V19.9412" stroke="#FB2C36" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17.2322 12.7059V19.9412" stroke="#FB2C36" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="card-details">
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                <circle cx="17.5" cy="17.5" r="17.5" fill="#F3F4F6"/>
+                <path d="M17.5 8.75V17.5L23.3333 23.3333" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <p class="detail-label">Horario</p>
+              <p class="detail-value"><!-- Poner horario --></p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                <circle cx="17.5" cy="17.5" r="17.5" fill="#F3F4F6"/>
+                <rect x="12.25" y="12.25" width="10.5" height="10.5" rx="2.33333" stroke="#1268C4" stroke-width="2.33333"/>
+                <path d="M15.1667 8.75V10.0833" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round"/>
+                <path d="M19.8333 8.75V10.0833" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round"/>
+                <path d="M12.25 15.1667H22.75" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <p class="detail-label">Días Habilitados</p>
+              <p class="detail-value"><!-- Poner dias --> días</p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                <circle cx="17.5" cy="17.5" r="17.5" fill="#F3F4F6"/>
+                <path d="M14 10.5H21V15.1667H14V10.5Z" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 15.1667V21H21V15.1667" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="17.5" cy="13.4167" r="1.16667" fill="#1268C4"/>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <p class="detail-label">Reservas Máx.</p>
+              <p class="detail-value"><!-- Poner reservas max --> simultáneas</p>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35" fill="none">
+                <circle cx="17.5" cy="17.5" r="17.5" fill="#F3F4F6"/>
+                <path d="M17.5 8.75V17.5L21.875 21.875" stroke="#1268C4" stroke-width="2.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="17.5" cy="13.4167" r="1.16667" fill="#1268C4"/>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <p class="detail-label">Duración Máx.</p>
+              <p class="detail-value"><!-- Poner duracion max --></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="available-days">
+          <p class="days-label">Días disponibles:</p>
+          <div class="days-tags">
+            <span class="day-tag" *ngFor="let dia of espacio.diasDisponibles"><!-- Poner dias --></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -26,6 +26,17 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'espacios',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/espacios/espacios.routes').then((m) => m.EspaciosRoutes)
+      }
+    ]
+  },
+  {
     path: 'menu-vecino',
     component: FullComponent,
     children: [

@@ -1,0 +1,135 @@
+<div class="crear-espacio-container">
+  <div class="form-header">
+    <div class="header-content">
+      <div class="header-text">
+        <h1 class="title">Crear Nuevo Espacio</h1>
+        <p class="subtitle">Configure los detalles del nuevo espacio común</p>
+      </div>
+      <button class="back-btn" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Volver</span>
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="espacioForm" class="espacio-form">
+    <div class="form-section">
+      <h2 class="section-title">Información Básica</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre" class="form-label">Nombre del Espacio *</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="Ej: Gimnasio, Salón Social, etc."
+          >
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="descripcion" class="form-label">Descripción *</label>
+          <textarea
+            class="form-textarea"
+            placeholder="Describe las características y uso del espacio..."
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Horario de Funcionamiento</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="horaApertura" class="form-label">Hora de Apertura *</label>
+          <input
+            type="time"
+            class="form-input"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="horaCierre" class="form-label">Hora de Cierre *</label>
+          <input
+            type="time"
+            class="form-input"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Días Disponibles</h2>
+
+      <div class="dias-grid">
+        <div class="dia-checkbox" *ngFor="let dia of diasSemana">
+          <label class="checkbox-label">
+            <input
+              type="checkbox"
+              [value]="dia.value"
+              [checked]="isDiaSelected(dia.value)"
+              (change)="onDiaChange(dia.value, $event.target.checked)"
+              class="checkbox-input"
+            >
+            <span class="checkbox-mark"></span>
+            <span class="checkbox-text">{{ dia.label }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Configuración de Reservas</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reservasMaximas" class="form-label">Reservas Máximas Simultáneas *</label>
+          <input
+            type="number"
+            class="form-input"
+            >
+        </div>
+
+        <div class="form-group">
+          <label for="duracionMaxima" class="form-label">Duración Máxima (horas) *</label>
+          <input
+            type="number"
+            class="form-input"
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2 class="section-title">Estado</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="switch-label">
+            <input
+              type="checkbox"
+              class="switch-input"
+            >
+            <span class="switch-slider"></span>
+            <span class="switch-text">Espacio Activo</span>
+          </label>
+          <p class="form-help">Si está activo, los residentes podrán hacer reservas</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-secondary">
+        Cancelar
+      </button>
+      <button type="submit" class="btn-primary"> 
+      Crear Espacio
+      </button>
+    </div>
+  </form>
+</div>
