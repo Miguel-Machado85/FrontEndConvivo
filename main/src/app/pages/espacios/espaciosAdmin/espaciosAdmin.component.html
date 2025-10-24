@@ -5,12 +5,12 @@
         <h1 class="title">Espacios Comunes</h1>
         <p class="subtitle">Administra los espacios comunes del conjunto residencial</p>
       </div>
-      <button class="create-btn" type="button" >
+      <button class="create-btn" type="button" (click)="irCrear()">
         <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
           <path d="M14.1365 5.89038V22.3826" stroke="white" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M5.89038 14.1365H22.3826" stroke="white" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span>Crear Nuevo Espacio</span>
+        Crear Nuevo Espacio
       </button>
     </div>
   </div>
@@ -26,8 +26,8 @@
             </svg>
           </div>
           <div class="espacio-details">
-            <h3 class="espacio-name"><!-- Poner nombre --></h3>
-            <span class="status-badge active" *ngIf="espacio.activo">Activo</span>
+            <h3 class="espacio-name">{{ espacio.nombre }}</h3>
+            <span class="status-badge active" *ngIf="espacio.estadoEspacio">Activo</span>
           </div>
         </div>
         <div class="card-actions">
@@ -59,7 +59,7 @@
             </div>
             <div class="detail-content">
               <p class="detail-label">Horario</p>
-              <p class="detail-value"><!-- Poner horario --></p>
+              <p class="detail-value">{{espacio.horaInicio}} - {{espacio.horaFin}}</p>
             </div>
           </div>
 
@@ -75,7 +75,7 @@
             </div>
             <div class="detail-content">
               <p class="detail-label">Días Habilitados</p>
-              <p class="detail-value"><!-- Poner dias --> días</p>
+              <p class="detail-value">{{ espacio.diasHabilitados?.length }}</p>
             </div>
           </div>
 
@@ -90,7 +90,7 @@
             </div>
             <div class="detail-content">
               <p class="detail-label">Reservas Máx.</p>
-              <p class="detail-value"><!-- Poner reservas max --> simultáneas</p>
+              <p class="detail-value">{{espacio.cantidadPersonas}} simultáneas</p>
             </div>
           </div>
 
@@ -104,7 +104,7 @@
             </div>
             <div class="detail-content">
               <p class="detail-label">Duración Máx.</p>
-              <p class="detail-value"><!-- Poner duracion max --></p>
+              <p class="detail-value">{{espacio.tiempoMaximo}} horas</p>
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
         <div class="available-days">
           <p class="days-label">Días disponibles:</p>
           <div class="days-tags">
-            <span class="day-tag" *ngFor="let dia of espacio.diasDisponibles"><!-- Poner dias --></span>
+            <span class="day-tag" *ngFor="let dia of espacio.diasHabilitados">{{dia}}</span>
           </div>
         </div>
       </div>
