@@ -114,14 +114,14 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Reservas Máximas Simultáneas *</label>
+          <label class="form-label">Máximo de Personas por Reserva*</label>
           <input
             type="number"
             class="form-input"
             formControlName="cantidadPersonas"
             >
             <mat-error *ngIf="f.cantidadPersonas.errors?.['required'] && f.cantidadPersonas.touched">
-              Debe ingresar el número máximo de reserva que pueden iniciar a la misma hora
+              Debe ingresar el número máximo de personas que pueden asistir por reserva
             </mat-error>
             <mat-error *ngIf="f.cantidadPersonas.errors?.['min'] && f.cantidadPersonas.touched">
               Número inválido de cupo
