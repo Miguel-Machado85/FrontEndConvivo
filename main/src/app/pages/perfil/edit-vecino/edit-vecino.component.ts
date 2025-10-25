@@ -54,12 +54,13 @@ export class EditVecinoComponent implements OnInit {
 
   initForm(): void {
     this.vecinoForm = this.formBuilder.group({
-      nombreCompleto: ['', [Validators.required]],
-      correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required]],
-      numeroApartamento: ['', [Validators.required]],
-      conjunto: ['', [Validators.required]]
-    });
+  nombreCompleto: ['', [Validators.required, Validators.minLength(6)]],
+  correo: ['', [Validators.required, Validators.email]],
+  telefono: ['', [Validators.required, Validators.pattern(/^[0-9+\-\s()]{7,20}$/)]],
+  numeroApartamento: ['', [Validators.required, Validators.min(1)]],
+  conjunto: ['', [Validators.required]]
+});
+
   }
 
   getVecinoById(id: string): void {
@@ -114,4 +115,8 @@ export class EditVecinoComponent implements OnInit {
   onCancel(): void {
     this.router.navigate(['/perfil/vecino']);
   }
+
+  get f(): any { return this.vecinoForm.controls; }
+
+
 }

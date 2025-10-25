@@ -5,38 +5,49 @@
         <h1 class="title">Crear Nuevo Espacio</h1>
         <p class="subtitle">Configure los detalles del nuevo espacio común</p>
       </div>
-      <button class="back-btn" type="button">
+      <button class="back-btn" type="button" (click)="volverLista()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
           <path d="M19 12H5M12 19L5 12L12 5" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <span>Volver</span>
+        Volver
       </button>
     </div>
   </div>
 
-  <form [formGroup]="espacioForm" class="espacio-form">
+  <form [formGroup]="espacioForm" class="espacio-form" (ngSubmit)="addConjunto()">
     <div class="form-section">
       <h2 class="section-title">Información Básica</h2>
 
       <div class="form-row">
         <div class="form-group">
-          <label for="nombre" class="form-label">Nombre del Espacio *</label>
+          <label class="form-label">Nombre del Espacio *</label>
           <input
             type="text"
             class="form-input"
             placeholder="Ej: Gimnasio, Salón Social, etc."
+            formControlName="nombre"
           >
+          <mat-error *ngIf="f.nombre.errors?.['required'] && f.nombre.touched">
+            Ingrese el nombre del espacio común
+          </mat-error>
+          <mat-error *ngIf="f.nombre.errors?.['minlength'] $$ f.nombre.touched">
+            Nombre de espacio demasiado corto
+          </mat-error>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group full-width">
-          <label for="descripcion" class="form-label">Descripción *</label>
+          <label class="form-label">Descripción *</label>
           <textarea
             class="form-textarea"
             placeholder="Describe las características y uso del espacio..."
             rows="3"
+            formControlName="descripcion"
           ></textarea>
+          <mat-error *ngIf="f.descripcion.errors?.['required'] && f.descripcion.touched">
+            Debe ingresar una descripción de su espacio nuevo
+          </mat-error>
         </div>
       </div>
     </div>
@@ -46,19 +57,30 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label for="horaApertura" class="form-label">Hora de Apertura *</label>
+          <label class="form-label">Hora de Apertura *</label>
           <input
             type="time"
             class="form-input"
+            formControlName="horaInicio"
           >
+          <mat-error *ngIf="f.horaInicio.errors?.['required'] && f.horaInicio.touched">
+            Debe ingresar la hora de apertura del nuevo espacio
+          </mat-error>
         </div>
 
         <div class="form-group">
-          <label for="horaCierre" class="form-label">Hora de Cierre *</label>
+          <label class="form-label">Hora de Cierre *</label>
           <input
             type="time"
             class="form-input"
+            formControlName="horaFin"
           >
+          <mat-error *ngIf="f.horaFin.errors?.['required'] && f.horaFin.touched">
+            Debe ingresar la hora de cierre del nuevo espacio
+          </mat-error>
+          <mat-error *ngIf="espacioForm.hasError('finMasTemprano') && f.horaFin.touched && f.horaInicio.touched">
+            La hora de inicio del espacio debe ser anterior a su hora de cierre
+          </mat-error>
         </div>
       </div>
     </div>
@@ -66,7 +88,7 @@
     <div class="form-section">
       <h2 class="section-title">Días Disponibles</h2>
 
-      <div class="dias-grid">
+      <div class="dias-grid" formGroupName="diasHabilitado">
         <div class="dia-checkbox" *ngFor="let dia of diasSemana">
           <label class="checkbox-label">
             <input
@@ -75,12 +97,16 @@
               [checked]="isDiaSelected(dia.value)"
               (change)="onDiaChange(dia.value, $event.target.checked)"
               class="checkbox-input"
+              [formControlName]="dia.value"
             >
             <span class="checkbox-mark"></span>
             <span class="checkbox-text">{{ dia.label }}</span>
           </label>
         </div>
       </div>
+      <mat-error *ngIf="espacioForm.get('diasHabilitado')?.hasError('sinDiasSeleccionados') && espacioForm.get('diasHabilitado')?.touched">
+        El espacio debe estar habilitado al menos un día a la semana
+      </mat-error>
     </div>
 
     <div class="form-section">
@@ -88,19 +114,33 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label for="reservasMaximas" class="form-label">Reservas Máximas Simultáneas *</label>
+          <label class="form-label">Reservas Máximas Simultáneas *</label>
           <input
             type="number"
             class="form-input"
+            formControlName="cantidadPersonas"
             >
+            <mat-error *ngIf="f.cantidadPersonas.errors?.['required'] && f.cantidadPersonas.touched">
+              Debe ingresar el número máximo de reserva que pueden iniciar a la misma hora
+            </mat-error>
+            <mat-error *ngIf="f.cantidadPersonas.errors?.['min'] && f.cantidadPersonas.touched">
+              Número inválido de cupo
+            </mat-error>
         </div>
 
         <div class="form-group">
-          <label for="duracionMaxima" class="form-label">Duración Máxima (horas) *</label>
+          <label class="form-label">Duración Máxima (horas) *</label>
           <input
             type="number"
             class="form-input"
+            formControlName="tiempoMaximo"
           >
+          <mat-error *ngIf="f.tiempoMaximo.errors?.['required'] && f.tiempoMaximo.touched">
+            Debe ingresar el tiempo máximo que se puede reservar el espacio
+          </mat-error>
+          <mat-error *ngIf="f.tiempoMaximo.errors?.['min'] && f.tiempoMaximo.touched">
+            Número inválido de tiempo de reserva máximo
+          </mat-error>
         </div>
       </div>
     </div>
@@ -114,6 +154,7 @@
             <input
               type="checkbox"
               class="switch-input"
+              formControlName="estadoEspacio"
             >
             <span class="switch-slider"></span>
             <span class="switch-text">Espacio Activo</span>
@@ -124,10 +165,10 @@
     </div>
 
     <div class="form-actions">
-      <button type="button" class="btn-secondary">
+      <button type="button" class="btn-secondary" (click)="volverLista()">
         Cancelar
       </button>
-      <button type="submit" class="btn-primary"> 
+      <button type="submit" class="btn-primary" [disabled]="espacioForm.invalid"> 
       Crear Espacio
       </button>
     </div>
