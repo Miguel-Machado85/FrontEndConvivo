@@ -16,7 +16,7 @@
   </div>
 
   <div class="espacios-list">
-    <div class="espacio-card" *ngFor="let espacio of espacios">
+    <div class="espacio-card">
       <div class="card-header">
         <div class="espacio-info">
           <div class="espacio-icon">
@@ -27,7 +27,7 @@
           </div>
           <div class="espacio-details">
             <h3 class="espacio-name"><!-- Poner nombre --></h3>
-            <span class="status-badge active" *ngIf="espacio.activo">Activo</span>
+            <span class="status-badge active">Activo</span>
           </div>
         </div>
         <div class="card-actions">
@@ -112,7 +112,7 @@
         <div class="available-days">
           <p class="days-label">Días disponibles:</p>
           <div class="days-tags">
-            <span class="day-tag" *ngFor="let dia of espacio.diasDisponibles"><!-- Poner dias --></span>
+            <span class="day-tag"><!-- Poner dias --></span>
           </div>
         </div>
       </div>

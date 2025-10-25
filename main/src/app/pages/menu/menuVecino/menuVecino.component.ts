@@ -12,5 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 
 export class MenuVecinoComponent {
-    
+  constructor(private router: Router) {}
+
+  goToReservar(): void {
+    this.router.navigate(['/espacios/reservar']);
+  }
 }
