@@ -12,6 +12,7 @@
     <div class="gradient-header"></div>
     
     <form [formGroup]="adminForm" class="profile-form">
+      <!-- NOMBRE COMPLETO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">person</mat-icon>
@@ -23,9 +24,17 @@
             formControlName="nombreCompleto"
             placeholder="Nombre Completo"
             [disabled]="isLoading">
+
+          <mat-error *ngIf="f['nombreCompleto'].errors?.['required']">
+            El nombre es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f['nombreCompleto'].errors?.['minlength']">
+            Debe tener al menos 6 caracteres
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- CORREO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">email</mat-icon>
@@ -38,9 +47,17 @@
             formControlName="correo"
             placeholder="correo@ejemplo.com"
             [disabled]="isLoading">
+
+          <mat-error *ngIf="f['correo'].errors?.['required']">
+            El correo es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f['correo'].errors?.['email']">
+            Correo inválido
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- TELÉFONO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">phone</mat-icon>
@@ -53,9 +70,17 @@
             formControlName="telefono"
             placeholder="+57 300 123 4567"
             [disabled]="isLoading">
+
+          <mat-error *ngIf="f['telefono'].errors?.['required']">
+            Debe ingresar su teléfono
+          </mat-error>
+          <mat-error *ngIf="f['telefono'].errors?.['pattern']">
+            Número de teléfono inválido
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- BOTONES -->
       <div class="form-actions">
         <button 
           mat-raised-button 
@@ -79,4 +104,3 @@
     </form>
   </div>
 </div>
-

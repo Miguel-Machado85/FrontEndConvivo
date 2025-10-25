@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
-import { Usuario } from 'src/app/models/usuario.model';
 import { Conjunto } from 'src/app/models/conjunto.model';
 import { ConjuntoService } from 'src/app/services/Conjunto/conjunto.service';
 
@@ -15,7 +14,7 @@ import { ConjuntoService } from 'src/app/services/Conjunto/conjunto.service';
   templateUrl: './edit-admin.component.html',
   styleUrl: './edit-admin.component.scss'
 })
-export class EditAdminComponent {
+export class EditAdminComponent implements OnInit {
   adminForm!: FormGroup;
   adminId!: string;
   isLoading: boolean = false;
@@ -32,9 +31,7 @@ export class EditAdminComponent {
   ngOnInit(): void {
     this.getConjuntos();
     this.initForm();
-
     this.adminId = this.activatedRoute.snapshot.paramMap.get('id') || '';
-    
     if (this.adminId) {
       this.getAdminById(this.adminId);
     }
@@ -47,16 +44,15 @@ export class EditAdminComponent {
       },
       error: (err) =>{
         console.error(err);
-        
       }
     })
   }
 
   initForm(): void {
     this.adminForm = this.formBuilder.group({
-      nombreCompleto: ['', [Validators.required]],
+      nombreCompleto: ['', [Validators.required, Validators.minLength(6)]],
       correo: ['', [Validators.required, Validators.email]],
-      telefono: ['', [Validators.required]]
+      telefono: ['', [Validators.required, Validators.pattern(/^[0-9+\-\s()]{7,20}$/)]]
     });
   }
 
@@ -92,7 +88,7 @@ export class EditAdminComponent {
 
     if(this.adminId){
       this.usuarioService.updateAdmin(this.adminId, data).subscribe({
-        next: (res)=>{
+        next: () =>{
           alert('Se ha actualizado su perfil');
           this.router.navigate(['/perfil/admin'])
         },
@@ -102,10 +98,13 @@ export class EditAdminComponent {
         }
       })
     }
-
   }
 
   onCancel(): void {
     this.router.navigate(['/perfil/admin']);
+  }
+
+  get f(): any {
+    return this.adminForm.controls;
   }
 }
