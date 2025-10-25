@@ -12,6 +12,7 @@
     <div class="gradient-header"></div>
     
     <form [formGroup]="vecinoForm" class="profile-form">
+      <!-- NOMBRE COMPLETO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">person</mat-icon>
@@ -23,9 +24,18 @@
             formControlName="nombreCompleto"
             placeholder="Nombre Completo"
             [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.nombreCompleto.errors?.['required']">
+            El nombre es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f.nombreCompleto.errors?.['minlength']">
+            Debe tener al menos 6 caracteres
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- CORREO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">email</mat-icon>
@@ -38,9 +48,18 @@
             formControlName="correo"
             placeholder="correo@ejemplo.com"
             [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.correo.errors?.['required']">
+            El correo es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f.correo.errors?.['email']">
+            Correo inválido
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- TELÉFONO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">phone</mat-icon>
@@ -53,9 +72,17 @@
             formControlName="telefono"
             placeholder="+57 300 123 4567"
             [disabled]="isLoading">
+
+          <mat-error *ngIf="f.telefono.errors?.['required']">
+            Debe ingresar su teléfono
+          </mat-error>
+          <mat-error *ngIf="f.telefono.errors?.['pattern']">
+            Número de teléfono inválido
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- NÚMERO DE APARTAMENTO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">home</mat-icon>
@@ -68,9 +95,18 @@
             formControlName="numeroApartamento"
             placeholder="110"
             [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.numeroApartamento.errors?.['required']">
+            Debe ingresar su apartamento
+          </mat-error>
+          <mat-error *ngIf="f.numeroApartamento.errors?.['min']">
+            Número de apartamento inválido
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- CONJUNTO -->
       <div class="form-field-wrapper">
         <label class="field-label">
           <mat-icon class="field-icon">apartment</mat-icon>
@@ -78,13 +114,19 @@
         </label>
         <mat-form-field class="custom-input" appearance="outline">
           <mat-select formControlName="conjunto" placeholder="Seleccione el conjunto donde reside">
-                <mat-option *ngFor="let c of listaConjuntos" [value]="c.id">
-                  {{ c.nombreConjunto | titlecase}}
-                </mat-option>
-              </mat-select>
+            <mat-option *ngFor="let c of listaConjuntos" [value]="c.id">
+              {{ c.nombreConjunto | titlecase }}
+            </mat-option>
+          </mat-select>
+
+          
+          <mat-error *ngIf="f.conjunto.errors?.['required']">
+            Debe indicar dónde reside
+          </mat-error>
         </mat-form-field>
       </div>
 
+      <!-- BOTONES -->
       <div class="form-actions">
         <button 
           mat-raised-button 
