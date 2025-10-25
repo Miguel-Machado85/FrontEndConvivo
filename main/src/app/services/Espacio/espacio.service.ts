@@ -38,4 +38,13 @@ export class EspacioService {
         };
         return this.http.get<Espacio[]>(endpoint, {headers});
     }
+
+    getEspaciosActivosByConjuntoId(conjuntoId: string): Observable<Espacio[]>{
+        const endpoint = `${this.api_url}/getActive/${conjuntoId}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<Espacio[]>(endpoint, {headers});
+    }
 }
