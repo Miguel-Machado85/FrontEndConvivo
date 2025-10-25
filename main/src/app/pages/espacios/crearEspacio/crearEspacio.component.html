@@ -46,7 +46,7 @@
             formControlName="descripcion"
           ></textarea>
           <mat-error *ngIf="f.descripcion.errors?.['required'] && f.descripcion.touched">
-            Debe ingresar una descripcion de su espacio nuevo
+            Debe ingresar una descripción de su espacio nuevo
           </mat-error>
         </div>
       </div>
@@ -76,7 +76,7 @@
             formControlName="horaFin"
           >
           <mat-error *ngIf="f.horaFin.errors?.['required'] && f.horaFin.touched">
-            Debe ingresar la hora de cerrado del nuevo espacio
+            Debe ingresar la hora de cierre del nuevo espacio
           </mat-error>
           <mat-error *ngIf="espacioForm.hasError('finMasTemprano') && f.horaFin.touched && f.horaInicio.touched">
             La hora de inicio del espacio debe ser anterior a su hora de cierre
@@ -121,7 +121,7 @@
             formControlName="cantidadPersonas"
             >
             <mat-error *ngIf="f.cantidadPersonas.errors?.['required'] && f.cantidadPersonas.touched">
-              Debe ingresar el número máximo de personas en el espacio a la vez
+              Debe ingresar el número máximo de reserva que pueden iniciar a la misma hora
             </mat-error>
             <mat-error *ngIf="f.cantidadPersonas.errors?.['min'] && f.cantidadPersonas.touched">
               Número inválido de cupo

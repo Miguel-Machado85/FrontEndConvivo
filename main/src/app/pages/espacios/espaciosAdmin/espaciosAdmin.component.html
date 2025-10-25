@@ -27,7 +27,8 @@
           </div>
           <div class="espacio-details">
             <h3 class="espacio-name">{{ espacio.nombre }}</h3>
-            <span class="status-badge active" *ngIf="espacio.estadoEspacio">Activo</span>
+            <span class="status-badge active" *ngIf="espacio.estadoEspacio==='Activo'">Activo</span>
+            <span class="status-badge inactive" *ngIf="espacio.estadoEspacio==='Inactivo'">Inactivo</span>
           </div>
         </div>
         <div class="card-actions">
