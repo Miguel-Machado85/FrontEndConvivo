@@ -1,11 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/material.module';
 import { EspacioService } from 'src/app/services/Espacio/espacio.service';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { Espacio } from 'src/app/models/espacio.model';
+
+export function alMenosUnDia(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const group = control as FormGroup;
+
+    const alMenosUno = Object.values(group.controls).some(ctrl => ctrl.value === true);
+
+    return alMenosUno? null: {sinDiasSeleccionados: true};
+  }
+}
+
+export function finMasTemprano(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const group = control as FormGroup
+    const inicio = control.get('horaInicio')?.value;
+    const fin = control.get('horaFin')?.value;
+
+    if(!inicio || !fin){
+      return null;
+    }
+
+    const [hiHoras, hiMinutos] = inicio.split(':').map(Number);
+    const [hfHoras, hfMinutos] = fin.split(':').map(Number);
+    const inicioEnMin = hiHoras * 60 + hiMinutos;
+    const finEnMin = hfHoras * 60 + hfMinutos;
+
+    return inicioEnMin < finEnMin? null : {finMasTemprano: true};
+  };
+}
 
 @Component({
   selector: 'app-crear-espacio',
@@ -33,8 +62,8 @@ export class CrearEspacioComponent implements OnInit {
       viernes: new FormControl(false),
       sabado: new FormControl(false),
       domingo: new FormControl(false),
-    })
-  });
+    }, {validators: alMenosUnDia()})
+  }, {validators: finMasTemprano()});
 
   diasSemana = [
     { value: 'lunes', label: 'Lunes' },
@@ -126,6 +155,8 @@ export class CrearEspacioComponent implements OnInit {
   }
 
   get f() { return this.espacioForm.controls; }
+  get sinDiasSeleccionados() { return this.espacioForm.hasError('sinDiasSeleccionados'); }
+  get finMasTemprano() { return this.espacioForm.hasError('finMasTemprano'); }
 
   volverLista(){
     this.router.navigate(['/espacios/list']);

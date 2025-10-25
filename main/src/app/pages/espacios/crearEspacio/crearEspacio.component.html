@@ -78,6 +78,9 @@
           <mat-error *ngIf="f.horaFin.errors?.['required'] && f.horaFin.touched">
             Debe ingresar la hora de cerrado del nuevo espacio
           </mat-error>
+          <mat-error *ngIf="espacioForm.hasError('finMasTemprano') && f.horaFin.touched && f.horaInicio.touched">
+            La hora de inicio del espacio debe ser anterior a su hora de cierre
+          </mat-error>
         </div>
       </div>
     </div>
@@ -101,6 +104,9 @@
           </label>
         </div>
       </div>
+      <mat-error *ngIf="espacioForm.get('diasHabilitado')?.hasError('sinDiasSeleccionados') && espacioForm.get('diasHabilitado')?.touched">
+        El espacio debe estar habilitado al menos un día a la semana
+      </mat-error>
     </div>
 
     <div class="form-section">
