@@ -40,12 +40,18 @@
 
                 <div class="calendar-placeholder">
                     <mat-card class="demo-inline-calendar-card">
-                        <mat-calendar [selected]="reservaForm.get('fecha')?.value"
-                            (selectedChange)="reservaForm.get('fecha')?.setValue($event)" 
+                        <mat-calendar
+                            [selected]="reservaForm.get('fecha')?.value || null"
+                            (selectedChange)="onFechaSeleccionada($event)"
                             [minDate]="minDate"
-                            [maxDate]="maxDate"></mat-calendar>
+                            [maxDate]="maxDate"
+                            [dateFilter]="esDiaHabilitado">
+                        </mat-calendar>
                     </mat-card>
                 </div>
+                    <mat-error *ngIf="mensajeErrorDia" class="error-dia">
+                        {{ mensajeErrorDia }}
+                    </mat-error>
             </div>
         </section>
 
