@@ -1,0 +1,366 @@
+.espacios-admin-page {
+  padding: 24px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.espacios-admin-header {
+  background: transparent;
+  border-radius: 0;
+  padding: 12px 0 20px 0;
+  margin-bottom: 12px;
+  box-shadow: none;
+  min-height: 162.569px;
+  display: flex;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16rem;
+}
+
+.header-text {
+  max-width: 621.048px; /* Figma token */
+
+  .title {
+    font-family: 'Arimo', sans-serif;
+    font-size: 53.012px; /* exact Figma token */
+    font-weight: 700;
+    color: #101828; /* Figma title color */
+    margin: 0 0 6px 0;
+    line-height: 63.614px; /* Figma leading */
+  }
+
+  .subtitle {
+    font-family: 'Arimo', sans-serif;
+    font-size: 28.273px; /* exact Figma token */
+    font-weight: 400;
+    color: #4a5565; /* Figma subtitle color */
+    margin: 0;
+    line-height: 42.409px; /* Figma leading */
+    max-width: 577.828px;
+  }
+}
+
+.create-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: #1268C4;
+  color: white;
+  font-family: 'Arimo', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 24.739px; /* Figma radius */
+  box-shadow: 0 8px 20px rgba(18,104,196,0.18);
+
+
+  &.large {
+    height: 84.819px; /* Figma exact */
+    width: 315.494px; /* Figma exact */
+    padding: 0; /* we'll position children absolutely to match spacing */
+    position: relative;
+    display: inline-block;
+  }
+
+  .create-icon { display: inline-flex; align-items:center; justify-content:center; width:28.273px; height:28.273px; background: rgba(255,255,255,0.12); border-radius: 999px; position: absolute; left: 21.2px; top: 28.27px; }
+  .create-text { font-size: 24.739px; line-height: 35.341px; position: absolute; left: 63.61px; top: 22.38px; }
+
+  &:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(9,30,66,0.12); }
+}
+
+.espacios-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.espacio-card {
+  background: white;
+  border-radius: 28.273px; /* Figma token */
+  box-shadow: 0 14px 40px rgba(9,30,66,0.06);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+  &:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(9,30,66,0.08); }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 24px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.espacio-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.espacio-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98.955px; /* Figma token */
+  height: 98.955px;
+  background: #1268C4;
+  border-radius: 24.739px;
+  border: 1px solid rgba(9,30,66,0.04);
+}
+
+.espacio-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .espacio-name {
+    font-family: 'Arimo', sans-serif;
+    font-size: 35.341px; /* Figma token */
+    font-weight: 700;
+    color: #101828;
+    margin: 0;
+    line-height: 1.05;
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 14.136px;
+  font-family: 'Arimo', sans-serif;
+  font-size: 21.205px; /* Figma token for badge text */
+  font-weight: 600;
+  letter-spacing: 0.2px;
+
+  &.active {
+    background: #00c950;
+    color: #ffffff;
+  }
+
+  &.inactive {
+    background: #fef2f2;
+    color: #9b1b1b;
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 63.14px;
+  height: 63.14px;
+  border: none;
+  border-radius: 24.739px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+
+  &.edit-btn {
+    background: #ffffff;
+    border: 1.5px solid #1268C4;
+    box-shadow: 0 6px 18px rgba(9,30,66,0.04);
+
+    &:hover { transform: translateY(-3px); }
+  }
+
+  &.delete-btn {
+    background: #ffffff;
+    border: 1.5px solid #FB2C36;
+
+    &:hover { transform: translateY(-3px); }
+  }
+}
+
+.card-details {
+  padding: 24px 24px 32px 24px;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px;
+  background: #f8fafc; /* subtle gray */
+  border-radius: 18px;
+  border: 1px solid #eef2f7;
+}
+
+.detail-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eef2f7;
+}
+
+.detail-content {
+  flex: 1;
+
+  .detail-label {
+      font-family: 'Arimo', sans-serif;
+      font-size: 21.205px; /* Figma token */
+      font-weight: 600;
+      color: #4a5565;
+      margin: 0 0 6px 0;
+      letter-spacing: 0.2px;
+    }
+
+    .detail-value {
+      font-family: 'Arimo', sans-serif;
+      font-size: 24.739px; /* Figma token */
+      font-weight: 700;
+      color: #101828;
+      margin: 0;
+      line-height: 1.2;
+    }
+}
+
+.available-days {
+  .days-label {
+    font-family: 'Arimo', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin: 0 0 12px 0;
+  }
+}
+
+.days-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.day-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  background: rgba(18,104,196,0.1);
+  border-radius: 17.671px; /* Figma token */
+  font-family: 'Arimo', sans-serif;
+  font-size: 21.205px; /* Figma token */
+  font-weight: 500;
+  color: #1268c4;
+  border: 1px solid rgba(18,104,196,0.08);
+  transition: transform 0.12s ease;
+
+  &:hover { transform: translateY(-2px); }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .espacios-admin-page {
+    padding: 16px;
+  }
+
+  .espacios-admin-header {
+    padding: 24px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .header-text {
+    .title {
+      font-size: 24px;
+    }
+  }
+
+  .create-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .espacio-info {
+    width: 100%;
+  }
+
+  .card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .detail-item {
+    padding: 12px;
+  }
+
+  .days-tags {
+    gap: 6px;
+  }
+
+  .day-tag {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .espacios-admin-header {
+    padding: 20px;
+  }
+
+  .header-text {
+    .title {
+      font-size: 20px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .card-header {
+    padding: 20px;
+  }
+
+  .card-details {
+    padding: 20px;
+  }
+
+  .espacio-name {
+    font-size: 20px;
+  }
+
+  .detail-value {
+    font-size: 14px;
+  }
+}

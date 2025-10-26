@@ -15,6 +15,28 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'perfil',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/perfil/perfil.routes').then((m) => m.PerfilRoutes)
+      }
+    ]
+  },
+  {
+    path: 'espacios',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/espacios/espacios.routes').then((m) => m.EspaciosRoutes)
+      }
+    ]
+  },
+  {
     path: 'menu-vecino',
     component: FullComponent,
     children: [

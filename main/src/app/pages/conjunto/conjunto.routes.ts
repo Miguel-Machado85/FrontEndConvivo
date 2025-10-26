@@ -6,7 +6,7 @@ export const ConjuntoRoutes: Routes = [
         path:'',
         children: [
             {
-                path: 'conjunto',
+                path: 'crear',
                 component: CrearConjuntoComponent,
             },
         ]

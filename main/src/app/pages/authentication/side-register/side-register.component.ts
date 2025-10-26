@@ -72,7 +72,15 @@ export class AppSideRegisterComponent {
       Validators.pattern(PASSWORD_REGEX) // mismas reglas que password
     ]),
     numeroApartamento: new FormControl<number | null>(null, [Validators.required, Validators.min(1)]),
-    conjunto: new FormControl<string | null>(null, [Validators.required])
+    conjunto: new FormControl<string | null>(null, [Validators.required]),
+    telefono: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [
+        Validators.required,
+        // patrón básico internacional o nacional; ajusta según tu necesidad
+        Validators.pattern(/^[0-9+\-\s()]{7,20}$/)
+      ]
+    })
   }, { validators: passwordMatch });
 
   get f() { return this.form.controls; }
@@ -85,7 +93,7 @@ export class AppSideRegisterComponent {
       return;
     }
 
-    const { nombreCompleto, email, password, numeroApartamento, conjunto } = this.form.value;
+    const { nombreCompleto, email, password, numeroApartamento, conjunto, telefono } = this.form.value;
 
     const usuario: UsuarioRequest = {
       nombreCompleto: nombreCompleto!,
@@ -93,6 +101,7 @@ export class AppSideRegisterComponent {
       password: password!,
       rol: Rol.Vecino,
       conjuntoId: conjunto!,
+      telefono: telefono!,
       numeroApartamento: numeroApartamento!,
     };
 

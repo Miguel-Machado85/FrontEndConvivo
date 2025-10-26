@@ -1,0 +1,140 @@
+<main class="reserve-space-page" role="main">
+    <header class="reserve-header">
+        <div class="reserve-title">
+            <h1>Reservar Espacio Común</h1>
+            <p class="lead">
+                Selecciona un espacio, fecha y hora para realizar tu reserva
+            </p>
+        </div>
+    </header>
+
+    <!-- FORMULARIO -->
+    <form [formGroup]="reservaForm" (ngSubmit)="crearReserva()">
+        <!-- Sección Espacios -->
+        <section class="container-select-espacio">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">Espacio</div>
+                    <div class="section-sub">Selecciona uno</div>
+                </div>
+
+                <div class="espacios-list">
+                    <button class="espacio-button" *ngFor="let espacio of espacios" type="button"
+                        (click)="seleccionarEspacio(espacio.id!)"
+                        [ngClass]="{ 'activeMenu': espacioSeleccionado?.id === espacio.id }">
+                        <div class="espacio-content">
+                            <div class="espacio-title">{{ espacio.nombre }}</div>
+                            <div class="espacio-description">{{ espacio.descripcion }}</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fecha -->
+        <section class="container-select-espacio">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">Fecha</div>
+                </div>
+
+                <div class="calendar-placeholder">
+                    <mat-card class="demo-inline-calendar-card">
+                        <mat-calendar
+                            [selected]="reservaForm.get('fecha')?.value || null"
+                            (selectedChange)="onFechaSeleccionada($event)"
+                            [minDate]="minDate"
+                            [maxDate]="maxDate"
+                            [dateFilter]="esDiaHabilitado">
+                        </mat-calendar>
+                    </mat-card>
+                </div>
+                    <mat-error *ngIf="mensajeErrorDia" class="error-dia">
+                        {{ mensajeErrorDia }}
+                    </mat-error>
+            </div>
+        </section>
+
+        <!-- Hora -->
+        <section class="container-select-espacio">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">Hora</div>
+                    <div *ngIf="espacioSeleccionado">Este espacio abre a las {{espacioSeleccionado.horaInicio}}, y cierra a las {{espacioSeleccionado.horaFin}}. Puedes pedirlo por {{espacioSeleccionado.tiempoMaximo}} hora(s)</div>
+                </div>
+                <div class="timepicker-row">
+                    <mat-form-field class="timepicker-field">
+                        <mat-label>Hora de inicio</mat-label>
+                        <input matInput [matTimepicker]="startTimePicker" formControlName="horaInicio" />
+                        <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
+                        <mat-timepicker #startTimePicker></mat-timepicker>
+                    </mat-form-field>
+
+                    <mat-form-field class="timepicker-field">
+                        <mat-label>Hora de fin</mat-label>
+                        <input matInput [matTimepicker]="endTimePicker" formControlName="horaFin" />
+                        <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
+                        <mat-timepicker #endTimePicker></mat-timepicker>
+                    </mat-form-field>
+                </div>
+                <mat-error *ngIf="f.horaInicio.errors?.['required'] && f.horaInicio.touched">
+                        Debe ingresar la hora en que quiere iniciar la reserva
+                </mat-error>
+                <mat-error *ngIf="f.horaFin.errors?.['required'] && f.horaFin.touched">
+                        Debe ingresar la hora en que quiere acabar la reserva
+                </mat-error>
+                <mat-error *ngIf="reservaForm.hasError('finMasTemprano')">
+                    La hora de fin debe ser posterior a la de inicio.
+                </mat-error>
+                <mat-error *ngIf="reservaForm.hasError('inicioAntesDeApertura')">
+                    No puedes elegir una hora mas temprana que la hora de apertura del espacio.
+                </mat-error>
+                <mat-error *ngIf="reservaForm.hasError('finDespuesDeCierre')">
+                    No puedes elegir una hora mas tarde que la hora de cierre del espacio.
+                </mat-error>
+                <mat-error *ngIf="reservaForm.hasError('excedeTiempoMaximo')">
+                    Su reserva se excede mas del tiempo maximo permitido
+                </mat-error>
+            </div>
+        </section>
+
+        <!-- Personas -->
+        <section class="container-select-espacio">
+            <div class="section-card">
+                <div class="section-header">
+                    <div class="section-title">Personas</div>
+                    <div class="section-sub">Indica cuántas asistirán</div>
+                    <div *ngIf="espacioSeleccionado">Para este espacio, puedes llevar máximo a {{espacioSeleccionado.cantidadPersonas}} persona(s)</div>
+                </div>
+
+                <mat-form-field class="timepicker-field" appearance="outline">
+                    <mat-label>Cantidad de personas</mat-label>
+                    <input matInput type="number" formControlName="cantidadPersonas" min="1" />
+                </mat-form-field>
+                <mat-error *ngIf="f.cantidadPersonas.errors?.['required']">
+                    Debes ingresar cuanta gente irá en tu reserva.
+                </mat-error>
+                <mat-error *ngIf="f.cantidadPersonas.errors?.['min']">
+                    Número inválido de cupo.
+                </mat-error>
+                <mat-error *ngIf="f.cantidadPersonas.errors?.['sobreCupo']">
+                    No puedes llevar ese número de personas en tu reserva.
+                </mat-error>
+            </div>
+        </section>
+
+        <!-- Botones -->
+        <section class="container-select-espacio reserve-footer">
+            <div class="footer-actions">
+                <button class="btn btn-cancel footer-btn" type="button" (click)="cancelarReserva()">
+                    Cancelar
+                </button>
+
+                <button class="btn btn-primary footer-btn btn-primary-large" type="submit"
+                    [disabled]="reservaForm.invalid || !espacioSeleccionado">
+                    <span class="btn-label">Crear Reserva</span>
+                </button>
+            </div>
+        </section>
+    </form>
+</main>

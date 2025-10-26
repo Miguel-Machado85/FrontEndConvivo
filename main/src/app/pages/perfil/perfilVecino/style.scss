@@ -1,0 +1,93 @@
+.perfil-vecino-page {
+	padding: 32px;
+
+	.perfil-vecino-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 24px;
+
+		.header-text {
+			.title {
+				font-family: 'Arimo', sans-serif;
+				font-size: 40px;
+				color: #101828;
+				margin: 0 0 8px 0;
+			}
+			.subtitle {
+				font-family: 'Arimo', sans-serif;
+				font-size: 18px;
+				color: #4a5565;
+				margin: 0;
+			}
+		}
+
+		.edit-btn {
+			background: #1268c4;
+			color: #fff;
+			border: none;
+			border-radius: 14px;
+			padding: 12px 20px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			cursor: pointer;
+			.edit-icon { width: 20px; height: 20px; }
+		}
+	}
+
+	.profile-card {
+		background: #fff;
+		border-radius: 28px;
+		padding: 40px;
+		position: relative;
+		box-shadow: 0 17px 26px -5px rgba(229,231,235,0.5), 0 7px 11px -7px rgba(229,231,235,0.5);
+
+		.profile-card-header {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			height: 18%;
+			border-top-left-radius: 28px;
+			border-top-right-radius: 28px;
+			background: linear-gradient(180deg, #4a9ff5 0%, #1268c4 50%, #0d4a8f 100%);
+		}
+
+		.profile-fields {
+			position: relative;
+			z-index: 1;
+			margin-top: 140px;
+			display: grid;
+			grid-template-columns: 1fr;
+			gap: 20px;
+
+			.field {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+
+				.field-label {
+					display: flex;
+					align-items: center;
+					gap: 8px;
+					color: #364153;
+					font-size: 18px;
+				}
+
+				.field-input {
+					background: #f3f3f5;
+					border: 1px solid #e5e7eb;
+					height: 84px;
+					border-radius: 24px;
+					padding: 24px;
+					display: flex;
+					align-items: center;
+					font-size: 100%;
+					color: #4a5565;
+					font-family: 'Arimo', sans-serif;
+				}
+			}
+		}
+	}
+}

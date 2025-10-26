@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioRequest } from 'src/app/models/usuarioRequest.model';
+import { Vecino } from 'src/app/models/vecino.model'; // Import Vecino model
 
 
 @Injectable({
@@ -24,7 +25,7 @@ export class UsuarioService {
             'Content-Type': "application/json",
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
-        return this.http.get<Usuario>(endpoint, { headers });
+        return this.http.get<{ usuario: Usuario, detalle: any}>(endpoint, { headers });
     }
 
     getUsuarios(): Observable <Usuario[]> {
@@ -49,6 +50,24 @@ export class UsuarioService {
         const endpoint = `${this.api_url}/password`;
         const body ={token, newPassword}
         return this.http.patch(endpoint, body);
+    }
+
+    updateVecino(id: string, data: any){
+        const endpoint = `${this.api_url}/updateV/${id}`
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.patch(endpoint, data, {headers})
+    }
+
+    updateAdmin(id: string, data:any){
+        const endpoint = `${this.api_url}/updateA/${id}`
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.patch(endpoint, data, {headers})
     }
 
 }

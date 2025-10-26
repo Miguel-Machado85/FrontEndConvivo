@@ -1,0 +1,152 @@
+<div class="profile-page">
+  <div class="page-header">
+    <div class="header-title">
+      <h1>Editar Mi Perfil</h1>
+    </div>
+    <div class="header-subtitle">
+      <p>Modifica tu información personal y preferencias</p>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <div class="gradient-header"></div>
+    
+    <form [formGroup]="vecinoForm" class="profile-form">
+      <!-- NOMBRE COMPLETO -->
+      <div class="form-field-wrapper">
+        <label class="field-label">
+          <mat-icon class="field-icon">person</mat-icon>
+          <span>Nombre Completo</span>
+        </label>
+        <mat-form-field class="custom-input" appearance="outline">
+          <input 
+            matInput 
+            formControlName="nombreCompleto"
+            placeholder="Nombre Completo"
+            [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.nombreCompleto.errors?.['required']">
+            El nombre es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f.nombreCompleto.errors?.['minlength']">
+            Debe tener al menos 6 caracteres
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- CORREO -->
+      <div class="form-field-wrapper">
+        <label class="field-label">
+          <mat-icon class="field-icon">email</mat-icon>
+          <span>Correo Electrónico</span>
+        </label>
+        <mat-form-field class="custom-input" appearance="outline">
+          <input 
+            matInput 
+            type="email"
+            formControlName="correo"
+            placeholder="correo@ejemplo.com"
+            [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.correo.errors?.['required']">
+            El correo es obligatorio
+          </mat-error>
+          <mat-error *ngIf="f.correo.errors?.['email']">
+            Correo inválido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- TELÉFONO -->
+      <div class="form-field-wrapper">
+        <label class="field-label">
+          <mat-icon class="field-icon">phone</mat-icon>
+          <span>Teléfono</span>
+        </label>
+        <mat-form-field class="custom-input" appearance="outline">
+          <input 
+            matInput 
+            type="tel"
+            formControlName="telefono"
+            placeholder="+57 300 123 4567"
+            [disabled]="isLoading">
+
+          <mat-error *ngIf="f.telefono.errors?.['required']">
+            Debe ingresar su teléfono
+          </mat-error>
+          <mat-error *ngIf="f.telefono.errors?.['pattern']">
+            Número de teléfono inválido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- NÚMERO DE APARTAMENTO -->
+      <div class="form-field-wrapper">
+        <label class="field-label">
+          <mat-icon class="field-icon">home</mat-icon>
+          <span>Número de Apartamento</span>
+        </label>
+        <mat-form-field class="custom-input" appearance="outline">
+          <input 
+            matInput 
+            type="text"
+            formControlName="numeroApartamento"
+            placeholder="110"
+            [disabled]="isLoading">
+
+          
+          <mat-error *ngIf="f.numeroApartamento.errors?.['required']">
+            Debe ingresar su apartamento
+          </mat-error>
+          <mat-error *ngIf="f.numeroApartamento.errors?.['min']">
+            Número de apartamento inválido
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- CONJUNTO -->
+      <div class="form-field-wrapper">
+        <label class="field-label">
+          <mat-icon class="field-icon">apartment</mat-icon>
+          <span>Conjunto Residencial</span>
+        </label>
+        <mat-form-field class="custom-input" appearance="outline">
+          <mat-select formControlName="conjunto" placeholder="Seleccione el conjunto donde reside">
+            <mat-option *ngFor="let c of listaConjuntos" [value]="c.id">
+              {{ c.nombreConjunto | titlecase }}
+            </mat-option>
+          </mat-select>
+
+          
+          <mat-error *ngIf="f.conjunto.errors?.['required']">
+            Debe indicar dónde reside
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- BOTONES -->
+      <div class="form-actions">
+        <button 
+          mat-raised-button 
+          class="save-button"
+          type="button"
+          (click)="onSave()"
+          [disabled]="!vecinoForm.valid || isLoading">
+          <mat-icon>save</mat-icon>
+          <span>Guardar Cambios</span>
+        </button>
+        <button 
+          mat-stroked-button 
+          class="cancel-button"
+          type="button"
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          <mat-icon>close</mat-icon>
+          <span>Cancelar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
