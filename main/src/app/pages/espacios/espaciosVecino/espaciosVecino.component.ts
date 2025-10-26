@@ -92,12 +92,18 @@ export class EspaciosVecinoComponent implements OnInit {
   readonly minDate = new Date();
   readonly maxDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-  reservaForm = new FormGroup({
-    fecha: new FormControl('', [Validators.required]),
-    horaInicio: new FormControl('', [Validators.required]),
-    horaFin: new FormControl('', [Validators.required]),
-    cantidadPersonas: new FormControl(1, [Validators.required, Validators.min(1)]),
-  })
+  reservaForm = new FormGroup<{
+  fecha: FormControl<Date | null>;
+  horaInicio: FormControl<string | null>;
+  horaFin: FormControl<string | null>;
+  cantidadPersonas: FormControl<number | null>;
+}>({
+  fecha: new FormControl<Date | null>(null, { validators: [Validators.required] }),
+  horaInicio: new FormControl<string>('', { validators: [Validators.required] }),
+  horaFin: new FormControl<string>('', { validators: [Validators.required] }),
+  cantidadPersonas: new FormControl<number>(1, { validators: [Validators.required, Validators.min(1)] }),
+});
+
 
   constructor(
     private usuarioService: UsuarioService,
@@ -105,6 +111,43 @@ export class EspaciosVecinoComponent implements OnInit {
     private reservaService: ReservaService,
     private router: Router
   ) { }
+
+  //COSITA DE CALENDARIO
+
+  mensajeErrorDia: string = '';
+
+/** Determina si un día del calendario está habilitado según el espacio seleccionado */
+esDiaHabilitado = (date: Date | null): boolean => {
+  if (!date || !this.espacioSeleccionado) return true; // Si no hay espacio seleccionado, permitir todos
+
+  const diasHabilitados = (this.espacioSeleccionado.diasHabilitados || []).map((d: string) =>
+    d.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  );
+
+  // Convertir número de día a nombre
+  const nombresDias = [
+    'domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'
+  ];
+  const nombreDia = nombresDias[date.getDay()];
+
+  // Validar si el día está dentro de los habilitados
+  return diasHabilitados.includes(nombreDia);
+};
+
+/** Cuando el usuario selecciona una fecha */
+onFechaSeleccionada(date: Date | null): void {
+  if (!this.esDiaHabilitado(date)) {
+    this.mensajeErrorDia = 'Este día no está disponible para reservar este espacio.';
+    this.reservaForm.get('fecha')?.setValue(null);
+  } else {
+    this.mensajeErrorDia = '';
+    this.reservaForm.get('fecha')?.setValue(date);
+  }
+}
+
+
+//COSITA DE CALENDARIO
+
 
   ngOnInit(): void {
     this.getEspaciosActivosByConjunto();
@@ -131,6 +174,7 @@ export class EspaciosVecinoComponent implements OnInit {
   seleccionarEspacio(espacioId: string): void {
     this.espacioService.getEspacioById(espacioId).subscribe({
       next: (res) => {
+        this.reservaForm.reset()
         this.espacioSeleccionado = res;
         console.log('Espacio seleccionado:', res);
 
