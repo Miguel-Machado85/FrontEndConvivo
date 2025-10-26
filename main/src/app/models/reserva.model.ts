@@ -5,7 +5,7 @@ export interface Reserva {
     id?: string;
     usuarioId: string;
     espacioId: string;
-    fecha: Date;
+    fecha: string;
     horaInicio: string;
     horaFin: string;
     cantidadPersonas: number;
