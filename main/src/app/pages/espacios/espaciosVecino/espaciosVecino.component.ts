@@ -27,6 +27,7 @@ export class EspaciosVecinoComponent {
   readonly maxDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   startTime: Date | null = null;
   endTime: Date | null = null;
+  cantidadPersonas: number = 1;
 
   constructor(private espacioService: EspacioService, private usuarioService: UsuarioService, private router: Router) { }
 
@@ -70,6 +71,10 @@ export class EspaciosVecinoComponent {
 
       }
     })
+  }
+
+  cancelarReserva(): void {
+    this.router.navigate(['/menu/vecino']);
   }
 
   horaStringToDate(horaStr: string): Date {

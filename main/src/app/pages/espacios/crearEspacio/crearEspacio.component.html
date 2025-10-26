@@ -30,7 +30,7 @@
           <mat-error *ngIf="f.nombre.errors?.['required'] && f.nombre.touched">
             Ingrese el nombre del espacio común
           </mat-error>
-          <mat-error *ngIf="f.nombre.errors?.['minlength'] $$ f.nombre.touched">
+          <mat-error *ngIf="f.nombre.errors?.['minlength'] && f.nombre.touched">
             Nombre de espacio demasiado corto
           </mat-error>
         </div>
@@ -114,14 +114,14 @@
 
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">Máximo de Personas por Reserva*</label>
+          <label class="form-label">Reservas Máximas Simultáneas *</label>
           <input
             type="number"
             class="form-input"
             formControlName="cantidadPersonas"
             >
             <mat-error *ngIf="f.cantidadPersonas.errors?.['required'] && f.cantidadPersonas.touched">
-              Debe ingresar el número máximo de personas que pueden asistir por reserva
+              Debe ingresar el número máximo de reserva que pueden iniciar a la misma hora
             </mat-error>
             <mat-error *ngIf="f.cantidadPersonas.errors?.['min'] && f.cantidadPersonas.touched">
               Número inválido de cupo

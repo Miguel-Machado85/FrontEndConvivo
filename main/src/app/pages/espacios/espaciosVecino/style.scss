@@ -230,6 +230,22 @@ $border: #E5E7EB;
 	}
 }
 
+/* Mirror sidebar active style */
+.espacio-button.activeMenu {
+	background-color: $primary;
+	box-shadow: 0 17px 20px -8px rgba(77, 91, 236, 0.23);
+	border-color: $primary;
+}
+
+.espacio-button.activeMenu .espacio-title,
+.espacio-button.activeMenu .espacio-description {
+	color: #ffffff;
+}
+
+.espacio-button.activeMenu .espacio-icon-container {
+	background: rgba(255,255,255,0.08);
+}
+
 .espacio-icon-container {
 	display: flex;
 	align-items: center;
@@ -380,6 +396,58 @@ $border: #E5E7EB;
 	width: 260px;
 	min-width: 180px;
 }
+
+/* Footer actions - matches Figma node 172:491 */
+.reserve-footer {
+	padding-top: 42.409px; /* token */
+	padding-left: 56.546px; /* token */
+	padding-right: 56.546px; /* token */
+	background: transparent;
+}
+
+.footer-actions {
+	display: flex;
+	gap: 28.273px; /* token */
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.footer-btn {
+	height: 84.819px; /* token */
+	border-radius: 24.739px; /* token */
+	padding: 0 32px;
+	font-size: 24.739px; /* token */
+	line-height: 35.341px; /* token */
+	font-family: 'Arimo', sans-serif;
+	font-weight: 400;
+	min-width: 220px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+
+.btn-cancel.footer-btn {
+	background: #ffffff;
+	border: 1.178px solid rgba(0,0,0,0.1);
+	color: #111827;
+}
+
+.btn-primary-large {
+	background: #1268C4;
+	color: #ffffff;
+	border: none;
+}
+
+.btn-icon {
+	position: absolute;
+	left: 54.5px; /* token */
+	top: 28.27px; /* token */
+	width: 28.273px;
+	height: 28.273px;
+}
+
+.btn-label { font-size: 24.739px; }
 
 @media (max-width: 768px) {
 	.espacio-button {
