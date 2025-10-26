@@ -13,6 +13,7 @@ import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { EspacioService } from 'src/app/services/Espacio/espacio.service';
 import { ReservaService } from 'src/app/services/Reserva/reserva.service';
 import { Espacio } from 'src/app/models/espacio.model';
+import { Reserva } from 'src/app/models/reserva.model';
 
 function toMinutes(h: string | Date | null | undefined): number | null {
   if (h == null) return null;
@@ -63,8 +64,8 @@ export function validarHoras(espacio: Espacio): ValidatorFn {
     if (finMin > cierreMin) return { finDespuesDeCierre: true };
 
     const duracion = finMin - inicioMin;
-    const tiempoMaximoMin= espacio.tiempoMaximo*60;
-    if(duracion > tiempoMaximoMin) return { excedeTiempoMaximo: true }
+    const tiempoMaximoMin = espacio.tiempoMaximo * 60;
+    if (duracion > tiempoMaximoMin) return { excedeTiempoMaximo: true }
 
     return null;
   };
@@ -96,16 +97,16 @@ export class EspaciosVecinoComponent implements OnInit {
   readonly maxDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
   reservaForm = new FormGroup<{
-  fecha: FormControl<Date | null>;
-  horaInicio: FormControl<string | null>;
-  horaFin: FormControl<string | null>;
-  cantidadPersonas: FormControl<number | null>;
-}>({
-  fecha: new FormControl<Date | null>(null, { validators: [Validators.required] }),
-  horaInicio: new FormControl<string>('', { validators: [Validators.required] }),
-  horaFin: new FormControl<string>('', { validators: [Validators.required] }),
-  cantidadPersonas: new FormControl<number>(1, { validators: [Validators.required, Validators.min(1)] }),
-});
+    fecha: FormControl<Date | null>;
+    horaInicio: FormControl<string | null>;
+    horaFin: FormControl<string | null>;
+    cantidadPersonas: FormControl<number | null>;
+  }>({
+    fecha: new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    horaInicio: new FormControl<string>('', { validators: [Validators.required] }),
+    horaFin: new FormControl<string>('', { validators: [Validators.required] }),
+    cantidadPersonas: new FormControl<number>(1, { validators: [Validators.required, Validators.min(1)] }),
+  });
 
 
   constructor(
@@ -119,37 +120,37 @@ export class EspaciosVecinoComponent implements OnInit {
 
   mensajeErrorDia: string = '';
 
-/** Determina si un día del calendario está habilitado según el espacio seleccionado */
-esDiaHabilitado = (date: Date | null): boolean => {
-  if (!date || !this.espacioSeleccionado) return true; // Si no hay espacio seleccionado, permitir todos
+  /** Determina si un día del calendario está habilitado según el espacio seleccionado */
+  esDiaHabilitado = (date: Date | null): boolean => {
+    if (!date || !this.espacioSeleccionado) return true; // Si no hay espacio seleccionado, permitir todos
 
-  const diasHabilitados = (this.espacioSeleccionado.diasHabilitados || []).map((d: string) =>
-    d.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  );
+    const diasHabilitados = (this.espacioSeleccionado.diasHabilitados || []).map((d: string) =>
+      d.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    );
 
-  // Convertir número de día a nombre
-  const nombresDias = [
-    'domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'
-  ];
-  const nombreDia = nombresDias[date.getDay()];
+    // Convertir número de día a nombre
+    const nombresDias = [
+      'domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'
+    ];
+    const nombreDia = nombresDias[date.getDay()];
 
-  // Validar si el día está dentro de los habilitados
-  return diasHabilitados.includes(nombreDia);
-};
+    // Validar si el día está dentro de los habilitados
+    return diasHabilitados.includes(nombreDia);
+  };
 
-/** Cuando el usuario selecciona una fecha */
-onFechaSeleccionada(date: Date | null): void {
-  if (!this.esDiaHabilitado(date)) {
-    this.mensajeErrorDia = 'Este día no está disponible para reservar este espacio.';
-    this.reservaForm.get('fecha')?.setValue(null);
-  } else {
-    this.mensajeErrorDia = '';
-    this.reservaForm.get('fecha')?.setValue(date);
+  /** Cuando el usuario selecciona una fecha */
+  onFechaSeleccionada(date: Date | null): void {
+    if (!this.esDiaHabilitado(date)) {
+      this.mensajeErrorDia = 'Este día no está disponible para reservar este espacio.';
+      this.reservaForm.get('fecha')?.setValue(null);
+    } else {
+      this.mensajeErrorDia = '';
+      this.reservaForm.get('fecha')?.setValue(date);
+    }
   }
-}
 
 
-//COSITA DE CALENDARIO
+  //COSITA DE CALENDARIO
 
 
   ngOnInit(): void {
@@ -200,49 +201,47 @@ onFechaSeleccionada(date: Date | null): void {
     });
   }
 
-  horaStringToDate(horaStr: string): Date {
-    const [hours, minutes] = horaStr.split(':').map(Number);
+  horaStringToDate(hora: string | Date): Date {
+    if(hora instanceof Date){
+      return hora;
+    }
+
+    const [hours, minutes] = hora.split(':').map(Number);
     const date = new Date();
     date.setHours(hours, minutes, 0, 0);
     return date;
   }
 
   crearReserva() {
-    // if (!this.espacioSeleccionado || !this.reservaForm.valid) {
-    //   alert('Por favor, completa todos los campos correctamente.');
-    //   return;
-    // }
+    if (this.reservaForm.invalid) {
+      this.reservaForm.markAllAsTouched();
+      return;
+    }
 
-    // const usuarioId = localStorage.getItem('id')!;
-    // const { fecha, horaInicio, horaFin, cantidadPersonas } = this.reservaForm.value;
+    const usuarioId = localStorage.getItem('id')!;
+    const { fecha, horaInicio, horaFin, cantidadPersonas } = this.reservaForm.value;
 
-    // if (cantidadPersonas > this.espacioSeleccionado.cantidadPersonas) {
-    //   alert(
-    //     `Este espacio permite máximo ${this.espacioSeleccionado.cantidadPersonas} personas.`
-    //   );
-    //   return;
-    // }
 
-    // const reservaData = {
-    //   usuarioId,
-    //   espacioId: this.espacioSeleccionado.id!,
-    //   fecha: fecha.toISOString().split('T')[0],
-    //   horaInicio: this.formatHora(horaInicio),
-    //   horaFin: this.formatHora(horaFin),
-    //   cantidadPersonas,
-    //   estado: 'Activo',
-    // };
+    const reservaData: Reserva = {
+      usuarioId: usuarioId,
+      espacioId: this.espacioSeleccionado.id!,
+      fecha: fecha!.toISOString().split('T')[0],
+      horaInicio: this.formatHora(this.horaStringToDate(horaInicio!)),
+      horaFin: this.formatHora(this.horaStringToDate(horaFin!)),
+      cantidadPersonas: cantidadPersonas!,
+      estadoReserva: 'Activo',
+    };
 
-    // this.reservaService.createReserva(reservaData).subscribe({
-    //   next: (res) => {
-    //     alert('Reserva creada con éxito 🎉');
-    //     this.router.navigate(['/menu/vecino']);
-    //   },
-    //   error: (err) => {
-    //     console.error(err);
-    //     alert('Ocurrió un error al crear la reserva.');
-    //   },
-    // });
+    this.reservaService.createReserva(reservaData).subscribe({
+      next: (res) => {
+        alert('Reserva creada con éxito');
+        this.router.navigate(['/menu/vecino']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Ocurrió un error al crear la reserva.');
+      },
+    });
   }
 
   /** Convierte objeto Date a string HH:mm */
