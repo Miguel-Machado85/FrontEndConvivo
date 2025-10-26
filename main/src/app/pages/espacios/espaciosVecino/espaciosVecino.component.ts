@@ -26,7 +26,6 @@ function toMinutes(h: string | Date | null | undefined): number | null {
   }
 
   if (typeof h === 'string') {
-    // Si es "HH:mm"
     if (/^\d{1,2}:\d{2}$/.test(h)) {
       const [hh, mm] = h.split(':').map(Number);
       if (!Number.isNaN(hh) && !Number.isNaN(mm)) {
@@ -62,6 +61,10 @@ export function validarHoras(espacio: Espacio): ValidatorFn {
     if (inicioMin >= finMin) return { finMasTemprano: true };
     if (inicioMin < aperturaMin) return { inicioAntesDeApertura: true };
     if (finMin > cierreMin) return { finDespuesDeCierre: true };
+
+    const duracion = finMin - inicioMin;
+    const tiempoMaximoMin= espacio.tiempoMaximo*60;
+    if(duracion > tiempoMaximoMin) return { excedeTiempoMaximo: true }
 
     return null;
   };
@@ -135,7 +138,19 @@ export class EspaciosVecinoComponent implements OnInit {
         console.log('Espacio seleccionado:', res);
 
         this.reservaForm.setValidators(validarHoras(this.espacioSeleccionado));
+        this.reservaForm.get('cantidadPersonas')?.setValidators([
+          Validators.required,
+          Validators.min(1),
+          (control) => {
+            const cupo = control.value;
+            if (!cupo) return null;
+            return cupo > this.espacioSeleccionado.cantidadPersonas
+              ? { sobreCupo: true }
+              : null;
+          }
+        ]);
         this.reservaForm.updateValueAndValidity();
+        this.reservaForm.get('cantidadPersonas')?.updateValueAndValidity();
       },
       error: (err) => console.log(err),
     });
@@ -198,4 +213,5 @@ export class EspaciosVecinoComponent implements OnInit {
   }
 
   get f() { return this.reservaForm.controls; }
+  get sobreCupo() { return this.reservaForm.hasError('sobreCupo'); }
 }
