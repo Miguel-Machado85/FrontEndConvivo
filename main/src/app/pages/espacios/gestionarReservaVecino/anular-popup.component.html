@@ -1,28 +1,28 @@
 <div class="anular-popup-backdrop" (click)="close()"></div>
 <div class="anular-popup">
-  <div class="anular-popup-header">
-    <img class="anular-popup-header-icon" src="https://www.figma.com/api/mcp/asset/646c4d2d-e77c-40be-970c-5629bf801398" alt="Warning Icon" />
-    <div class="anular-popup-title">¿Anular esta reserva?</div>
-  </div>
-  <div class="anular-popup-desc">
-    Esta acción no se puede deshacer. La reserva será cancelada y el espacio quedará disponible para otros vecinos.
-  </div>
-  <div class="anular-popup-details">
-    <div class="anular-popup-detail-row">
-      <span class="anular-popup-detail-label">Espacio:</span>
-      <span class="anular-popup-detail-value">{{reserva?.espacio || 'Gimnasio'}}</span>
+    <div class="anular-popup-header">
+        <img class="anular-popup-header-icon" src="https://www.figma.com/api/mcp/asset/646c4d2d-e77c-40be-970c-5629bf801398" alt="Warning Icon" />
+        <div class="anular-popup-title">¿Anular esta reserva?</div>
     </div>
-    <div class="anular-popup-detail-row">
-      <span class="anular-popup-detail-label">Fecha:</span>
-      <span class="anular-popup-detail-value">{{reserva?.fecha || 'jueves, 5 de febrero de 2026'}}</span>
+    <div class="anular-popup-desc">
+        Esta acción no se puede deshacer. La reserva será cancelada y el espacio quedará disponible para otros vecinos.
     </div>
-    <div class="anular-popup-detail-row">
-      <span class="anular-popup-detail-label">Hora:</span>
-      <span class="anular-popup-detail-value">{{reserva?.hora || '08:00'}}</span>
+    <div class="anular-popup-details">
+        <div class="anular-popup-detail-row">
+            <span class="anular-popup-detail-label">Espacio:</span>
+            <span class="anular-popup-detail-value">{{reserva?.espacio || 'Gimnasio'}}</span>
+        </div>
+        <div class="anular-popup-detail-row">
+            <span class="anular-popup-detail-label">Fecha:</span>
+            <span class="anular-popup-detail-value">{{reserva?.fecha || 'jueves, 5 de febrero de 2026'}}</span>
+        </div>
+        <div class="anular-popup-detail-row">
+            <span class="anular-popup-detail-label">Hora:</span>
+            <span class="anular-popup-detail-value">{{reserva?.hora || '08:00'}}</span>
+        </div>
     </div>
-  </div>
-  <div class="anular-popup-actions">
-    <button class="cancelar-btn" (click)="close()">Cancelar</button>
-    <button class="anular-btn" (click)="anularReserva()">Sí, Anular Reserva</button>
-  </div>
+    <div class="anular-popup-actions">
+        <button class="cancelar-btn" (click)="close()">Cancelar</button>
+        <button class="anular-btn" (click)="anularReserva()">Sí, Anular Reserva</button>
+    </div>
 </div>

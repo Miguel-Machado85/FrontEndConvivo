@@ -31,7 +31,13 @@ export const EspaciosRoutes: Routes = [
                 loadComponent: () => import('./gestionarReservaVecino/gestionarReservaVecino.component').then(m => m.GestionarReservaVecinoComponent),
                 canActivate: [roleGuard],
                 data: { role: 'vecino' }
-            }
+            },
+                {
+                    path: 'editar/:id',
+                    loadComponent: () => import('./editarEspacioAdmin/editarEspacioAdmin.component').then(m => m.EditarEspacioAdminComponent),
+                    canActivate: [roleGuard],
+                    data: { role: 'administrador' }
+                }
         ]
     }
 ];

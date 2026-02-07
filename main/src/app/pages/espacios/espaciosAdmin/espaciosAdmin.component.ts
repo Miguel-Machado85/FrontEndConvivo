@@ -47,4 +47,8 @@ export class EspaciosAdminComponent {
   irCrear(){
     this.router.navigate(['/espacios/crear'])
   }
+  
+    irEditar(id: string) {
+      this.router.navigate([`/espacios/editar/${id}`]);
+    }
 }

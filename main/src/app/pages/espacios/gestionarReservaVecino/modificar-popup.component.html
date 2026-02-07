@@ -1,80 +1,80 @@
 <div class="modificar-popup-backdrop" (click)="close()"></div>
 <div class="modificar-popup">
-  <div class="modificar-popup-header">
-    <div class="modificar-popup-title">Modificar Reserva - {{reserva?.espacio}}</div>
-    <button class="close-btn" (click)="close()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 6L6 18" stroke="#717182" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6 6L18 18" stroke="#717182" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-  </div>
-  <div class="modificar-popup-desc">
-    Selecciona la nueva fecha y hora para tu reserva
-  </div>
-  <div class="modificar-popup-content" [formGroup]="modificarForm">
-    <div class="calendar-section">
-      <div class="section-header">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 2V6" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M16 2V6" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M3 10H21" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Nueva Fecha</span>
-      </div>
-      <div class="calendar-placeholder">
-        <mat-card class="demo-inline-calendar-card">
-          <mat-calendar
-            [selected]="modificarForm.get('fecha')?.value || null"
-            (selectedChange)="onFechaSeleccionada($event)"
-            [minDate]="minDate"
-            [maxDate]="maxDate">
-          </mat-calendar>
-        </mat-card>
-      </div>
-      <mat-error *ngIf="mensajeErrorDia" class="error-dia">
-        {{ mensajeErrorDia }}
-      </mat-error>
+    <div class="modificar-popup-header">
+        <div class="modificar-popup-title">Modificar Reserva - {{reserva?.espacio}}</div>
+        <button class="close-btn" (click)="close()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18" stroke="#717182" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 6L18 18" stroke="#717182" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
     </div>
-    <div class="time-section">
-      <div class="section-header">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 6V12L16 14" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span>Nueva Hora</span>
-      </div>
-      <div class="timepicker-row">
-        <mat-form-field class="timepicker-field" appearance="outline">
-          <mat-label>Hora de inicio</mat-label>
-          <input matInput [matTimepicker]="startTimePicker" formControlName="horaInicio" />
-          <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
-          <mat-timepicker #startTimePicker></mat-timepicker>
-        </mat-form-field>
+    <div class="modificar-popup-desc">
+        Selecciona la nueva fecha y hora para tu reserva
+    </div>
+    <div class="modificar-popup-content" [formGroup]="modificarForm">
+        <div class="calendar-section">
+            <div class="section-header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 2V6" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M16 2V6" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10H21" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Nueva Fecha</span>
+            </div>
+            <div class="calendar-placeholder">
+                <mat-card class="demo-inline-calendar-card">
+                    <mat-calendar
+                        [selected]="modificarForm.get('fecha')?.value || null"
+                        (selectedChange)="onFechaSeleccionada($event)"
+                        [minDate]="minDate"
+                        [maxDate]="maxDate">
+                    </mat-calendar>
+                </mat-card>
+            </div>
+            <mat-error *ngIf="mensajeErrorDia" class="error-dia">
+                {{ mensajeErrorDia }}
+            </mat-error>
+        </div>
+        <div class="time-section">
+            <div class="section-header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 6V12L16 14" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Nueva Hora</span>
+            </div>
+            <div class="timepicker-row">
+                <mat-form-field class="timepicker-field" appearance="outline">
+                    <mat-label>Hora de inicio</mat-label>
+                    <input matInput [matTimepicker]="startTimePicker" formControlName="horaInicio" />
+                    <mat-timepicker-toggle matSuffix [for]="startTimePicker"></mat-timepicker-toggle>
+                    <mat-timepicker #startTimePicker></mat-timepicker>
+                </mat-form-field>
 
-        <mat-form-field class="timepicker-field" appearance="outline">
-          <mat-label>Hora de fin</mat-label>
-          <input matInput [matTimepicker]="endTimePicker" formControlName="horaFin" />
-          <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
-          <mat-timepicker #endTimePicker></mat-timepicker>
-        </mat-form-field>
-      </div>
-      <mat-error *ngIf="modificarForm.get('horaInicio')?.errors?.['required'] && modificarForm.get('horaInicio')?.touched">
-        Debe ingresar la hora en que quiere iniciar la reserva
-      </mat-error>
-      <mat-error *ngIf="modificarForm.get('horaFin')?.errors?.['required'] && modificarForm.get('horaFin')?.touched">
-        Debe ingresar la hora en que quiere acabar la reserva
-      </mat-error>
+                <mat-form-field class="timepicker-field" appearance="outline">
+                    <mat-label>Hora de fin</mat-label>
+                    <input matInput [matTimepicker]="endTimePicker" formControlName="horaFin" />
+                    <mat-timepicker-toggle matSuffix [for]="endTimePicker"></mat-timepicker-toggle>
+                    <mat-timepicker #endTimePicker></mat-timepicker>
+                </mat-form-field>
+            </div>
+            <mat-error *ngIf="modificarForm.get('horaInicio')?.errors?.['required'] && modificarForm.get('horaInicio')?.touched">
+                Debe ingresar la hora en que quiere iniciar la reserva
+            </mat-error>
+            <mat-error *ngIf="modificarForm.get('horaFin')?.errors?.['required'] && modificarForm.get('horaFin')?.touched">
+                Debe ingresar la hora en que quiere acabar la reserva
+            </mat-error>
+        </div>
     </div>
-  </div>
-  <div class="modificar-popup-actions">
-    <button class="cancelar-btn" (click)="close()">Cancelar</button>
-    <button class="guardar-btn" (click)="modificarReserva()">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Guardar Cambios
-    </button>
-  </div>
+    <div class="modificar-popup-actions">
+        <button class="cancelar-btn" (click)="close()">Cancelar</button>
+        <button class="guardar-btn" (click)="modificarReserva()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6L9 17L4 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Guardar Cambios
+        </button>
+    </div>
 </div>
