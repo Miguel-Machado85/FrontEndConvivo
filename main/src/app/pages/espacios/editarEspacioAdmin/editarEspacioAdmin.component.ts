@@ -18,17 +18,23 @@ function alMenosUnDia(): ValidatorFn {
     };
 }
 
-function finMasTemprano(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-        const inicio = control.get('horaInicio')?.value;
-        const fin = control.get('horaFin')?.value;
-        if (!inicio || !fin) return null;
-        const [hiHoras, hiMinutos] = inicio.split(':').map(Number);
-        const [hfHoras, hfMinutos] = fin.split(':').map(Number);
-        const inicioEnMin = hiHoras * 60 + hiMinutos;
-        const finEnMin = hfHoras * 60 + hfMinutos;
-        return inicioEnMin < finEnMin ? null : { finMasTemprano: true };
-    };
+export function finMasTemprano(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const group = control as FormGroup
+    const inicio = control.get('horaInicio')?.value;
+    const fin = control.get('horaFin')?.value;
+
+    if(!inicio || !fin){
+      return null;
+    }
+
+    const [hiHoras, hiMinutos] = inicio.split(':').map(Number);
+    const [hfHoras, hfMinutos] = fin.split(':').map(Number);
+    const inicioEnMin = hiHoras * 60 + hiMinutos;
+    const finEnMin = hfHoras * 60 + hfMinutos;
+
+    return inicioEnMin < finEnMin? null : {finMasTemprano: true};
+  };
 }
 
 @Component({
@@ -88,6 +94,14 @@ export class EditarEspacioAdminComponent implements OnInit {
     ngOnInit(): void {
         this.espacioId = this.route.snapshot.paramMap.get('id') || '';
         this.loadEspacio();
+
+        this.espacioForm.get('horaInicio')?.valueChanges.subscribe(() => {
+        this.espacioForm.updateValueAndValidity();
+        });
+
+        this.espacioForm.get('horaFin')?.valueChanges.subscribe(() => {
+        this.espacioForm.updateValueAndValidity();
+    });
     }
 
     loadEspacio() {
@@ -96,7 +110,7 @@ export class EditarEspacioAdminComponent implements OnInit {
                 this.populateForm(espacio);
             },
             error: (err) => {
-                // handle error
+                console.error(err)
             }
         });
     }
@@ -117,6 +131,8 @@ export class EditarEspacioAdminComponent implements OnInit {
                 diasGroup.get(dia.value)?.setValue(espacio.diasHabilitados.includes(dia.value));
             });
         }
+
+        this.espacioForm.updateValueAndValidity();
     }
 
     volverLista() {
@@ -147,8 +163,17 @@ export class EditarEspacioAdminComponent implements OnInit {
             diasHabilitados,
             estadoEspacio: formValue.estadoEspacio ? 'Activo' : 'Inactivo',
         };
-        // TODO: Call updateEspacio API
-        // After update, navigate back to list
-        this.volverLista();
+
+        this.espacioService.updateEspacio(this.espacioId, payload).subscribe({
+            next: (res) => {
+                alert("Espacio actualizado con exito")
+                this.volverLista();
+            },
+            error: (err) => {
+                console.error(err)
+            }
+        })
     }
+
+    get finMasTemprano() { return this.espacioForm.hasError('finMasTemprano'); }
 }

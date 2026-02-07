@@ -32,12 +32,12 @@ export const EspaciosRoutes: Routes = [
                 canActivate: [roleGuard],
                 data: { role: 'vecino' }
             },
-                {
-                    path: 'editar/:id',
-                    loadComponent: () => import('./editarEspacioAdmin/editarEspacioAdmin.component').then(m => m.EditarEspacioAdminComponent),
-                    canActivate: [roleGuard],
-                    data: { role: 'administrador' }
-                }
+            {
+                path: 'editar/:id',
+                loadComponent: () => import('./editarEspacioAdmin/editarEspacioAdmin.component').then(m => m.EditarEspacioAdminComponent),
+                canActivate: [roleGuard],
+                data: { role: 'administrador' }
+            }
         ]
     }
 ];

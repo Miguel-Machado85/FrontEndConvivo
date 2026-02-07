@@ -47,4 +47,13 @@ export class EspacioService {
         };
         return this.http.get<Espacio[]>(endpoint, {headers});
     }
+
+    updateEspacio(conjuntoId: string, data:any){
+        const endpoint = `${this.api_url}/update/${conjuntoId}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.put(endpoint, data, {headers})
+    }
 }

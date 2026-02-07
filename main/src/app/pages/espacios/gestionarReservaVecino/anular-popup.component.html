@@ -10,15 +10,15 @@
     <div class="anular-popup-details">
         <div class="anular-popup-detail-row">
             <span class="anular-popup-detail-label">Espacio:</span>
-            <span class="anular-popup-detail-value">{{reserva?.espacio || 'Gimnasio'}}</span>
+            <span class="anular-popup-detail-value">{{reserva?.espacio?.nombre}}</span>
         </div>
         <div class="anular-popup-detail-row">
             <span class="anular-popup-detail-label">Fecha:</span>
-            <span class="anular-popup-detail-value">{{reserva?.fecha || 'jueves, 5 de febrero de 2026'}}</span>
+            <span class="anular-popup-detail-value">{{reserva?.fecha}}</span>
         </div>
         <div class="anular-popup-detail-row">
             <span class="anular-popup-detail-label">Hora:</span>
-            <span class="anular-popup-detail-value">{{reserva?.hora || '08:00'}}</span>
+            <span class="anular-popup-detail-value">{{reserva?.horaInicio}} - {{reserva?.horaFin}}</span>
         </div>
     </div>
     <div class="anular-popup-actions">

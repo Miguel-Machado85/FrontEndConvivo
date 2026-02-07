@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Reserva } from 'src/app/models/reserva.model';
 
 @Component({
     selector: 'app-anular-popup',
@@ -9,15 +10,17 @@ import { CommonModule } from '@angular/common';
     imports: [CommonModule]
 })
 export class AnularPopupComponent {
-    @Input() reserva: { espacio: string; fecha: string; hora: string } | null = null;
+    @Input() reserva: Reserva | null = null;
     @Output() closePopup = new EventEmitter<void>();
-    @Output() confirmAnular = new EventEmitter<void>();
+    @Output() confirmAnular = new EventEmitter<Reserva>();
 
     close() {
         this.closePopup.emit();
     }
 
     anularReserva() {
-        this.confirmAnular.emit();
+        if(this.reserva){
+            this.confirmAnular.emit(this.reserva);
+        }
     }
 }
