@@ -1,0 +1,147 @@
+<div class="editar-espacio-wrapper">
+    <div class="editar-espacio-header">
+        <button class="editar-espacio-back" (click)="volverLista()" aria-label="Volver">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+        <div class="editar-espacio-title-group">
+            <h1 class="editar-espacio-title">Editar Espacio Común</h1>
+            <p class="editar-espacio-subtitle">Actualiza la información del espacio común</p>
+        </div>
+    </div>
+
+    <div class="editar-espacio-form-card">
+        <div class="editar-espacio-form-header">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M40 20C40 29.986 28.922 40.386 25.202 43.598C24.8554 43.8586 24.4336 43.9995 24 43.9995C23.5664 43.9995 23.1446 43.8586 22.798 43.598C19.078 40.386 8 29.986 8 20C8 15.7565 9.68571 11.6869 12.6863 8.68629C15.6869 5.68571 19.7565 4 24 4C28.2435 4 32.3131 5.68571 35.3137 8.68629C38.3143 11.6869 40 15.7565 40 20Z"
+                    stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M24 26C27.3137 26 30 23.3137 30 20C30 16.6863 27.3137 14 24 14C20.6863 14 18 16.6863 18 20C18 23.3137 20.6863 26 24 26Z"
+                    stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div>
+                <h2 class="form-header-title">Información del Espacio</h2>
+                <p class="form-header-subtitle">Configure los detalles y disponibilidad</p>
+            </div>
+        </div>
+
+        <form [formGroup]="espacioForm" (ngSubmit)="onSubmit()" class="editar-espacio-form">
+            <!-- Nombre del Espacio -->
+            <mat-form-field appearance="outline" class="editar-espacio-field">
+                <mat-label>Nombre del Espacio *</mat-label>
+                <input matInput formControlName="nombre" placeholder="Gimnasio" />
+                <mat-error
+                    *ngIf="espacioForm.get('nombre')?.errors?.['required'] && espacioForm.get('nombre')?.touched">
+                    Debe ingresar el nombre del espacio
+                </mat-error>
+                <mat-error
+                    *ngIf="espacioForm.get('nombre')?.errors?.['minlength'] && espacioForm.get('nombre')?.touched">
+                    El nombre debe tener al menos 3 caracteres
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Horario Habilitado para Reservas -->
+            <div class="editar-espacio-field">
+                <label class="field-label">Horario Habilitado para Reservas *</label>
+                <div class="editar-espacio-horarios">
+                    <mat-form-field appearance="outline" class="horario-form-field">
+                        <mat-label>Hora de Inicio</mat-label>
+                        <input matInput type="time" formControlName="horaInicio" />
+                        <mat-error
+                            *ngIf="espacioForm.get('horaInicio')?.errors?.['required'] && espacioForm.get('horaInicio')?.touched">
+                            Debe ingresar la hora de inicio
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="horario-form-field">
+                        <mat-label>Hora de Fin</mat-label>
+                        <input matInput type="time" formControlName="horaFin" />
+                        <mat-error
+                            *ngIf="espacioForm.get('horaFin')?.errors?.['required'] && espacioForm.get('horaFin')?.touched">
+                            Debe ingresar la hora de fin
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-error
+                    *ngIf="espacioForm.hasError('finMasTemprano') && 
+                       (espacioForm.get('horaInicio')?.touched || espacioForm.get('horaFin')?.touched || espacioForm.touched)"
+                    class="form-root-error">
+                    La hora de fin debe ser posterior a la de inicio
+                </mat-error>
+            </div>
+
+            <!-- Días Habilitados para Reservas -->
+            <div class="editar-espacio-field">
+                <label class="field-label">Días Habilitados para Reservas *</label>
+                <div class="editar-espacio-dias-grid">
+                    <label *ngFor="let dia of diasSemana" class="editar-espacio-dia-label"
+                        [class.checked]="getDiaControl(dia.value).value">
+                        <input type="checkbox" [formControl]="getDiaControl(dia.value)" />
+                        <span>{{ dia.label }}</span>
+                    </label>
+                </div>
+                <mat-error
+                    *ngIf="espacioForm.get('diasHabilitado')?.hasError('sinDiasSeleccionados') && espacioForm.get('diasHabilitado')?.touched">
+                    El espacio debe estar habilitado al menos un día a la semana
+                </mat-error>
+            </div>
+
+            <!-- Estado del Espacio -->
+            <div class="editar-espacio-estado-section">
+                <div class="estado-content">
+                    <label class="estado-label">Estado del Espacio</label>
+                    <p class="estado-description">El espacio está activo y disponible para reservas</p>
+                </div>
+                <div class="editar-espacio-toggle">
+                    <input type="checkbox" formControlName="estadoEspacio" id="estadoToggle" class="toggle-input" />
+                    <label for="estadoToggle" class="toggle-label"></label>
+                </div>
+            </div>
+
+            <!-- Cantidad Máxima de Reservas Simultáneas -->
+            <mat-form-field appearance="outline" class="editar-espacio-field">
+                <mat-label>Cantidad Máxima de Reservas Simultáneas *</mat-label>
+                <input matInput type="number" formControlName="cantidadPersonas" placeholder="10" />
+                <mat-hint>Número de personas que pueden reservar el espacio al mismo tiempo</mat-hint>
+                <mat-error
+                    *ngIf="espacioForm.get('cantidadPersonas')?.errors?.['required'] && espacioForm.get('cantidadPersonas')?.touched">
+                    Debe ingresar el número máximo de reserva que pueden iniciar a la misma hora
+                </mat-error>
+                <mat-error
+                    *ngIf="espacioForm.get('cantidadPersonas')?.errors?.['min'] && espacioForm.get('cantidadPersonas')?.touched">
+                    Número inválido de cupo
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Duración Máxima de Reserva (Horas) -->
+            <mat-form-field appearance="outline" class="editar-espacio-field">
+                <mat-label>Duración Máxima de Reserva (Horas) *</mat-label>
+                <input matInput type="number" formControlName="tiempoMaximo" placeholder="2" />
+                <mat-hint>Tiempo máximo que un residente puede reservar el espacio</mat-hint>
+                <mat-error
+                    *ngIf="espacioForm.get('tiempoMaximo')?.errors?.['required'] && espacioForm.get('tiempoMaximo')?.touched">
+                    Debe ingresar el tiempo máximo que se puede reservar el espacio
+                </mat-error>
+                <mat-error
+                    *ngIf="espacioForm.get('tiempoMaximo')?.errors?.['min'] && espacioForm.get('tiempoMaximo')?.touched">
+                    Número inválido de tiempo de reserva máximo
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Acciones -->
+            <div class="editar-espacio-actions">
+                <button type="button" class="btn-cancel" (click)="volverLista()">Cancelar</button>
+                <button type="submit" class="btn-save" [disabled]="espacioForm.invalid || isSubmitting">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" stroke="currentColor"
+                            stroke-width="2" />
+                        <path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

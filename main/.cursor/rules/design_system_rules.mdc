@@ -1,0 +1,273 @@
+# Convivo Design System Rules
+
+## Design System Structure
+
+### 1. Token Definitions
+
+**Location**: `src/assets/scss/_variables.scss`
+**Format**: SCSS variables with CSS custom properties integration
+
+**Color System**:
+```scss
+// Primary colors using Material Design tokens
+$primary: var(--mat-sys-primary);
+$secondary: var(--mat-sys-secondary);
+$accent: var(--mat-sys-secondary);
+$error: var(--mat-sys-error);
+$warning: #f8c20a;
+$success: #36c76c;
+$white: #ffffff;
+
+// Light variants
+$light-primary: var(--mat-sys-primary-fixed-dim);
+$light-secondary: var(--mat-sys-secondary-fixed-dim);
+$light-error: var(--mat-sys-error-fixed-dim);
+$light-warning: #f8c20a26;
+$light-success: #36c76c26;
+```
+
+**Typography**:
+```scss
+$font-family: "Manrope", sans-serif;
+$text-color: var(--mat-sys-on-background);
+```
+
+**Layout & Spacing**:
+```scss
+$sidenav-desktop: 265px;
+$sidenav-mini: 80px;
+$header-height: 70px;
+$border-radius: 12px;
+$card-spacer: 30px;
+$boxedWidth: 1200px;
+```
+
+### 2. Component Library
+
+**Architecture**: Angular standalone components with SCSS modules
+**Location**: `src/app/components/` and `src/app/pages/`
+
+**Component Structure**:
+```
+component-name/
+├── component-name.component.html
+├── component-name.component.ts
+├── component-name.component.scss (optional)
+└── component-name.component.spec.ts
+```
+
+**Example Component**:
+```typescript
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-blog-card',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './blog-card.component.html',
+  styleUrls: ['./blog-card.component.scss']
+})
+export class BlogCardComponent {
+  // Component logic
+}
+```
+
+### 3. Frameworks & Libraries
+
+**UI Framework**: Angular 20.2.1 with Angular Material 20.2.0
+**Styling**: SCSS with Material Design 3 tokens
+**Charts**: ApexCharts with ng-apexcharts wrapper
+**Icons**: Angular Tabler Icons + custom inline SVGs
+**Build System**: Angular CLI with esbuild bundler
+
+**Key Dependencies**:
+```json
+{
+  "@angular/material": "^20.2.0",
+  "apexcharts": "^4.7.0",
+  "ng-apexcharts": "^1.16.0",
+  "angular-tabler-icons": "^3.26.0",
+  "sass": "^1.89.2"
+}
+```
+
+### 4. Asset Management
+
+**Structure**:
+```
+src/assets/
+├── figma/          # Figma-exported assets
+│   └── img/
+├── images/         # Static images
+│   ├── backgrounds/
+│   ├── blog/
+│   ├── logos/
+│   ├── products/
+│   └── svgs/
+└── scss/           # Stylesheets
+```
+
+**Asset Referencing**:
+```typescript
+// In components
+imageUrl = 'assets/images/logos/logo.png';
+```
+
+**Build Configuration**:
+```json
+"assets": ["src/favicon.ico", "src/assets"]
+```
+
+### 5. Icon System
+
+**Primary System**: Inline SVG icons for custom designs
+**Library**: Angular Tabler Icons for standard icons
+
+**SVG Usage Pattern**:
+```html
+<button class="action-btn">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="..." stroke="#1268C4" stroke-width="2.9451" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+```
+
+**Icon Sizing**: Consistent 28x28px for action buttons, 35x35px for detail icons
+
+### 6. Styling Approach
+
+**Methodology**: SCSS modules with BEM-like naming
+**Global Styles**: Centralized in `src/assets/scss/`
+**Theme System**: Material Design 3 with custom overrides
+
+**Import Structure**:
+```scss
+@use "variables" as *;
+@use "container";
+@use "layouts/layouts";
+@use "helpers/index";
+```
+
+**Responsive Design**:
+```scss
+// Mobile-first approach
+.detail-grid {
+  grid-template-columns: 1fr;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+```
+
+**Component Styling Pattern**:
+```scss
+.component-name {
+  // Base styles
+
+  &__header {
+    // Header specific styles
+  }
+
+  &__content {
+    // Content specific styles
+  }
+
+  // Responsive breakpoints
+  @media (max-width: 768px) {
+    // Mobile styles
+  }
+}
+```
+
+### 7. Project Structure
+
+**Overall Organization**:
+```
+src/
+├── app/
+│   ├── components/     # Shared UI components
+│   ├── layouts/        # Layout components
+│   ├── pages/          # Page components
+│   ├── guards/         # Route guards
+│   ├── models/         # TypeScript interfaces
+│   ├── services/       # Business logic services
+│   ├── pipe/           # Custom pipes
+│   └── config.ts       # App configuration
+├── assets/
+│   ├── scss/           # Global styles
+│   ├── images/         # Static assets
+│   └── figma/          # Design assets
+└── styles.scss         # Global stylesheet entry
+```
+
+**Feature Organization**:
+```
+pages/
+└── espacios/
+    ├── espaciosAdmin/
+    │   ├── espaciosAdmin.component.html
+    │   ├── espaciosAdmin.component.ts
+    │   └── espaciosAdmin.component.scss
+    └── crearEspacio/
+        ├── crearEspacio.component.html
+        ├── crearEspacio.component.ts
+        └── crearEspacio.component.scss
+```
+
+## Figma Integration Guidelines
+
+### Color Mapping
+- **Primary Blue**: `#1268C4` → `$primary` or `var(--mat-sys-primary)`
+- **Background**: `#f8fafc` → `$layout-bg`
+- **Card Background**: `#ffffff` → `$white`
+- **Text**: `var(--mat-sys-on-background)` → `$text-color`
+
+### Component Conversion Rules
+
+1. **Layout Containers**: Use flexbox/grid with consistent spacing
+2. **Cards**: White background, 16px border-radius, subtle shadows
+3. **Buttons**: Consistent sizing (40px height for actions, custom for CTAs)
+4. **Forms**: Material Design form fields with custom styling
+5. **Icons**: Convert to inline SVGs, maintain 28x28px standard
+
+### Responsive Breakpoints
+- **Mobile**: `< 768px` - Single column, stacked layout
+- **Tablet**: `768px - 1024px` - 2-column grids
+- **Desktop**: `> 1024px` - Multi-column layouts
+
+### Typography Scale
+- **Titles**: 24-32px, 700 weight, Arimo font
+- **Subtitles**: 16px, 400 weight
+- **Body**: 14-16px, 400-500 weight
+- **Labels**: 12px, 600 weight, uppercase
+
+### Spacing System
+- **Component padding**: 24px
+- **Element gaps**: 16px (large), 12px (medium), 8px (small)
+- **Card margins**: 24px vertical, 16px horizontal
+
+### Animation & Interaction
+- **Hover effects**: Scale transforms, background changes
+- **Transitions**: 0.3s ease for all interactive elements
+- **Focus states**: Material Design focus indicators
+
+## Implementation Checklist
+
+### For New Components:
+- [ ] Create component files in appropriate directory
+- [ ] Use standalone component architecture
+- [ ] Import CommonModule and required dependencies
+- [ ] Follow SCSS naming conventions
+- [ ] Implement responsive design
+- [ ] Add proper TypeScript interfaces
+- [ ] Include error handling and loading states
+
+### For Figma Conversions:
+- [ ] Extract design tokens and map to existing variables
+- [ ] Convert Tailwind classes to SCSS using design system
+- [ ] Maintain responsive behavior across breakpoints
+- [ ] Ensure accessibility compliance
+- [ ] Test component in different themes
+- [ ] Validate with existing component patterns

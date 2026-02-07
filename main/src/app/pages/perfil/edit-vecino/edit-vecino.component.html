@@ -1,21 +1,22 @@
 <div class="profile-page">
   <div class="page-header">
-    <div class="header-title">
-      <h1>Editar Mi Perfil</h1>
-    </div>
-    <div class="header-subtitle">
-      <p>Modifica tu información personal y preferencias</p>
+    <div class="header-text">
+      <h1 class="title">Editar Mi Perfil</h1>
+      <p class="subtitle">Modifica tu información personal y preferencias</p>
     </div>
   </div>
 
   <div class="profile-card">
-    <div class="gradient-header"></div>
+    <div class="profile-card-header"></div>
     
     <form [formGroup]="vecinoForm" class="profile-form">
       <!-- NOMBRE COMPLETO -->
       <div class="form-field-wrapper">
         <label class="field-label">
-          <mat-icon class="field-icon">person</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none"> 
+            <path d="M22.3829 24.7386V22.3826C22.3829 21.1328 21.8865 19.9343 21.0028 19.0506C20.1191 18.1669 18.9205 17.6704 17.6708 17.6704H10.6025C9.3528 17.6704 8.15424 18.1669 7.27054 19.0506C6.38684 19.9343 5.89038 21.1328 5.89038 22.3826V24.7386" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.1365 12.9582C16.7389 12.9582 18.8486 10.8485 18.8486 8.24609C18.8486 5.64364 16.7389 3.53394 14.1365 3.53394C11.534 3.53394 9.42432 5.64364 9.42432 8.24609C9.42432 10.8485 11.534 12.9582 14.1365 12.9582Z" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <span>Nombre Completo</span>
         </label>
         <mat-form-field class="custom-input" appearance="outline">
@@ -38,7 +39,10 @@
       <!-- CORREO -->
       <div class="form-field-wrapper">
         <label class="field-label">
-          <mat-icon class="field-icon">email</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+          <path d="M25.917 8.24609L15.3252 14.9927C14.9658 15.2015 14.5576 15.3114 14.1419 15.3114C13.7262 15.3114 13.318 15.2015 12.9586 14.9927L2.3562 8.24609" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M23.5609 4.71216H4.71228C3.41105 4.71216 2.3562 5.76701 2.3562 7.06824V21.2047C2.3562 22.5059 3.41105 23.5608 4.71228 23.5608H23.5609C24.8621 23.5608 25.917 22.5059 25.917 21.2047V7.06824C25.917 5.76701 24.8621 4.71216 23.5609 4.71216Z" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
           <span>Correo Electrónico</span>
         </label>
         <mat-form-field class="custom-input" appearance="outline">
@@ -62,7 +66,9 @@
       <!-- TELÉFONO -->
       <div class="form-field-wrapper">
         <label class="field-label">
-          <mat-icon class="field-icon">phone</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+            <path d="M16.2948 19.5179C16.5381 19.6296 16.8122 19.6551 17.0719 19.5903C17.3316 19.5254 17.5615 19.3739 17.7237 19.1609L18.1419 18.6131C18.3614 18.3205 18.646 18.083 18.9731 17.9194C19.3003 17.7559 19.661 17.6707 20.0268 17.6707H23.5609C24.1858 17.6707 24.7851 17.9189 25.2269 18.3608C25.6688 18.8026 25.917 19.4019 25.917 20.0268V23.5609C25.917 24.1858 25.6688 24.7851 25.2269 25.2269C24.7851 25.6688 24.1858 25.917 23.5609 25.917C17.9371 25.917 12.5436 23.6829 8.56692 19.7063C4.59026 15.7296 2.3562 10.3361 2.3562 4.71228C2.3562 4.08741 2.60443 3.48813 3.04628 3.04628C3.48813 2.60443 4.08741 2.3562 4.71228 2.3562H8.2464C8.87127 2.3562 9.47055 2.60443 9.9124 3.04628C10.3542 3.48813 10.6025 4.08741 10.6025 4.71228V8.2464C10.6025 8.61217 10.5173 8.97291 10.3537 9.30007C10.1902 9.62722 9.95266 9.9118 9.66004 10.1313L9.10872 10.5448C8.89245 10.7099 8.74002 10.9448 8.67731 11.2096C8.61461 11.4744 8.6455 11.7527 8.76473 11.9973C10.3747 15.2674 13.0227 17.912 16.2948 19.5179Z" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
           <span>Teléfono</span>
         </label>
         <mat-form-field class="custom-input" appearance="outline">
@@ -85,7 +91,10 @@
       <!-- NÚMERO DE APARTAMENTO -->
       <div class="form-field-wrapper">
         <label class="field-label">
-          <mat-icon class="field-icon">home</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+            <path d="M17.6708 24.7388V15.3145C17.6708 15.0021 17.5467 14.7024 17.3257 14.4815C17.1048 14.2606 16.8052 14.1365 16.4927 14.1365H11.7806C11.4681 14.1365 11.1685 14.2606 10.9476 14.4815C10.7267 14.7024 10.6025 15.0021 10.6025 15.3145V24.7388" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3.53418 11.7803C3.5341 11.4376 3.60879 11.099 3.75304 10.7881C3.8973 10.4772 4.10765 10.2015 4.36941 9.9803L12.6157 2.91207C13.0409 2.55266 13.5797 2.35547 14.1365 2.35547C14.6933 2.35547 15.2321 2.55266 15.6574 2.91207L23.9037 9.9803C24.1654 10.2015 24.3758 10.4772 24.52 10.7881C24.6643 11.099 24.739 11.4376 24.7389 11.7803V22.3827C24.7389 23.0076 24.4907 23.6068 24.0488 24.0487C23.607 24.4905 23.0077 24.7388 22.3828 24.7388H5.89026C5.26539 24.7388 4.66611 24.4905 4.22426 24.0487C3.78241 23.6068 3.53418 23.0076 3.53418 22.3827V11.7803Z" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg> 
           <span>Número de Apartamento</span>
         </label>
         <mat-form-field class="custom-input" appearance="outline">
@@ -109,7 +118,15 @@
       <!-- CONJUNTO -->
       <div class="form-field-wrapper">
         <label class="field-label">
-          <mat-icon class="field-icon">apartment</mat-icon>
+          <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29" fill="none">
+            <path d="M7.06836 25.9167V4.71204C7.06836 4.08716 7.31659 3.48789 7.75844 3.04604C8.20029 2.60419 8.79957 2.35596 9.42444 2.35596H18.8488C19.4736 2.35596 20.0729 2.60419 20.5147 3.04604C20.9566 3.48789 21.2048 4.08716 21.2048 4.71204V25.9167H7.06836Z" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7.06836 14.1365H4.71228C4.08741 14.1365 3.48813 14.3847 3.04628 14.8266C2.60443 15.2684 2.3562 15.8677 2.3562 16.4926V23.5608C2.3562 24.1857 2.60443 24.7849 3.04628 25.2268C3.48813 25.6686 4.08741 25.9169 4.71228 25.9169H7.06836" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21.2048 10.6023H23.5609C24.1858 10.6023 24.7851 10.8505 25.2269 11.2924C25.6688 11.7342 25.917 12.3335 25.917 12.9584V23.5607C25.917 24.1856 25.6688 24.7849 25.2269 25.2267C24.7851 25.6686 24.1858 25.9168 23.5609 25.9168H21.2048" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.7805 7.06812H16.4927" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.7805 11.7803H16.4927" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.7805 16.4924H16.4927" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.7805 21.2046H16.4927" stroke="#1268C4" stroke-width="2.35608" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
           <span>Conjunto Residencial</span>
         </label>
         <mat-form-field class="custom-input" appearance="outline">

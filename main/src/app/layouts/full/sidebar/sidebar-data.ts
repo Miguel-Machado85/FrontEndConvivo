@@ -13,6 +13,7 @@ export const navItemsVecino: NavItemVecino[] = [
   { navCap: 'Vecino' },
   { displayName: 'Menú', iconName: 'solar:widget-add-line-duotone',route: '/menu/vecino'},
   { displayName: 'Reservar Espacio', iconName: 'solar:calendar-minimalistic-linear', route: '/espacios/reservar' },
+  { displayName: 'Gestionar Reservas', iconName: 'solar:calendar-search-linear', route: '/espacios/gestionar-reserva' },
   { displayName: 'Mi Perfil', iconName: 'solar:user-line-duotone', route: '/perfil/vecino' },
   { displayName: 'Noticias', iconName: 'ri:news-line', route: '/vecino-dashboard/noticias' },
 ];

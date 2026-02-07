@@ -1,0 +1,156 @@
+.modificar-popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modificar-popup {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 15px 22.5px 0 rgba(0, 0, 0, 0.1), 0 6px 9px 0 rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    max-width: 95vw;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    padding: 36px;
+    gap: 12px;
+    margin: 20px;
+    overflow-y: auto;
+}
+
+.modificar-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modificar-popup-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 27px;
+    font-weight: bold;
+    color: #0a0a0a;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.modificar-popup-desc {
+    font-family: 'Arial', sans-serif;
+    font-size: 21px;
+    color: #717182;
+}
+
+.modificar-popup-content {
+    flex: 1;
+    display: flex;
+    gap: 24px;
+}
+
+.calendar-section,
+.time-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 21px;
+    color: #101828;
+    font-weight: 500;
+}
+
+.calendar-placeholder {
+    border: 1px solid #e5e7eb;
+    border-radius: 21px;
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+}
+
+.demo-inline-calendar-card {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+}
+
+.timepicker-row {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    min-width: 0;
+    width: 100%;
+}
+
+.timepicker-field {
+    flex: 1;
+    min-width: 0; // Allow flex item to shrink below content size
+    ::ng-deep {
+        .mdc-text-field {
+            width: 100%;
+        }
+        .mat-mdc-text-field-wrapper {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.error-dia {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+mat-error {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.modificar-popup-actions {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+}
+
+.cancelar-btn {
+    background: #fff;
+    color: #0a0a0a;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 21px;
+    font-size: 21px;
+    height: 54px;
+    padding: 0 25px;
+    cursor: pointer;
+}
+
+.guardar-btn {
+    background: #1268c4;
+    color: #fff;
+    border: none;
+    border-radius: 21px;
+    font-size: 21px;
+    height: 54px;
+    padding: 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    cursor: pointer;
+}
