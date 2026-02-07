@@ -25,6 +25,12 @@ export const EspaciosRoutes: Routes = [
                 component: EspaciosVecinoComponent,
                 canActivate: [roleGuard],
                 data: { role: 'vecino' }
+            },
+            {
+                path: 'gestionar-reserva',
+                loadComponent: () => import('./gestionarReservaVecino/gestionarReservaVecino.component').then(m => m.GestionarReservaVecinoComponent),
+                canActivate: [roleGuard],
+                data: { role: 'vecino' }
             }
         ]
     }
