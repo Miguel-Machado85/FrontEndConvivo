@@ -61,6 +61,7 @@ export class GestionarReservaVecinoComponent {
     confirmAnularReserva(id: string) {
         this.reservaService.deleteReserva(id).subscribe({
             next: (res)=>{
+                alert("Reserva eliminada")
                 console.log('Anular reserva:', this.selectedReserva);
                 this.closeAnularPopup();
                 this.getReservasFuturas();
@@ -80,6 +81,7 @@ export class GestionarReservaVecinoComponent {
         }
         this.reservaService.updateReserva(updatedReserva.id!, payload).subscribe({
             next: (res)=>{
+                alert("Reserva modificada correctamente")
                 console.log('Modificar reserva:', updatedReserva);
                 this.closeModificarPopup();
                 this.getReservasFuturas();
