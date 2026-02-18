@@ -4,6 +4,10 @@ import { FullComponent } from './layouts/full/full.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
+  },
+  {
     path: 'menu-admin',
     component: FullComponent,
     children: [
