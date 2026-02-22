@@ -9,6 +9,13 @@ export const VecinosRoutes: Routes = [
         path: 'ver-vecinos',
         component: VerVecinosComponent,
       },
+      {
+        path: 'detalle/:id',
+        loadComponent: () =>
+          import('./detalle-vecino/detalle-vecino.component').then(
+            (m) => m.DetalleVecinoComponent
+          ),
+      },
     ],
   },
 ];

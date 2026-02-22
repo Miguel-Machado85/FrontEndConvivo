@@ -1,66 +1,70 @@
 <div class="vecinos-container">
-  <!-- Header Section -->
-  <div class="header-section">
-    <div class="header-content">
-      <h1 class="title">Mis Vecinos</h1>
-      <p class="subtitle">Gestiona y visualiza los vecinos registrados en tu conjunto</p>
-    </div>
-
-    <!-- Search Bar -->
-    <div class="search-container">
-      <mat-icon class="search-icon">search</mat-icon>
-      <input
-        class="search-input"
-        type="text"
-        placeholder="Buscar por nombre, apartamento o correo..."
-        [(ngModel)]="searchTerm"
-        (keyup)="onSearch()"
-      />
-    </div>
-
-    <!-- Table Container -->
-    <div class="table-wrapper">
-      <div class="table-container">
-        <!-- Table Header -->
-        <div class="table-header-row">
-          <div class="table-cell header-cell col-nombre">Vecino</div>
-          <div class="table-cell header-cell col-apartamento">Apartamento</div>
-          <div class="table-cell header-cell col-correo">Correo Electrónico</div>
-          <div class="table-cell header-cell col-telefono">Teléfono</div>
-          <div class="table-cell header-cell col-acciones acciones-header">Acciones</div>
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="header-content">
+            <h1 class="title">Mis Vecinos</h1>
+            <p class="subtitle">Gestiona y visualiza los vecinos registrados en tu conjunto</p>
         </div>
 
-        <!-- Table Body -->
-        <div class="table-body">
-          <div class="table-data-row" *ngFor="let vecino of filteredVecinos">
-            <div class="table-cell data-cell col-nombre">
-              <span class="cell-content">{{ vecino.nombre }}</span>
-            </div>
-            <div class="table-cell data-cell col-apartamento">
-              <mat-icon class="cell-icon">home</mat-icon>
-              <span class="cell-content">{{ vecino.apartamento }}</span>
-            </div>
-            <div class="table-cell data-cell col-correo">
-              <mat-icon class="cell-icon">email</mat-icon>
-              <span class="cell-content">{{ vecino.correo }}</span>
-            </div>
-            <div class="table-cell data-cell col-telefono">
-              <span class="cell-content">{{ vecino.telefono }}</span>
-            </div>
-            <div class="table-cell data-cell col-acciones acciones-cell">
-              <button
-                mat-raised-button
-                color="primary"
-                (click)="verDetalle(vecino.id)"
-                class="action-button"
-              >
-                <mat-icon>eye</mat-icon>
-                Ver Detalle
-              </button>
-            </div>
-          </div>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <mat-icon class="search-icon">search</mat-icon>
+            <input
+                class="search-input"
+                type="text"
+                placeholder="Buscar por nombre, apartamento o correo..."
+                [(ngModel)]="searchTerm"
+                (keyup)="onSearch()"
+            />
         </div>
-      </div>
+
+        <!-- Table Container -->
+        <div class="table-wrapper">
+            <div class="table-container">
+                <!-- Table Header -->
+                <div class="table-header-row">
+                    <div class="table-cell header-cell col-nombre">Vecino</div>
+                    <div class="table-cell header-cell col-apartamento">Apartamento</div>
+                    <div class="table-cell header-cell col-correo">Correo Electrónico</div>
+                    <div class="table-cell header-cell col-telefono">Teléfono</div>
+                    <div class="table-cell header-cell col-acciones acciones-header">Acciones</div>
+                </div>
+
+                <!-- Table Body -->
+                <div class="table-body">
+                    <div class="table-data-row" *ngFor="let vecino of filteredVecinos">
+                        <div class="table-cell data-cell col-nombre">
+                            <span class="cell-content">{{ vecino.nombre }}</span>
+                        </div>
+
+                        <div class="table-cell data-cell col-apartamento">
+                            <mat-icon class="cell-icon">home</mat-icon>
+                            <span class="cell-content">{{ vecino.apartamento }}</span>
+                        </div>
+
+                        <div class="table-cell data-cell col-correo">
+                            <mat-icon class="cell-icon">email</mat-icon>
+                            <span class="cell-content">{{ vecino.correo }}</span>
+                        </div>
+
+                        <div class="table-cell data-cell col-telefono">
+                            <span class="cell-content">{{ vecino.telefono }}</span>
+                        </div>
+
+                        <div class="table-cell data-cell col-acciones acciones-cell">
+                            <button
+                                mat-raised-button
+                                color="primary"
+                                (click)="verDetalle(vecino.id)"
+                                class="action-button"
+                            >
+                                <mat-icon>eye</mat-icon>
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

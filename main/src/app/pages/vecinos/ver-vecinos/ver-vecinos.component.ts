@@ -42,7 +42,7 @@ export class VerVecinosComponent implements OnInit {
   }
 
   loadVecinos(): void {
-    // Temporary data - will be replaced with service call
+    // datos de ejemplo temporales
     const tempVecinos: Vecino[] = [
       {
         id: 1,
