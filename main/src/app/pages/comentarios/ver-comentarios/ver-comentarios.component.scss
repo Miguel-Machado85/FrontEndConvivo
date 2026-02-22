@@ -43,23 +43,24 @@
   height: 36px;
   position: relative;
   cursor: pointer;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-family: 'Inter', sans-serif;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 .plus-icon {
-  position: relative;
   width: 16px;
   height: 16px;
   display: block;
+  flex-shrink: 0;
 }
 .crear-text {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 .comentarios-section {
   display: flex;
