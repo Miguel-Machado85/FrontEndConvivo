@@ -1,30 +1,56 @@
-
 <div class="ver-comentarios-page">
-  <div class="main-content">
-    <div class="header-row">
-      <div class="header-text">
-        <h1>Comentarios</h1>
-        <p>Gestiona tus sugerencias y quejas enviadas al administrador</p>
-      </div>
-      <button class="crear-comentario-btn" (click)="goToCrearComentario()" aria-label="Crear Comentario">
-        <img class="plus-icon" src="https://www.figma.com/api/mcp/asset/383c2944-c433-4dc1-b290-c0d140d88960" alt="" aria-hidden="true" />
-        <span class="crear-text">Crear Comentario</span>
-      </button>
-    </div>
-    <div class="comentarios-section">
-      <h2>Mis Comentarios</h2>
-      <!-- Comentario de ejemplo -->
-      <div class="comentario-card">
-        <div class="comentario-info">
-          <h3>Ruido excesivo en horarios nocturnos</h3>
-          <p>Se han presentado ruidos muy fuertes después de las 11pm en el 308</p>
+    <div class="main-content">
+        <div class="header-row">
+            <div class="header-text">
+                <h1>Comentarios</h1>
+                <p>Gestiona tus sugerencias y quejas enviadas al administrador</p>
+            </div>
+            <button class="crear-comentario-btn" (click)="goToCrearComentario()" aria-label="Crear Comentario">
+                <img class="plus-icon" src="https://www.figma.com/api/mcp/asset/383c2944-c433-4dc1-b290-c0d140d88960" alt="" aria-hidden="true" />
+                <span class="crear-text">Crear Comentario</span>
+            </button>
         </div>
-        <div class="comentario-icon">
-          <div class="icon-bg">
-            <img src="https://www.figma.com/api/mcp/asset/66ff7ad6-a35f-4d27-b310-75a1209a4d80" alt="icon" />
-          </div>
+        <div class="comentarios-section">
+            <h2>Mis Comentarios</h2>
+            <!-- Comentario de ejemplo -->
+            <div class="comentario-card">
+                <div class="card-top">
+                    <div class="comentario-info">
+                        <h3>Ruido excesivo en horarios nocturnos</h3>
+                        <p>Se han presentado ruidos muy fuertes después de las 11pm en el 308</p>
+                    </div>
+                    <div class="comentario-icon">
+                        <div class="icon-bg">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.3327 14.1667C18.3327 14.6087 18.1571 15.0326 17.8445 15.3452C17.532 15.6577 17.108 15.8333 16.666 15.8333H5.68935C5.24736 15.8334 4.8235 16.0091 4.51102 16.3217L2.67602 18.1567C2.59327 18.2394 2.48785 18.2957 2.37309 18.3186C2.25833 18.3414 2.13938 18.3297 2.03127 18.2849C1.92317 18.2401 1.83077 18.1643 1.76575 18.067C1.70074 17.9697 1.66603 17.8553 1.66602 17.7383V4.16667C1.66602 3.72464 1.84161 3.30072 2.15417 2.98816C2.46673 2.67559 2.89065 2.5 3.33268 2.5H16.666C17.108 2.5 17.532 2.67559 17.8445 2.98816C18.1571 3.30072 18.3327 3.72464 18.3327 4.16667V14.1667Z" stroke="white" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="footer-item">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_342_38)">
+                                <path d="M8 4V8L10.6667 9.33333" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8.00065 14.6668C11.6826 14.6668 14.6673 11.6821 14.6673 8.00016C14.6673 4.31826 11.6826 1.3335 8.00065 1.3335C4.31875 1.3335 1.33398 4.31826 1.33398 8.00016C1.33398 11.6821 4.31875 14.6668 8.00065 14.6668Z" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_342_38">
+                                    <rect width="16" height="16" fill="white"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <span>20 de febrero de 2026, 14:30</span>
+                    </div>
+                    <div class="footer-item">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.6673 14V12.6667C12.6673 11.9594 12.3864 11.2811 11.8863 10.781C11.3862 10.281 10.7079 10 10.0007 10H6.00065C5.29341 10 4.61513 10.281 4.11503 10.781C3.61494 11.2811 3.33398 11.9594 3.33398 12.6667V14" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8.00065 7.33333C9.47341 7.33333 10.6673 6.13943 10.6673 4.66667C10.6673 3.19391 9.47341 2 8.00065 2C6.52789 2 5.33398 3.19391 5.33398 4.66667C5.33398 6.13943 6.52789 7.33333 8.00065 7.33333Z" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Relacionado: Juan Pérez</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

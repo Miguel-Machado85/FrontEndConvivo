@@ -76,12 +76,17 @@
   background: #fff;
   border: 1px solid rgba(0,0,0,0.1);
   border-radius: 14px;
-  padding: 25px 32px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.card-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  min-height: 88px;
-  margin-bottom: 16px;
+  align-items: flex-start;
+  gap: 16px;
 }
 .comentario-info h3 {
   font-size: 18px;
@@ -107,4 +112,23 @@
 .comentario-icon img {
   width: 20px;
   height: 20px;
+}
+.card-footer {
+  display: flex;
+  gap: 36px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 12px;
+}
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6a7282;
+  font-weight: 400;
+}
+.footer-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
 }
