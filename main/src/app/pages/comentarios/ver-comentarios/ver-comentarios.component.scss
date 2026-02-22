@@ -1,0 +1,135 @@
+
+.ver-comentarios-page {
+  background: #f9fafb;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+.main-content {
+  /* let the main layout position this section; avoid absolute offsets */
+  width: 100%;
+  max-width: 100%;
+  background: #f9fafb;
+  min-height: 480px;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  box-sizing: border-box;
+}
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+}
+.header-text h1 {
+  font-size: 30px;
+  color: #101828;
+  margin: 0;
+  font-weight: 400;
+}
+.header-text p {
+  font-size: 16px;
+  color: #4a5565;
+  margin: 8px 0 0 0;
+  font-weight: 400;
+}
+.crear-comentario-btn {
+  background: #1268c4;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 168px;
+  height: 36px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+.plus-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex-shrink: 0;
+}
+.crear-text {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.comentarios-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.comentarios-section h2 {
+  font-size: 20px;
+  color: #101828;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+.comentario-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 14px;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+.comentario-info h3 {
+  font-size: 18px;
+  color: #101828;
+  margin: 0 0 8px 0;
+  font-weight: 400;
+}
+.comentario-info p {
+  font-size: 14px;
+  color: #4a5565;
+  margin: 0;
+  font-weight: 400;
+}
+.comentario-icon .icon-bg {
+  background: linear-gradient(180deg, #1268c4 0%, #0d4d91 100%);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.comentario-icon img {
+  width: 20px;
+  height: 20px;
+}
+.card-footer {
+  display: flex;
+  gap: 36px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 12px;
+}
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #6a7282;
+  font-weight: 400;
+}
+.footer-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
