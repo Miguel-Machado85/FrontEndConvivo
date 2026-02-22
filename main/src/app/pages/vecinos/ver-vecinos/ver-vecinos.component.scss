@@ -1,0 +1,560 @@
+.vecinos-container {
+  background-color: #f9fafb;
+  padding: 32px;
+  min-height: calc(100vh - 64px);
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+// Header Content
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #101828;
+    margin: 0;
+    padding: 0;
+    line-height: 36px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #4a5565;
+    margin: 0;
+    padding: 0;
+    line-height: 24px;
+  }
+}
+
+// Search Bar
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #f3f3f5;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 4px 12px;
+  height: 36px;
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    font-size: 20px;
+    color: #717182;
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-input {
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding-left: 40px;
+    font-size: 14px;
+    color: #101828;
+
+    &::placeholder {
+      color: #717182;
+      font-size: 14px;
+    }
+  }
+}
+
+// Table Wrapper - handles overflow
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    
+    &:hover {
+      background: #555;
+    }
+  }
+}
+
+// Table Container
+.table-container {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  min-width: 1255px;
+}
+
+.table-header-row {
+  display: flex;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+  height: 52.5px;
+}
+
+.table-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.table-data-row {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+  height: 65px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  flex-shrink: 0;
+  position: relative;
+
+  // Column width classes
+  &.col-nombre {
+    min-width: 226.438px;
+    width: 226.438px;
+  }
+  
+  &.col-apartamento {
+    min-width: 187.859px;
+    width: 187.859px;
+  }
+  
+  &.col-correo {
+    min-width: 369.906px;
+    width: 369.906px;
+  }
+  
+  &.col-telefono {
+    min-width: 241.172px;
+    width: 241.172px;
+  }
+  
+  &.col-acciones {
+    min-width: 229.625px;
+    width: 229.625px;
+  }
+
+  &.header-cell {
+    font-size: 14px;
+    font-weight: 600;
+    color: #101828;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    &.acciones-header {
+      justify-content: center;
+    }
+  }
+
+  &.data-cell {
+    font-size: 16px;
+    color: #101828;
+    gap: 8px;
+
+    &.acciones-cell {
+      justify-content: center;
+      padding: 0 12px;
+    }
+
+    .cell-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      color: #717182;
+      flex-shrink: 0;
+    }
+
+    .cell-content {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+// Action Button
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  background-color: #1268c4 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background-color: #0d4fa0 !important;
+    box-shadow: 0 2px 8px rgba(18, 104, 196, 0.3);
+  }
+
+  &:active {
+    background-color: #0a3d7a !important;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1400px) {
+  .table-container {
+    min-width: auto;
+  }
+
+  .table-cell {
+    &.col-nombre {
+      min-width: 200px;
+      width: 200px;
+    }
+    
+    &.col-apartamento {
+      min-width: 150px;
+      width: 150px;
+    }
+    
+    &.col-correo {
+      min-width: 250px;
+      width: 250px;
+    }
+    
+    &.col-telefono {
+      min-width: 150px;
+      width: 150px;
+    }
+    
+    &.col-acciones {
+      min-width: 160px;
+      width: 160px;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .table-cell {
+    &.col-nombre {
+      min-width: 150px;
+      width: 150px;
+    }
+    
+    &.col-apartamento {
+      min-width: 110px;
+      width: 110px;
+    }
+    
+    &.col-correo {
+      min-width: 200px;
+      width: 200px;
+    }
+    
+    &.col-telefono {
+      min-width: 130px;
+      width: 130px;
+    }
+    
+    &.col-acciones {
+      min-width: 140px;
+      width: 140px;
+    }
+
+    &.header-cell {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      font-size: 12px;
+    }
+
+    &.data-cell {
+      font-size: 14px;
+      padding: 0 16px;
+    }
+  }
+
+  .table-data-row {
+    height: 60px;
+  }
+
+  .table-header-row {
+    height: 48px;
+  }
+
+  .action-button {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .vecinos-container {
+    padding: 16px;
+  }
+
+  .header-section {
+    gap: 20px;
+  }
+
+  .header-content {
+    .title {
+      font-size: 24px;
+      line-height: 28px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .search-container {
+    height: 32px;
+
+    .search-input {
+      font-size: 12px !important;
+
+      &::placeholder {
+        font-size: 12px !important;
+      }
+    }
+
+    .search-icon {
+      font-size: 16px;
+      width: 16px;
+      height: 16px;
+      left: 10px;
+    }
+  }
+
+  .table-cell {
+    &.col-nombre {
+      min-width: 100px;
+      width: 100px;
+    }
+    
+    &.col-apartamento {
+      min-width: 80px;
+      width: 80px;
+    }
+    
+    &.col-correo {
+      min-width: 150px;
+      width: 150px;
+    }
+    
+    &.col-telefono {
+      min-width: 110px;
+      width: 110px;
+    }
+    
+    &.col-acciones {
+      min-width: 120px;
+      width: 120px;
+    }
+
+    &.header-cell {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 11px;
+      padding: 0 8px;
+    }
+
+    &.data-cell {
+      font-size: 12px;
+      padding: 0 8px;
+    }
+  }
+
+  .table-data-row {
+    height: 56px;
+  }
+
+  .table-header-row {
+    height: 44px;
+  }
+
+  .action-button {
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+
+    mat-icon {
+      font-size: 12px;
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .vecinos-container {
+    padding: 12px;
+  }
+
+  .header-section {
+    gap: 16px;
+  }
+
+  .header-content {
+    .title {
+      font-size: 20px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+    }
+  }
+
+  .table-cell {
+    &.col-nombre {
+      min-width: 80px;
+      width: 80px;
+    }
+    
+    &.col-apartamento {
+      min-width: 65px;
+      width: 65px;
+    }
+    
+    &.col-correo {
+      min-width: 100px;
+      width: 100px;
+    }
+    
+    &.col-telefono {
+      min-width: 85px;
+      width: 85px;
+    }
+    
+    &.col-acciones {
+      min-width: 85px;
+      width: 85px;
+    }
+
+    &.header-cell {
+      font-size: 10px;
+      padding: 0 4px;
+    }
+
+    &.data-cell {
+      font-size: 11px;
+      padding: 0 4px;
+    }
+  }
+
+  .table-data-row {
+    height: 50px;
+  }
+
+  .table-header-row {
+    height: 40px;
+  }
+
+  .action-button {
+    padding: 3px 6px !important;
+    font-size: 10px !important;
+    gap: 4px;
+
+    mat-icon {
+      font-size: 10px;
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+// Action Button
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500;
+  background-color: #1268c4 !important;
+  color: white !important;
+  border-radius: 8px !important;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background-color: #0d4fa0 !important;
+    box-shadow: 0 2px 8px rgba(18, 104, 196, 0.3);
+  }
+
+  &:active {
+    background-color: #0a3d7a !important;
+  }
+}
+
+// Responsive Design
+@media (max-width: 1200px) {
+  .table-cell {
+    font-size: 14px !important;
+    padding: 0 16px !important;
+  }
+
+  .action-button {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+
+    mat-icon {
+      font-size: 14px;
+      width: 14px;
+      height: 14px;
+    }
+  }
+}

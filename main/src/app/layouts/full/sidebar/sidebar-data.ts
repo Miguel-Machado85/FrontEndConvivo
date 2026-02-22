@@ -5,7 +5,7 @@ export const navItemsAdmin: NavItemAdmin[] = [
   { displayName: 'Menú', iconName: 'solar:widget-add-line-duotone',route: '/menu/admin'},
   { displayName: 'Mi Perfil', iconName: 'solar:user-line-duotone', route: '/perfil/admin' },
   { displayName: 'Espacios Comunes', iconName: 'teenyicons:pin-outline', route: '/espacios/list' },
-  { displayName: 'Usuarios', iconName: 'solar:users-group-two-rounded-broken', route: '/admin-dashboard/usuarios' },
+  { displayName: 'Mis Vecinos', iconName: 'solar:users-group-two-rounded-line-duotone', route: '/vecinos/ver-vecinos' },
   { displayName: 'Reportes', iconName: 'solar:chart-line-duotone', route: '/admin-dashboard/reportes' },
 ];
 
