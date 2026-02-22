@@ -1,0 +1,126 @@
+<div class="detalle-vecino-container" *ngIf="vecino">
+  <!-- Header Section -->
+  <div class="header-section">
+    <button mat-button class="back-button" (click)="volverALista()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+    <h1 class="title">Detalle del Vecino</h1>
+    <p class="subtitle">Información completa del vecino y su actividad en el conjunto</p>
+  </div>
+
+  <!-- Neighbor Info Card -->
+  <div class="info-card">
+    <div class="info-container">
+      <h2 class="neighbor-name">{{ vecino.nombre }}</h2>
+
+      <!-- Info Grid -->
+      <div class="info-grid">
+        <div class="info-field">
+          <div class="icon-container info-icon">
+            <mat-icon>home</mat-icon>
+          </div>
+          <div class="field-content">
+            <span class="field-label">Apartamento</span>
+            <span class="field-value">{{ vecino.apartamento }}</span>
+          </div>
+        </div>
+
+        <div class="info-field">
+          <div class="icon-container warning-icon">
+            <mat-icon>email</mat-icon>
+          </div>
+          <div class="field-content">
+            <span class="field-label">Correo Electrónico</span>
+            <span class="field-value">{{ vecino.correo }}</span>
+          </div>
+        </div>
+
+        <div class="info-field">
+          <div class="icon-container success-icon">
+            <mat-icon>phone</mat-icon>
+          </div>
+          <div class="field-content">
+            <span class="field-label">Teléfono</span>
+            <span class="field-value">{{ vecino.telefono }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reservas Section -->
+  <div class="reservas-section">
+    <h2 class="section-title">Reservas</h2>
+
+    <!-- Próximas Reservas -->
+    <div class="reservas-subsection">
+      <h3 class="subsection-title">Próximas Reservas</h3>
+      <div class="reservas-list">
+        <div class="reserva-card" *ngFor="let reserva of vecino.proximasReservas">
+          <div class="reserva-content">
+            <div class="reserva-icon">
+              <mat-icon>event</mat-icon>
+            </div>
+            <div class="reserva-info">
+              <h4 class="reserva-espacio">{{ reserva.espacio }}</h4>
+              <p class="reserva-detalles">
+                {{ reserva.fecha }} · {{ reserva.horaInicio }} - {{ reserva.horaFin }}
+              </p>
+            </div>
+          </div>
+          <span class="reserva-badge proxima">{{ reserva.estado }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reservas Anteriores -->
+    <div class="reservas-subsection">
+      <h3 class="subsection-title">Reservas Anteriores</h3>
+      <div class="reservas-list">
+        <div class="reserva-card anterior" *ngFor="let reserva of vecino.reservasAnteriores">
+          <div class="reserva-content">
+            <div class="reserva-icon">
+              <mat-icon>event</mat-icon>
+            </div>
+            <div class="reserva-info">
+              <h4 class="reserva-espacio">{{ reserva.espacio }}</h4>
+              <p class="reserva-detalles">
+                {{ reserva.fecha }} · {{ reserva.horaInicio }} - {{ reserva.horaFin }}
+              </p>
+            </div>
+          </div>
+          <span class="reserva-badge completada">{{ reserva.estado }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comentarios Section -->
+  <div class="comentarios-section">
+    <h2 class="section-title">Comentarios</h2>
+    <p class="comentarios-subtitle">Aquí puedes ver los comentarios creados por este vecino</p>
+
+    <div class="comentarios-list">
+      <div class="comentario-card" *ngFor="let comentario of vecino.comentarios">
+        <div class="comentario-content">
+          <h4 class="comentario-titulo">{{ comentario.titulo }}</h4>
+          <p class="comentario-descripcion">{{ comentario.descripcion }}</p>
+          <div class="comentario-meta">
+            <span class="comentario-fecha">
+              <mat-icon class="meta-icon">schedule</mat-icon>
+              {{ comentario.fecha }}
+            </span>
+            <span class="comentario-autor">
+              <mat-icon class="meta-icon">person</mat-icon>
+              Vecino Relacionado: {{ comentario.relacionado || 'N/A' }}
+            </span>
+          </div>
+        </div>
+        <div class="comentario-avatar">
+          <mat-icon>chat_bubble</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

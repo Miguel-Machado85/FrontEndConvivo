@@ -52,6 +52,17 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'vecinos',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/vecinos/vecinos.routes').then((m) => m.VecinosRoutes)
+      }
+    ]
+  },
+  {
     path: 'menu-vecino',
     component: FullComponent,
     children: [
