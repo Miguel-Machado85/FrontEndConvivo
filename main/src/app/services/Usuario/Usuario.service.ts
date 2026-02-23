@@ -76,7 +76,16 @@ export class UsuarioService {
             'Content-Type': "application/json",
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
-        return this.http.get<{ usuarios: Usuario[], detalle: any }>(endpoint, { headers });
+        return this.http.get< Vecino[] >(endpoint, { headers });
+    }
+
+    getVecinosByConjunto(conjunto: string){
+        const endpoint = `${this.api_url}/verUsuariosConjunto/${conjunto}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get< Usuario[] >(endpoint, { headers });
     }
 
 }

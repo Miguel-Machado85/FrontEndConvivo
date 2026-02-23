@@ -3,40 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { Vecino } from 'src/app/models/vecino.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
+import { ReservaService } from 'src/app/services/Reserva/reserva.service';
+import { Reserva } from 'src/app/models/reserva.model';
+import { ComentarioService } from 'src/app/services/Comentario/comentario.service';
+import { Comentario } from 'src/app/models/comentario.model';
 
-export interface InfoField {
+interface InfoField {
   label: string;
-  value: string;
+  value: any;
   icon: string;
   bgColor: string;
-}
-
-export interface Reserva {
-  id: number;
-  espacio: string;
-  fecha: string;
-  horaInicio: string;
-  horaFin: string;
-  estado: 'Próxima' | 'Completada';
-}
-
-export interface Comentario {
-  id: number;
-  titulo: string;
-  descripcion: string;
-  fecha: string;
-  relacionado?: string;
-}
-
-export interface VecinoDetail {
-  id: number;
-  nombre: string;
-  apartamento: string;
-  telefono: string;
-  correo: string;
-  proximasReservas: Reserva[];
-  reservasAnteriores: Reserva[];
-  comentarios: Comentario[];
 }
 
 @Component({
@@ -47,94 +26,87 @@ export interface VecinoDetail {
   styleUrls: ['./detalle-vecino.component.scss'],
 })
 export class DetalleVecinoComponent implements OnInit {
-  vecino: VecinoDetail | null = null;
-  vecinoId: number | null = null;
+  usuario: Usuario | null = null
+  vecino: Vecino | null = null;
+  reservas: Reserva[]
+  reservasP: Reserva[]
+  comentarios: Comentario[]
+  vecinoId: string;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private reservaService: ReservaService,
+    private comentarioService: ComentarioService
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.vecinoId = params['id'];
-      if (this.vecinoId) {
-        this.loadVecinoDetail(this.vecinoId);
-      }
-    });
+    this.vecinoId = this.route.snapshot.paramMap.get('id')!;
+    console.log(this.vecinoId)
+
+    this.getDatosVecino()
+    this.getReservasFuturas()
+    this.getReservasPasadas()
+    this.getComentarios()
   }
 
-  loadVecinoDetail(id: number): void {
-    // Datos de ejempko temporales
-    const mockVecina: VecinoDetail = {
-      id: 1,
-      nombre: 'Carlos Mendoza',
-      apartamento: 'Apto 101',
-      telefono: '+57 300 123 4567',
-      correo: 'carlos.mendoza@email.com',
-      proximasReservas: [
-        {
-          id: 1,
-          espacio: 'Salón Social',
-          fecha: '28 de febrero de 2028',
-          horaInicio: '18:00',
-          horaFin: '22:00',
-          estado: 'Próxima',
-        },
-        {
-          id: 2,
-          espacio: 'Cancha de Tenis',
-          fecha: '25 de febrero de 2028',
-          horaInicio: '15:00',
-          horaFin: '17:00',
-          estado: 'Próxima',
-        },
-      ],
-      reservasAnteriores: [
-        {
-          id: 3,
-          espacio: 'BBQ Área',
-          fecha: '10 de febrero de 2028',
-          horaInicio: '15:00',
-          horaFin: '18:00',
-          estado: 'Completada',
-        },
-        {
-          id: 4,
-          espacio: 'Piscina',
-          fecha: '30 de enero de 2028',
-          horaInicio: '10:00',
-          horaFin: '14:00',
-          estado: 'Completada',
-        },
-      ],
-      comentarios: [
-        {
-          id: 1,
-          titulo: 'Ruido excesivo en horarios nocturnos',
-          descripcion:
-            'Se ha presentado caso muy fuerte después de las 11pm en el 308',
-          fecha: '20 de febrero de 2026',
-          relacionado: 'Juan Pérez',
-        },
-        {
-          id: 2,
-          titulo: 'Sugerencia para mejorar la iluminación del parqueadero',
-          descripcion:
-            'El parqueadero está muy oscuro en las noches, sería bueno instalar más luces LED...',
-          fecha: '18 de febrero de 2026',
-        },
-        {
-          id: 3,
-          titulo: 'Mascotas sin correa en zonas comunes',
-          descripcion:
-            'He visto varias veces mascotas sin correa en el área de juegos infantiles...',
-          fecha: '12 de febrero de 2026',
-          relacionado: 'María González',
-        },
-      ],
-    };
-    this.vecino = mockVecina;
+  getDatosVecino(){
+    this.usuarioService.getUsuario(this.vecinoId).subscribe({
+      next: (res) =>{
+        this.usuario = res.usuario;
+        this.vecino = res.detalle;
+
+        console.log(res.usuario);
+        console.log(res.detalle);
+      }, 
+      error: (err) =>{
+        console.log(err);
+        
+      }
+    })
+  }
+
+  getReservasFuturas(){
+    const id = localStorage.getItem('id') || '';
+    this.reservaService.getReservasByUsuarioId(id).subscribe({
+      next: (res) =>{
+        this.reservas = res
+        console.log(res)
+      },
+      error: (err) =>{
+        console.log(err);
+        
+      }
+    })
+  }
+
+  getReservasPasadas(){
+    const id = localStorage.getItem('id') || '';
+    this.reservaService.getReservasPasadas(id).subscribe({
+      next: (res) =>{
+        this.reservasP = res
+        console.log(res)
+      },
+      error: (err) =>{
+        console.log(err);
+        
+      }
+    })
+  }
+
+  getComentarios(){
+    const id = localStorage.getItem('id') || '';
+    this.comentarioService.getComentariosByUsuarioId(id).subscribe({
+      next: (res) =>{
+        this.comentarios = res
+        console.log(res)
+      },
+      error: (err) =>{
+        console.log(err);
+        
+      }
+    })
   }
 
   volverALista(): void {
@@ -146,13 +118,13 @@ export class DetalleVecinoComponent implements OnInit {
     return [
       {
         label: 'Apartamento',
-        value: this.vecino.apartamento,
+        value: this.vecino.numeroApartamento,
         icon: 'home',
         bgColor: 'info',
       },
       {
         label: 'Correo Electrónico',
-        value: this.vecino.correo,
+        value: this.usuario?.correo,
         icon: 'email',
         bgColor: 'warning',
       },

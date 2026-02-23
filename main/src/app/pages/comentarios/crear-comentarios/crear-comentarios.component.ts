@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Comentario } from 'src/app/models/comentario.model';
+import { Usuario } from 'src/app/models/usuario.model';
+import { ComentarioService } from 'src/app/services/Comentario/comentario.service';
+import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
+import { Vecino } from 'src/app/models/vecino.model';
 
 @Component({
   selector: 'app-crear-comentarios',
@@ -12,13 +17,20 @@ import { Router } from '@angular/router';
 })
 export class CrearComentariosComponent implements OnInit {
   comentarioForm!: FormGroup;
+  usuarioLigado!: Usuario
+  vecinoLigado: Vecino
+  usuarios: Vecino[]
+  conjuntoId!: string
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
-  ) {}
+    private router: Router,
+    private comentarioService: ComentarioService,
+    private usuarioService: UsuarioService
+  ) { }
 
   ngOnInit(): void {
+    this.getVecinos()
     this.initializeForm();
   }
 
@@ -38,13 +50,57 @@ export class CrearComentariosComponent implements OnInit {
     this.router.navigate(['/comentarios/ver-comentarios']);
   }
 
+  getVecinos(){
+    const usuarioId = localStorage.getItem('id')!;
+
+    this.usuarioService.getUsuario(usuarioId).subscribe({
+      next: (res) => {
+        this.conjuntoId = res.detalle.conjuntoId;
+        this.usuarioService.getVecinosByConjuntoId(this.conjuntoId).subscribe({
+          next: (res) => {
+            this.usuarios = res
+            console.log(res)
+          }
+        })
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
+  seleccionarLigado(usuarioId: string): void {
+    this.usuarioService.getUsuario(usuarioId).subscribe({
+      next: (res) => {
+        this.usuarioLigado = res.usuario;
+        this.vecinoLigado = res.detalle
+
+        console.log('Usuario seleccionado:', res);
+      },
+      error: (err) => console.log(err),
+    });
+  }
+
   onSubmit(): void {
     if (this.comentarioForm.valid) {
-      const formData = this.comentarioForm.value;
-      console.log('Comentario a enviar:', formData);
-      // Aquí se llamará al servicio para enviar el comentario
-      // this.comentarioService.createComentario(formData).subscribe(...);
-      // Por ahora, navegamos de vuelta
+      const usuarioId = localStorage.getItem('id')!;
+      const { descripcion, asunto } = this.comentarioForm.value;
+
+      const comentarioData: Comentario = {
+        descripcion: descripcion,
+        asunto: asunto,
+        usuarioId: usuarioId,
+        usuarioLigado: this.usuarioLigado?.id || null
+      };
+
+      this.comentarioService.addComentario(comentarioData).subscribe({
+        next: (res) => {
+          alert('Comentario creado con exito');
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Ocurrió un error al crear el comentario.');
+        },
+      });
+
       this.router.navigate(['/comentarios/ver-comentarios']);
     }
   }

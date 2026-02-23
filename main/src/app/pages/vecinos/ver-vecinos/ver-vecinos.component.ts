@@ -45,13 +45,11 @@ export class VerVecinosComponent implements OnInit {
     this.usuarioService.getUsuario(id).subscribe({
       next: (res)=>{
         this.conjuntoId = res.detalle.conjuntoId;
-        this.usuarioService.getVecinosByConjuntoId(this.conjuntoId).subscribe({
+        this.usuarioService.getVecinosByConjunto(this.conjuntoId).subscribe({
           next: (res)=>{
-            this.usuarios = res.usuarios;
-            this.vecinos = res.detalle
-
-            console.log(res.usuarios);
-            console.log(res.detalle)
+            this.usuarios = res
+            this.filteredUsuarios = res
+            console.log(res);
           },
           error: (err)=>{
             console.log(err);
@@ -124,6 +122,6 @@ export class VerVecinosComponent implements OnInit {
   }
 
   verDetalle(vecinoId: string): void {
-    this.router.navigate([`/vecinos/detalle/${vecinoId}`]);
+    this.router.navigate([`/vecinos/detalle`, vecinoId]);
   }
 }
