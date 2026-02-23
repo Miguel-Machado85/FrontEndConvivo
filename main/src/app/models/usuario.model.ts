@@ -7,7 +7,7 @@ export enum Rol {
 }
 
 export interface Usuario {
-    id?: string;
+    id: string;
     nombreCompleto: string;
     correo: string;
     password: string;

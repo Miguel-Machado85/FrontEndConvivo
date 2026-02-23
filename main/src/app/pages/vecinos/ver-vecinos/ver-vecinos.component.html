@@ -32,30 +32,30 @@
 
                 <!-- Table Body -->
                 <div class="table-body">
-                    <div class="table-data-row" *ngFor="let vecino of filteredVecinos">
+                    <div class="table-data-row" *ngFor="let usuario of filteredUsuarios">
                         <div class="table-cell data-cell col-nombre">
-                            <span class="cell-content">{{ vecino.nombre }}</span>
+                            <span class="cell-content">{{ usuario.nombreCompleto }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-apartamento">
                             <mat-icon class="cell-icon">home</mat-icon>
-                            <span class="cell-content">{{ vecino.apartamento }}</span>
+                            <span class="cell-content">{{ usuario.vecino?.numeroApartamento }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-correo">
                             <mat-icon class="cell-icon">email</mat-icon>
-                            <span class="cell-content">{{ vecino.correo }}</span>
+                            <span class="cell-content">{{ usuario.correo }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-telefono">
-                            <span class="cell-content">{{ vecino.telefono }}</span>
+                            <span class="cell-content">{{ usuario.vecino?.telefono }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-acciones acciones-cell">
                             <button
                                 mat-raised-button
                                 color="primary"
-                                (click)="verDetalle(vecino.id)"
+                                (click)="verDetalle(usuario.id)"
                                 class="action-button"
                             >
                                 <mat-icon>eye</mat-icon>

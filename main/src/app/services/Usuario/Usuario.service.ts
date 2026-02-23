@@ -70,4 +70,13 @@ export class UsuarioService {
         return this.http.patch(endpoint, data, {headers})
     }
 
+    getVecinosByConjuntoId(conjunto: string){
+        const endpoint = `${this.api_url}/verUsuarios/${conjunto}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<{ usuarios: Usuario[], detalle: any }>(endpoint, { headers });
+    }
+
 }

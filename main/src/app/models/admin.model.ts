@@ -5,7 +5,6 @@ export interface Admin {
     id?: string;
     conjuntoId: string;
     telefono: string;
-
     usuario?: Usuario;
     conjunto?: Conjunto; 
 }
