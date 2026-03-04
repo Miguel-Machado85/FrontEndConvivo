@@ -39,6 +39,15 @@ export class ReservaService {
         return this.http.get<Reserva[]>(endpoint, {headers});
     }
 
+    getReservasPasadas(usuarioId: string): Observable<Reserva[]>{
+        const endpoint = `${this.api_url}/getP/${usuarioId}`;
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<Reserva[]>(endpoint, {headers});
+    }
+
     deleteReserva(id: string){
         const endpoint = `${this.api_url}/delete/${id}`;
         return this.http.delete(endpoint);

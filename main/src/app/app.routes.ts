@@ -4,6 +4,10 @@ import { FullComponent } from './layouts/full/full.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('./pages/landing/landing.module').then(m => m.LandingModule)
+  },
+  {
     path: 'menu-admin',
     component: FullComponent,
     children: [
@@ -33,6 +37,28 @@ export const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./pages/espacios/espacios.routes').then((m) => m.EspaciosRoutes)
+      }
+    ]
+  },
+  {
+    path: 'comentarios',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/comentarios/comentarios.routes').then((m) => m.ComentariosRoutes)
+      }
+    ]
+  },
+  {
+    path: 'vecinos',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/vecinos/vecinos.routes').then((m) => m.VecinosRoutes)
       }
     ]
   },

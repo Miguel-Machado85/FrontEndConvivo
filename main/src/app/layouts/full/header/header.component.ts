@@ -37,6 +37,6 @@ export class HeaderComponent {
     localStorage.removeItem('AuthToken');
     localStorage.removeItem('id'); 
     localStorage.removeItem('rol'); 
-    this.router.navigate(['/authentication/login']);
+    this.router.navigate(['/']);
   }
 }
