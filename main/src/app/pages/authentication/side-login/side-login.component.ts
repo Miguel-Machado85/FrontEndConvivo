@@ -34,6 +34,7 @@ export class AppSideLoginComponent {
       localStorage.setItem("AuthToken", res.token);
       localStorage.setItem("id", res.id);
       localStorage.setItem("rol", res.rol)
+      console.log(res.id);
 
       if(res.rol == 'administrador'){
         this.router.navigate(['/menu/admin']);

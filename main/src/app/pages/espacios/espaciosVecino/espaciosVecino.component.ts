@@ -161,7 +161,7 @@ export class EspaciosVecinoComponent implements OnInit {
     const id = localStorage.getItem('id') || '';
     this.usuarioService.getUsuario(id).subscribe({
       next: (res) => {
-        this.conjuntoId = res.detalle.conjuntoId;
+        this.conjuntoId = res.conjuntoId._id;
         this.espacioService
           .getEspaciosActivosByConjuntoId(this.conjuntoId)
           .subscribe({
@@ -224,7 +224,7 @@ export class EspaciosVecinoComponent implements OnInit {
 
     const reservaData: Reserva = {
       usuarioId: usuarioId,
-      espacioId: this.espacioSeleccionado.id!,
+      espacioId: this.espacioSeleccionado._id!,
       fecha: fecha!.toISOString().split('T')[0],
       horaInicio: this.formatHora(this.horaStringToDate(horaInicio!)),
       horaFin: this.formatHora(this.horaStringToDate(horaFin!)),

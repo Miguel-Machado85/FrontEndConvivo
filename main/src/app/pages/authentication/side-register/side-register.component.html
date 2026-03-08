@@ -65,7 +65,7 @@
             <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Conjunto donde reside</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <mat-select formControlName="conjunto" placeholder="Seleccione el conjunto donde reside">
-                <mat-option *ngFor="let c of listaConjuntos" [value]="c.id">
+                <mat-option *ngFor="let c of listaConjuntos" [value]="c._id">
                   {{ c.nombreConjunto | titlecase}}
                 </mat-option>
               </mat-select>

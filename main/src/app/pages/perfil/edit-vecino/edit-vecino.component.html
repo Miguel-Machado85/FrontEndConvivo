@@ -131,7 +131,7 @@
         </label>
         <mat-form-field class="custom-input" appearance="outline">
           <mat-select formControlName="conjunto" placeholder="Seleccione el conjunto donde reside">
-            <mat-option *ngFor="let c of listaConjuntos" [value]="c.id">
+            <mat-option *ngFor="let c of listaConjuntos" [value]="c._id">
               {{ c.nombreConjunto | titlecase }}
             </mat-option>
           </mat-select>

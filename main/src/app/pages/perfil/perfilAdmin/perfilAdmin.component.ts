@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
-import { Admin } from 'src/app/models/admin.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +10,6 @@ import { Router } from '@angular/router';
 })
 export class PerfilAdminComponent {
   user: Usuario;
-  admin: Admin;
 
   constructor(private usuarioService: UsuarioService, private router: Router) { }
 
@@ -23,11 +21,9 @@ export class PerfilAdminComponent {
     const id = localStorage.getItem('id') || '';
     this.usuarioService.getUsuario(id).subscribe({
       next: (res) =>{
-        this.user = res.usuario;
-        this.admin = res.detalle;
+        this.user = res;
 
-        console.log(res.usuario);
-        console.log(res.detalle);
+        console.log(res);
       },
       error: (err) =>{
         console.log(err);

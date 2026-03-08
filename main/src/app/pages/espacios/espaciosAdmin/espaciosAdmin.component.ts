@@ -27,7 +27,7 @@ export class EspaciosAdminComponent {
     const id = localStorage.getItem('id') || '';
     this.usuarioService.getUsuario(id).subscribe({
       next: (res)=>{
-        this.conjuntoId = res.detalle.conjuntoId;
+        this.conjuntoId = res.conjuntoId._id;
         this.espacioService.getEspaciosByConjuntoId(this.conjuntoId).subscribe({
           next: (res)=>{
             this.espacios = res;

@@ -7,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
-import { Vecino } from 'src/app/models/vecino.model';
 import { Usuario } from 'src/app/models/usuario.model';
 
 
@@ -28,7 +27,6 @@ import { Usuario } from 'src/app/models/usuario.model';
 })
 export class VerVecinosComponent implements OnInit {
   usuarios: Usuario[]
-  vecinos: Vecino[];
   filteredUsuarios: Usuario[]
   searchTerm: string = '';
   conjuntoId: string;
@@ -44,7 +42,7 @@ export class VerVecinosComponent implements OnInit {
     const id = localStorage.getItem('id') || ''
     this.usuarioService.getUsuario(id).subscribe({
       next: (res)=>{
-        this.conjuntoId = res.detalle.conjuntoId;
+        this.conjuntoId = res.conjuntoId._id;
         this.usuarioService.getVecinosByConjunto(this.conjuntoId).subscribe({
           next: (res)=>{
             this.usuarios = res

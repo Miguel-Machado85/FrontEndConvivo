@@ -20,8 +20,8 @@
 
                 <div class="espacios-list">
                     <button class="espacio-button" *ngFor="let espacio of espacios" type="button"
-                        (click)="seleccionarEspacio(espacio.id!)"
-                        [ngClass]="{ 'activeMenu': espacioSeleccionado?.id === espacio.id }">
+                        (click)="seleccionarEspacio(espacio._id!)"
+                        [ngClass]="{ 'activeMenu': espacioSeleccionado?._id === espacio._id }">
                         <div class="espacio-content">
                             <div class="espacio-title">{{ espacio.nombre }}</div>
                             <div class="espacio-description">{{ espacio.descripcion }}</div>

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Vecino } from 'src/app/models/vecino.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { ReservaService } from 'src/app/services/Reserva/reserva.service';
@@ -27,7 +26,6 @@ interface InfoField {
 })
 export class DetalleVecinoComponent implements OnInit {
   usuario: Usuario | null = null
-  vecino: Vecino | null = null;
   reservas: Reserva[]
   reservasP: Reserva[]
   comentarios: Comentario[]
@@ -54,11 +52,10 @@ export class DetalleVecinoComponent implements OnInit {
   getDatosVecino(){
     this.usuarioService.getUsuario(this.vecinoId).subscribe({
       next: (res) =>{
-        this.usuario = res.usuario;
-        this.vecino = res.detalle;
+        this.usuario = res;
 
-        console.log(res.usuario);
-        console.log(res.detalle);
+        console.log(res);
+
       }, 
       error: (err) =>{
         console.log(err);
@@ -114,11 +111,11 @@ export class DetalleVecinoComponent implements OnInit {
   }
 
   getInfoFields(): InfoField[] {
-    if (!this.vecino) return [];
+    if (!this.usuario) return [];
     return [
       {
         label: 'Apartamento',
-        value: this.vecino.numeroApartamento,
+        value: this.usuario.numeroApartamento,
         icon: 'home',
         bgColor: 'info',
       },
@@ -130,7 +127,7 @@ export class DetalleVecinoComponent implements OnInit {
       },
       {
         label: 'Teléfono',
-        value: this.vecino.telefono,
+        value: this.usuario.telefono,
         icon: 'phone',
         bgColor: 'success',
       },
