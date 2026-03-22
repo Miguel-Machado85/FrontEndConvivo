@@ -1,4 +1,4 @@
-<div class="detalle-vecino-container" *ngIf="vecino">
+<div class="detalle-vecino-container" *ngIf="usuario">
   <!-- Header Section -->
   <div class="header-section">
     <button mat-button class="back-button" (click)="volverALista()">
@@ -22,7 +22,7 @@
           </div>
           <div class="field-content">
             <span class="field-label">Apartamento</span>
-            <span class="field-value">{{ vecino.numeroApartamento }}</span>
+            <span class="field-value">{{ usuario?.numeroApartamento }}</span>
           </div>
         </div>
 
@@ -42,7 +42,7 @@
           </div>
           <div class="field-content">
             <span class="field-label">Teléfono</span>
-            <span class="field-value">{{ vecino.telefono }}</span>
+            <span class="field-value">{{ usuario?.telefono }}</span>
           </div>
         </div>
       </div>
@@ -63,7 +63,7 @@
               <mat-icon>event</mat-icon>
             </div>
             <div class="reserva-info">
-              <h4 class="reserva-espacio">{{ reserva.espacio }}</h4>
+              <h4 class="reserva-espacio">{{ reserva.espacioId.nombre }}</h4>
               <p class="reserva-detalles">
                 {{ reserva.fecha }} · {{ reserva.horaInicio }} - {{ reserva.horaFin }}
               </p>
@@ -84,7 +84,7 @@
               <mat-icon>event</mat-icon>
             </div>
             <div class="reserva-info">
-              <h4 class="reserva-espacio">{{ reserva.espacio }}</h4>
+              <h4 class="reserva-espacio">{{ reserva.espacioId.nombre }}</h4>
               <p class="reserva-detalles">
                 {{ reserva.fecha }} · {{ reserva.horaInicio }} - {{ reserva.horaFin }}
               </p>
@@ -113,7 +113,7 @@
             </span> -->
             <span class="comentario-autor">
               <mat-icon class="meta-icon">person</mat-icon>
-              Vecino Relacionado: {{ comentario.Ligado?.nombreCompleto || 'N/A' }}
+              Vecino Relacionado: {{ comentario.usuarioLigado?.nombreCompleto || 'N/A' }}
             </span>
           </div>
         </div>

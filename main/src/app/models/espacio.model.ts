@@ -1,5 +1,5 @@
 export interface Espacio {
-    id?: string;
+    _id?: string;
     nombre: string;
     descripcion: string;
     conjuntoId: string;

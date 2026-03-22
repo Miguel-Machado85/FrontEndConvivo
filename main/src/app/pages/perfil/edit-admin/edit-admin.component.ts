@@ -61,9 +61,9 @@ export class EditAdminComponent implements OnInit {
     this.usuarioService.getUsuario(id).subscribe({
       next: (res) => {
         this.adminForm.patchValue({
-          nombreCompleto: res.usuario.nombreCompleto || '',
-          correo: res.usuario.correo || '',
-          telefono: res.detalle.telefono || ''
+          nombreCompleto: res.nombreCompleto || '',
+          correo: res.correo || '',
+          telefono: res.telefono || ''
         });
         this.isLoading = false;
       },

@@ -79,7 +79,7 @@ export class GestionarReservaVecinoComponent {
             horaFin: updatedReserva.horaFin,
             cantidadPersonas: updatedReserva.cantidadPersonas        
         }
-        this.reservaService.updateReserva(updatedReserva.id!, payload).subscribe({
+        this.reservaService.updateReserva(updatedReserva._id!, payload).subscribe({
             next: (res)=>{
                 alert("Reserva modificada correctamente")
                 console.log('Modificar reserva:', updatedReserva);

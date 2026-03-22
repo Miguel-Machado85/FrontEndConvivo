@@ -1,13 +1,13 @@
-import { Admin } from "./admin.model";
-import { Vecino } from "./vecino.model";
+import { Usuario } from "./usuario.model";
 
 export interface Conjunto {
-    id?: string;
+    _id?: string;
     nombreConjunto: string;
     ciudad: string;
     direccion: string;
     numeroApartamentos: number;
-
-    admin?: Admin;
-    vecinos?:Vecino[]; 
+    admin?: Usuario;
+    vecinos?: Usuario[];
+    createdAt?: string;
+    updatedAt?: string;
 }

@@ -1,10 +1,9 @@
 import { Usuario } from "./usuario.model";
 
 export interface Comentario {
-    id?: string;
+    _id?: string;
     descripcion: string;
     asunto: string;
     usuarioId: string;
-    usuarioLigado?: string | null;
-    Ligado?: Usuario 
+    usuarioLigado?: string | any; 
 }

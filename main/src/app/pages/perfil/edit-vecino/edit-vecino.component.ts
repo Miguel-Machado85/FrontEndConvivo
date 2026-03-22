@@ -68,11 +68,11 @@ export class EditVecinoComponent implements OnInit {
     this.usuarioService.getUsuario(id).subscribe({
       next: (res) => {
         this.vecinoForm.patchValue({
-          nombreCompleto: res.usuario.nombreCompleto || '',
-          correo: res.usuario.correo || '',
-          telefono: res.detalle.telefono || '',
-          numeroApartamento: res.detalle.numeroApartamento || '',
-          conjuntoResidencial: res.detalle.conjunto.nombreConjunto || ''
+          nombreCompleto: res.nombreCompleto || '',
+          correo: res.correo || '',
+          telefono: res.telefono || '',
+          numeroApartamento: res.numeroApartamento || '',
+          conjuntoResidencial: res.conjuntoId.nombreConjunto || ''
         });
         this.isLoading = false;
       },

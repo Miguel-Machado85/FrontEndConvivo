@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioRequest } from 'src/app/models/usuarioRequest.model';
-import { Vecino } from 'src/app/models/vecino.model'; // Import Vecino model
 
 
 @Injectable({
@@ -19,13 +18,13 @@ export class UsuarioService {
         return this.http.post(endpoint, usuario);
     }
 
-    getUsuario(id: string) {
+    getUsuario(id: string): Observable <Usuario> {
         const endpoint = `${this.api_url}/verUsuario/${id}`;
         const headers = {
             'Content-Type': "application/json",
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
-        return this.http.get<{ usuario: Usuario, detalle: any}>(endpoint, { headers });
+        return this.http.get<Usuario>(endpoint, { headers });
     }
 
     getUsuarios(): Observable <Usuario[]> {
@@ -35,15 +34,6 @@ export class UsuarioService {
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
         return this.http.get<Usuario[]>(endpoint, { headers });
-    }
-
-    getUsuarioByCorreo(correo: string){
-        const endpoint = `${this.api_url}/verUsuario/${correo}`;
-        const headers = {
-            'Content-Type': "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
-        };
-        return this.http.get<Usuario>(endpoint, { headers });
     }
 
     changePassword(token: string, newPassword: string){
@@ -68,15 +58,6 @@ export class UsuarioService {
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
         return this.http.patch(endpoint, data, {headers})
-    }
-
-    getVecinosByConjuntoId(conjunto: string){
-        const endpoint = `${this.api_url}/verUsuarios/${conjunto}`;
-        const headers = {
-            'Content-Type': "application/json",
-            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
-        };
-        return this.http.get< Vecino[] >(endpoint, { headers });
     }
 
     getVecinosByConjunto(conjunto: string){

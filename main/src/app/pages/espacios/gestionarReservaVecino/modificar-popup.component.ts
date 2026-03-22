@@ -84,7 +84,7 @@ export class ModificarPopupComponent implements OnInit, OnChanges {
     if (!this.reserva?.espacioId) return;
 
     // Cargar espacio para validaciones
-    this.espacioService.getEspacioById(this.reserva.espacioId).subscribe({
+    this.espacioService.getEspacioById(this.reserva.espacioId._id).subscribe({
       next: (espacio) => {
         this.espacioSeleccionado = espacio;
         this.setupFormValidators();
@@ -211,7 +211,7 @@ export class ModificarPopupComponent implements OnInit, OnChanges {
 
     const formValue = this.modificarForm.value;
     const reservaData: Partial<Reserva> = {
-      id: this.reserva!.id,
+      _id: this.reserva!._id,
       fecha: formValue.fecha!.toISOString().split('T')[0],
       horaInicio: this.formatHora(this.horaStringToDate(formValue.horaInicio!)),
       horaFin: this.formatHora(this.horaStringToDate(formValue.horaFin!)),

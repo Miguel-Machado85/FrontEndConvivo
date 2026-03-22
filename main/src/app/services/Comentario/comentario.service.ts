@@ -13,7 +13,11 @@ export class ComentarioService {
 
   addComentario(comentario: Comentario): Observable<any> {
     const endpoint = `${this.api_url}/create`;
-    return this.http.post(endpoint, comentario);
+    const headers = {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.post(endpoint, comentario, {headers});
   }
 
   getComentario(id: string): Observable<Comentario> {
@@ -26,8 +30,12 @@ export class ComentarioService {
   }
 
   getComentarios(): Observable<Comentario[]> {
-    const endpoint = `${this.api_url}/get`
-    return this.http.get<Comentario[]>(endpoint);
+    const endpoint = `${this.api_url}/get`;
+    const headers = {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.get<Comentario[]>(endpoint, {headers});
   }
 
   getComentariosByUsuarioId(usuarioId: string): Observable<Comentario[]> {

@@ -100,7 +100,7 @@ export class CrearConjuntoComponent {
     this.conjuntoService.createConjunto(conjunto).subscribe({
       next: (res) => {
         alert('Conjunto registrado correctamente');
-        const conjuntoId = res.id;
+        const conjuntoId = res._id;
 
         const admin: UsuarioRequest = {
           nombreCompleto: nombreCompleto!,

@@ -6,7 +6,6 @@ import { Comentario } from 'src/app/models/comentario.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { ComentarioService } from 'src/app/services/Comentario/comentario.service';
 import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
-import { Vecino } from 'src/app/models/vecino.model';
 
 @Component({
   selector: 'app-crear-comentarios',
@@ -18,8 +17,7 @@ import { Vecino } from 'src/app/models/vecino.model';
 export class CrearComentariosComponent implements OnInit {
   comentarioForm!: FormGroup;
   usuarioLigado!: Usuario
-  vecinoLigado: Vecino
-  usuarios: Vecino[]
+  usuarios: Usuario[]
   conjuntoId!: string
 
   constructor(
@@ -55,8 +53,8 @@ export class CrearComentariosComponent implements OnInit {
 
     this.usuarioService.getUsuario(usuarioId).subscribe({
       next: (res) => {
-        this.conjuntoId = res.detalle.conjuntoId;
-        this.usuarioService.getVecinosByConjuntoId(this.conjuntoId).subscribe({
+        this.conjuntoId = res.conjuntoId._id;
+        this.usuarioService.getVecinosByConjunto(this.conjuntoId).subscribe({
           next: (res) => {
             this.usuarios = res
             console.log(res)
@@ -70,8 +68,7 @@ export class CrearComentariosComponent implements OnInit {
   seleccionarLigado(usuarioId: string): void {
     this.usuarioService.getUsuario(usuarioId).subscribe({
       next: (res) => {
-        this.usuarioLigado = res.usuario;
-        this.vecinoLigado = res.detalle
+        this.usuarioLigado = res;
 
         console.log('Usuario seleccionado:', res);
       },
@@ -88,7 +85,7 @@ export class CrearComentariosComponent implements OnInit {
         descripcion: descripcion,
         asunto: asunto,
         usuarioId: usuarioId,
-        usuarioLigado: this.usuarioLigado?.id || null
+        usuarioLigado: this.usuarioLigado?._id || null
       };
 
       this.comentarioService.addComentario(comentarioData).subscribe({

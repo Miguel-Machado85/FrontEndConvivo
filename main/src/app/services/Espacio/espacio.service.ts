@@ -13,12 +13,20 @@ export class EspacioService {
 
     createEspacio(espacio: Espacio){
         const endpoint = `${this.api_url}/create`;
-        return this.http.post(endpoint, espacio);
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.post(endpoint, espacio, {headers});
     }
 
     getEspacios(): Observable<Espacio[]>{
         const endpoint = `${this.api_url}/get`
-        return this.http.get<Espacio[]>(endpoint);
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<Espacio[]>(endpoint, {headers});
     }
 
     getEspacioById(id: string): Observable<Espacio>{

@@ -90,9 +90,9 @@ export class CrearEspacioComponent implements OnInit {
       next: (res) => {
         console.log(res);
 
-        this.conjuntoId = res.detalle.conjuntoId;
+        this.conjuntoId = res.conjuntoId;
 
-        console.log(res.detalle.conjuntoId);
+        console.log(res.conjuntoId);
       },
       error: (err) => {
         console.log(err);

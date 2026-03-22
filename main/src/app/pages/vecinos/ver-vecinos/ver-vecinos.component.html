@@ -39,7 +39,7 @@
 
                         <div class="table-cell data-cell col-apartamento">
                             <mat-icon class="cell-icon">home</mat-icon>
-                            <span class="cell-content">{{ usuario.vecino?.numeroApartamento }}</span>
+                            <span class="cell-content">{{ usuario.numeroApartamento }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-correo">
@@ -48,14 +48,14 @@
                         </div>
 
                         <div class="table-cell data-cell col-telefono">
-                            <span class="cell-content">{{ usuario.vecino?.telefono }}</span>
+                            <span class="cell-content">{{ usuario.telefono }}</span>
                         </div>
 
                         <div class="table-cell data-cell col-acciones acciones-cell">
                             <button
                                 mat-raised-button
                                 color="primary"
-                                (click)="verDetalle(usuario.id)"
+                                (click)="verDetalle(usuario._id!)"
                                 class="action-button"
                             >
                                 <mat-icon>eye</mat-icon>

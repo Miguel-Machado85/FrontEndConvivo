@@ -17,8 +17,8 @@
                     </svg>
                 </div>
                 <div class="reserva-card-title-group">
-                    <div class="reserva-card-title">{{reserva.espacio?.nombre}}</div>
-                    <div class="reserva-card-desc">{{reserva.espacio?.descripcion}}</div>
+                    <div class="reserva-card-title">{{reserva.espacioId?.nombre}}</div>
+                    <div class="reserva-card-desc">{{reserva.espacioId?.descripcion}}</div>
                 </div>
                 <div class="reserva-card-status activa">{{reserva.estadoReserva}}</div>
             </div>
@@ -74,7 +74,7 @@
 
 
         <app-anular-popup *ngIf="showAnularPopup" [reserva]="selectedReserva" (closePopup)="closeAnularPopup()"
-            (confirmAnular)="confirmAnularReserva($event.id!)">
+            (confirmAnular)="confirmAnularReserva($event._id!)">
         </app-anular-popup>
 
         <app-modificar-popup *ngIf="showModificarPopup" [reserva]="selectedReserva" (closePopup)="closeModificarPopup()"
