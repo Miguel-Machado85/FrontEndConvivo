@@ -46,4 +46,13 @@ export class ComentarioService {
     };
     return this.http.get<Comentario[]>(endpoint, { headers });
   }
+
+  getComentariosLigadosByUsuarioID(usuarioId: string): Observable<Comentario[]> {
+    const endpoint = `${this.api_url}/getL/${usuarioId}`;
+    const headers = {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.get<Comentario[]>(endpoint, { headers }); 
+  }
 }
