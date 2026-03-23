@@ -6,6 +6,7 @@ export const navItemsAdmin: NavItemAdmin[] = [
   { displayName: 'Mi Perfil', iconName: 'solar:user-line-duotone', route: '/perfil/admin' },
   { displayName: 'Espacios Comunes', iconName: 'teenyicons:pin-outline', route: '/espacios/list' },
   { displayName: 'Mis Vecinos', iconName: 'solar:users-group-two-rounded-line-duotone', route: '/vecinos/ver-vecinos' },
+  { displayName: 'Anuncios del conjunto', iconName: 'ri:news-line', route: '/anuncios/admin' },
   { displayName: 'Reportes', iconName: 'solar:chart-line-duotone', route: '/admin-dashboard/reportes' },
 ];
 
@@ -15,8 +16,8 @@ export const navItemsVecino: NavItemVecino[] = [
   { displayName: 'Reservar Espacio', iconName: 'solar:calendar-minimalistic-linear', route: '/espacios/reservar' },
   { displayName: 'Gestionar Reservas', iconName: 'solar:calendar-search-linear', route: '/espacios/gestionar-reserva' },
   { displayName: 'Comentarios', iconName: 'solar:chat-line-linear', route: '/comentarios/ver-comentarios' },
+  { displayName: 'Anuncios del conjunto', iconName: 'ri:news-line', route: '/anuncios' },
   { displayName: 'Mi Perfil', iconName: 'solar:user-line-duotone', route: '/perfil/vecino' },
-  { displayName: 'Noticias', iconName: 'ri:news-line', route: '/vecino-dashboard/noticias' },
   
 ];
 
