@@ -1,0 +1,133 @@
+.announcements-page {
+  padding: 24px;
+}
+
+.page-header {
+  background: transparent;
+  padding: 12px 0 20px 0;
+  margin-bottom: 12px;
+}
+
+.page-header .header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header .title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #101828;
+  margin: 0;
+  padding: 0;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.anuncio-card {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eef2f7;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 22px 28px;
+}
+
+.card-top {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+
+.author {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.date {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.title {
+  margin: 6px 0 12px 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.body {
+  margin: 0 0 8px 0;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.card-separator {
+  height: 1px;
+  background: #eef2f7;
+  margin: 18px 0;
+}
+
+.card-actions-row {
+  display: flex;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  font-family: 'Arimo', sans-serif;
+  font-size: 14px;
+}
+
+.action-link.edit { color: #1268C4; }
+.action-link.delete { color: #FB2C36; }
+
+.create-btn.small {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #1268C4;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  padding: 8px 14px;
+  box-shadow: 0 8px 20px rgba(18,104,196,0.12);
+  border: none;
+}
+
+.create-btn.small .create-icon {
+  width: 26px;
+  height: 26px;
+  font-size: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-btn.small .create-text { font-size: 16px; }
+
+@media (max-width: 768px) {
+  .announcements-list { padding: 12px; }
+  .anuncio-card { padding: 16px; }
+}
