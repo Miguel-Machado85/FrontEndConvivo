@@ -1,0 +1,45 @@
+<div class="announcements-page">
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="title">Anuncios</h1>
+      <button class="create-btn small" type="button" (click)="irCrear()" aria-label="Publicar anuncio">
+        <span class="create-icon">+</span>
+        <span class="create-text">Publicar</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="announcements-list">
+    <mat-card class="anuncio-card" *ngFor="let a of anuncios">
+      <div class="card-body">
+        <div class="card-top">
+          <div class="author-block">
+            <div class="author">{{ authorMap[a.usuarioId]?.nombreCompleto || 'Admin Principal' }}</div>
+            <div class="date">{{ a.createdAt | date: 'mediumDate' }}</div>
+          </div>
+        </div>
+
+        <div class="content">
+          <h3 class="title">{{ a.asunto }}</h3>
+          <p class="body">{{ a.descripcion }}</p>
+        </div>
+
+        <div class="card-separator"></div>
+        <div class="card-actions-row">
+
+          <button class="action-link delete" (click)="deleteAnuncio(a._id)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 6H21" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19 6V20C19 21 18 22 17 22H7C6 22 5 21 5 20V6" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 6V4C8 3 9 2 10 2H14C15 2 16 3 16 4V6" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M10 11V17" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M14 11V17" stroke="#E7000B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Eliminar</span>
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+
+</div>
