@@ -5,7 +5,7 @@ export interface Comentario {
     descripcion: string;
     asunto: string;
     tipo: 'Comentario' | 'Anuncio';
-    usuarioId: string;
+    usuarioId: string | any;
     usuarioLigado?: string | any;
     createdAt?: string | Date;
 }

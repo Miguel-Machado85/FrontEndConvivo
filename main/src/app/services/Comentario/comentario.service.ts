@@ -47,13 +47,22 @@ export class ComentarioService {
     return this.http.get<Comentario[]>(endpoint, { headers });
   }
 
+  getComentariosLigadosByUsuarioID(usuarioId: string): Observable<Comentario[]> {
+    const endpoint = `${this.api_url}/getL/${usuarioId}`;
+    const headers = {
+      'Content-Type': "application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.get<Comentario[]>(endpoint, { headers });
+  }
+  
   getAnunciosByConjuntoId(conjuntoId: string): Observable<Comentario[]> {
     const endpoint = `${this.api_url}/getA/${conjuntoId}`;
     const headers = {
       'Content-Type': "application/json",
       'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
     };
-    return this.http.get<Comentario[]>(endpoint, { headers });
+    return this.http.get<Comentario[]>(endpoint, { headers }); 
   }
 
   deleteComentario(id: string): Observable<any> {
