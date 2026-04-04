@@ -52,6 +52,17 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'anuncios',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/anuncios/anuncios.routes').then((m) => m.AnunciosRoutes)
+      }
+    ]
+  },
+  {
     path: 'vecinos',
     component: FullComponent,
     children: [

@@ -1,0 +1,71 @@
+<div class="crear-anuncio-page">
+  <div class="main-content">
+    <div class="header">
+      <button class="back-button" type="button" (click)="onVolver()">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>Volver a anuncios</span>
+      </button>
+      <div>
+        <h1>Publicar Anuncio</h1>
+        <p>Comparte un anuncio importante con todos los residentes del conjunto</p>
+      </div>
+    </div>
+
+    <div class="form-container">
+      <form [formGroup]="anuncioForm" (ngSubmit)="onSubmit()">
+
+        <!-- Asunto Field -->
+        <div class="form-group">
+          <label for="asunto">
+            Asunto <span class="required">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="asunto" 
+            formControlName="asunto"
+            placeholder="Ej: Mantenimiento de piscina, Corte de energía, Jornada de limpieza..."
+            class="form-input"
+          />
+          <p class="form-hint">Un título breve y descriptivo del anuncio</p>
+          <div *ngIf="anuncioForm.get('asunto')?.invalid && anuncioForm.get('asunto')?.touched" class="error-message">
+            <span *ngIf="anuncioForm.get('asunto')?.errors?.['required']">El título es requerido</span>
+            <span *ngIf="anuncioForm.get('asunto')?.errors?.['minlength']">Mínimo 4 caracteres</span>
+            <span *ngIf="anuncioForm.get('asunto')?.errors?.['maxlength']">Máximo 150 caracteres</span>
+          </div>
+        </div>
+
+        <!-- Descripción Field -->
+        <div class="form-group">
+          <label for="descripcion">
+            Descripción <span class="required">*</span>
+          </label>
+          <textarea 
+            id="descripcion" 
+            formControlName="descripcion"
+            placeholder="Escribe aquí el contenido completo del anuncio"
+            class="form-textarea"
+            rows="6"
+          ></textarea>
+          <p class="form-hint">Detalla toda la información importante que los residentes deben conocer</p>
+          <div *ngIf="anuncioForm.get('descripcion')?.invalid && anuncioForm.get('descripcion')?.touched" class="error-message">
+            <span *ngIf="anuncioForm.get('descripcion')?.errors?.['required']">La descripción es requerida</span>
+            <span *ngIf="anuncioForm.get('descripcion')?.errors?.['minlength']">Mínimo 10 caracteres</span>
+          </div>
+        </div>
+
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="onVolver()">
+            Cancelar
+          </button>
+          <button type="submit" class="btn-publish" [disabled]="!anuncioForm.valid">
+            Publicar Anuncio
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
