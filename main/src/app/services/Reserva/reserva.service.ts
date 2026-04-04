@@ -13,12 +13,20 @@ export class ReservaService {
 
     createReserva(reserva: Reserva){
         const endpoint = `${this.api_url}/create`;
-        return this.http.post(endpoint, reserva);
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.post(endpoint, reserva, {headers});
     }
 
     getReservas(): Observable<Reserva[]>{
         const endpoint = `${this.api_url}/get`
-        return this.http.get<Reserva[]>(endpoint);
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.get<Reserva[]>(endpoint, {headers});
     }
 
     getReservaById(id: string): Observable<Reserva>{
@@ -50,7 +58,11 @@ export class ReservaService {
 
     deleteReserva(id: string){
         const endpoint = `${this.api_url}/delete/${id}`;
-        return this.http.delete(endpoint);
+        const headers = {
+            'Content-Type': "application/json",
+            'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+        };
+        return this.http.delete(endpoint, {headers});
     }
 
     updateReserva(id: string, data: any){
@@ -60,5 +72,11 @@ export class ReservaService {
             'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
         };
         return this.http.put(endpoint, data, {headers})
+    }
+
+    activateReserva(token: string){
+        const endpoint = `${this.api_url}/confirm`;
+        const body ={token}
+        return this.http.patch(endpoint, body);
     }
 }
