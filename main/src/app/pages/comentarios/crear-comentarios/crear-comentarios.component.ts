@@ -84,6 +84,7 @@ export class CrearComentariosComponent implements OnInit {
       const comentarioData: Comentario = {
         descripcion: descripcion,
         asunto: asunto,
+        tipo: "Comentario",
         usuarioId: usuarioId,
         usuarioLigado: this.usuarioLigado?._id || null
       };
