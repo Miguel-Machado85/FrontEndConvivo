@@ -123,4 +123,32 @@
       </div>
     </div>
   </div>
+
+  <!-- seccion comentarios sobre el vecino-->
+   <div class="comentarios-section">
+    <h2 class="section-title">Comentarios Sobre el Vecino</h2>
+    <p class="comentarios-subtitle">Aquí puedes ver los comentarios que otros vecinos han hecho sobre este vecino</p>
+
+    <div class="comentarios-list">
+      <div class="comentario-card" *ngFor="let comentarioL of comentariosSobreEl">
+        <div class="comentario-content">
+          <h4 class="comentario-titulo">{{ comentarioL.asunto }}</h4>
+          <p class="comentario-descripcion">{{ comentarioL.descripcion }}</p>
+          <div class="comentario-meta">
+            <!-- <span class="comentario-fecha">
+              <mat-icon class="meta-icon">schedule</mat-icon>
+              {{ comentario.fecha }}
+            </span> -->
+            <span class="comentario-autor">
+              <mat-icon class="meta-icon">person</mat-icon>
+              Creado por: {{ comentarioL.usuarioId?.nombreCompleto}}
+            </span>
+          </div>
+        </div>
+        <div class="comentario-avatar">
+          <mat-icon>chat_bubble</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
