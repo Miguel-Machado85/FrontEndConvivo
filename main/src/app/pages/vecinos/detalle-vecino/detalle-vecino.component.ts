@@ -29,6 +29,7 @@ export class DetalleVecinoComponent implements OnInit {
   reservas: Reserva[]
   reservasP: Reserva[]
   comentarios: Comentario[]
+  comentariosSobreEl: Comentario[] 
   vecinoId: string;
 
   constructor(
@@ -47,6 +48,7 @@ export class DetalleVecinoComponent implements OnInit {
     this.getReservasFuturas()
     this.getReservasPasadas()
     this.getComentarios()
+    this.getComentariosLigados()
   }
 
   getDatosVecino(){
@@ -65,8 +67,7 @@ export class DetalleVecinoComponent implements OnInit {
   }
 
   getReservasFuturas(){
-    const id = localStorage.getItem('id') || '';
-    this.reservaService.getReservasByUsuarioId(id).subscribe({
+    this.reservaService.getReservasByUsuarioId(this.vecinoId).subscribe({
       next: (res) =>{
         this.reservas = res
         console.log(res)
@@ -79,8 +80,7 @@ export class DetalleVecinoComponent implements OnInit {
   }
 
   getReservasPasadas(){
-    const id = localStorage.getItem('id') || '';
-    this.reservaService.getReservasPasadas(id).subscribe({
+    this.reservaService.getReservasPasadas(this.vecinoId).subscribe({
       next: (res) =>{
         this.reservasP = res
         console.log(res)
@@ -93,8 +93,7 @@ export class DetalleVecinoComponent implements OnInit {
   }
 
   getComentarios(){
-    const id = localStorage.getItem('id') || '';
-    this.comentarioService.getComentariosByUsuarioId(id).subscribe({
+    this.comentarioService.getComentariosByUsuarioId(this.vecinoId).subscribe({
       next: (res) =>{
         this.comentarios = res
         console.log(res)
@@ -102,6 +101,18 @@ export class DetalleVecinoComponent implements OnInit {
       error: (err) =>{
         console.log(err);
         
+      }
+    })
+  }
+
+  getComentariosLigados(){
+    this.comentarioService.getComentariosLigadosByUsuarioID(this.vecinoId).subscribe({
+      next: (res) =>{
+        this.comentariosSobreEl = res
+        console.log(res)
+      },
+      error: (err) =>{
+        console.log(err);
       }
     })
   }
