@@ -107,14 +107,16 @@
           <h4 class="comentario-titulo">{{ comentario.asunto }}</h4>
           <p class="comentario-descripcion">{{ comentario.descripcion }}</p>
           <div class="comentario-meta">
-            <!-- <span class="comentario-fecha">
-              <mat-icon class="meta-icon">schedule</mat-icon>
-              {{ comentario.fecha }}
-            </span> -->
             <span class="comentario-autor">
               <mat-icon class="meta-icon">person</mat-icon>
               Vecino Relacionado: {{ comentario.usuarioLigado?.nombreCompleto || 'N/A' }}
             </span>
+          </div>
+          <div class="comentario-actions" *ngIf="comentario.adjuntos && comentario.adjuntos.length > 0">
+            <button type="button" class="view-attachment-btn" (click)="openFileModal(comentario.adjuntos)">
+              <mat-icon>attach_file</mat-icon>
+              Ver archivo{{ comentario.adjuntos.length > 1 ? 's' : '' }} adjunto{{ comentario.adjuntos.length > 1 ? 's' : '' }}
+            </button>
           </div>
         </div>
         <div class="comentario-avatar">
@@ -135,14 +137,16 @@
           <h4 class="comentario-titulo">{{ comentarioL.asunto }}</h4>
           <p class="comentario-descripcion">{{ comentarioL.descripcion }}</p>
           <div class="comentario-meta">
-            <!-- <span class="comentario-fecha">
-              <mat-icon class="meta-icon">schedule</mat-icon>
-              {{ comentario.fecha }}
-            </span> -->
             <span class="comentario-autor">
               <mat-icon class="meta-icon">person</mat-icon>
               Creado por: {{ comentarioL.usuarioId?.nombreCompleto}}
             </span>
+          </div>
+          <div class="comentario-actions" *ngIf="comentarioL.adjuntos && comentarioL.adjuntos.length > 0">
+            <button type="button" class="view-attachment-btn" (click)="openFileModal(comentarioL.adjuntos)">
+              <mat-icon>attach_file</mat-icon>
+              Ver archivo adjunto{{ comentarioL.adjuntos.length > 1 ? 's' : '' }}
+            </button>
           </div>
         </div>
         <div class="comentario-avatar">
@@ -151,4 +155,47 @@
       </div>
     </div>
   </div>
-</div>
+
+  <!-- File Attachment Modal -->
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeFileModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Archivo adjunto</h3>
+        <button type="button" class="modal-close-btn" (click)="closeFileModal()" aria-label="Cerrar modal">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="currentAdjunto" class="file-section">
+          <div class="file-icon-container">
+            <div class="file-icon">
+              <mat-icon>description</mat-icon>
+            </div>
+          </div>
+          <div class="file-info">
+            <p class="file-name">{{ currentAdjunto.nombre_original }}</p>
+            <p class="file-description">Archivo adjunto al comentario</p>
+          </div>
+          
+          <!-- Lista de archivos si hay múltiples -->
+          <div *ngIf="selectedAdjuntos.length > 1" class="file-list">
+            <p class="file-list-title">Archivos adjuntos:</p>
+            <div class="file-items">
+              <button type="button" *ngFor="let adjunto of selectedAdjuntos; let i = index" 
+                      (click)="selectAdjunto(i)" 
+                      [class.active]="i === currentAdjuntoIndex"
+                      class="file-item-btn">
+                {{ adjunto.nombre_original }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a [href]="'http://localhost:3000' + currentAdjunto?.url" target="_blank" class="download-button">
+          <mat-icon>open_in_new</mat-icon>
+          Ver archivo
+        </a>
+      </div>
+    </div>
+  </div>
