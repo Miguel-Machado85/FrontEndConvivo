@@ -33,10 +33,14 @@ export class ConfirmComponent {
                     this.tokenValido = true;
                     this.reservaService.activateReserva(this.token!).subscribe({
                       next: ()=>{
-                        console.log("Reserva activada")
+                        console.log("Reserva activada");
+                        // Navigate to the confirmation page after successful activation
+                        this.router.navigate(['/confirmar/confirmacion-reserva']);
                       },
                       error: (err)=>{
-                        console.log(err)
+                        console.log(err);
+                        alert("Error al activar la reserva");
+                        this.router.navigate(['/authentication/login']);
                       }
                     })
                 },
@@ -47,5 +51,26 @@ export class ConfirmComponent {
                 }
             });
         });
+    }
+
+    closeTab(): void {
+      // Try to close the window
+      try {
+        window.close();
+      } catch (e) {
+        // If close fails, navigate to reservas page
+        this.navigateToReservas();
+      }
+      
+      // Fallback: navigate to reservas after a small delay
+      // This ensures users don't get stuck even if close works
+      setTimeout(() => {
+        this.navigateToReservas();
+      }, 500);
+    }
+
+    navigateToReservas(): void {
+      // Navigate to the reservas management page
+      this.router.navigate(['/espacios/gestionar-reserva']);
     }
 }
