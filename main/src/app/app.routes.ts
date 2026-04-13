@@ -134,6 +134,13 @@ export const routes: Routes = [
           import('./pages/conjunto/conjunto.routes').then(
             (m) => m.ConjuntoRoutes
           )
+      },
+      {
+        path: 'confirmar',
+        loadChildren: () =>
+          import('./pages/confirmar/confirmar.routes').then(
+            (m) => m.ConfirmarRoutes
+          )
       }
     ],
   },
