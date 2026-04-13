@@ -8,7 +8,7 @@ import { UsuarioService } from 'src/app/services/Usuario/Usuario.service';
 import { ReservaService } from 'src/app/services/Reserva/reserva.service';
 import { Reserva } from 'src/app/models/reserva.model';
 import { ComentarioService } from 'src/app/services/Comentario/comentario.service';
-import { Comentario } from 'src/app/models/comentario.model';
+import { Comentario, ComentarioAdjunto } from 'src/app/models/comentario.model';
 
 interface InfoField {
   label: string;
@@ -29,8 +29,11 @@ export class DetalleVecinoComponent implements OnInit {
   reservas: Reserva[]
   reservasP: Reserva[]
   comentarios: Comentario[]
-  comentariosSobreEl: Comentario[] 
+  comentariosSobreEl: Comentario[]
   vecinoId: string;
+  isModalOpen = false;
+  selectedAdjuntos: ComentarioAdjunto[] = [];
+  currentAdjuntoIndex = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -119,6 +122,31 @@ export class DetalleVecinoComponent implements OnInit {
 
   volverALista(): void {
     this.router.navigate(['/vecinos/ver-vecinos']);
+  }
+
+  openFileModal(adjuntos: ComentarioAdjunto[]): void {
+    this.selectedAdjuntos = adjuntos;
+    this.currentAdjuntoIndex = 0;
+    this.isModalOpen = true;
+  }
+
+  closeFileModal(): void {
+    this.isModalOpen = false;
+    this.selectedAdjuntos = [];
+    this.currentAdjuntoIndex = 0;
+  }
+
+  get currentAdjunto(): ComentarioAdjunto | null {
+    if (this.selectedAdjuntos.length > 0) {
+      return this.selectedAdjuntos[this.currentAdjuntoIndex];
+    }
+    return null;
+  }
+
+  selectAdjunto(index: number): void {
+    if (index >= 0 && index < this.selectedAdjuntos.length) {
+      this.currentAdjuntoIndex = index;
+    }
   }
 
   getInfoFields(): InfoField[] {

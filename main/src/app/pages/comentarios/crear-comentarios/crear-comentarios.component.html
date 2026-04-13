@@ -79,6 +79,77 @@
                     <p class="form-hint">Si tu comentario se refiere a un vecino específico, selecciónalo aquí</p>
                 </div>
 
+                <div class="form-group">
+                    <label>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.82227 13.5015L13.9996 8.2002" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10.667 4.00008L5.05767 9.72408C4.80771 9.97412 4.66729 10.3132 4.66729 10.6667C4.66729 11.0203 4.80771 11.3594 5.05767 11.6094C5.30771 11.8594 5.64679 11.9998 6.00034 11.9998C6.35389 11.9998 6.69297 11.8594 6.94301 11.6094L12.5523 5.88541C13.0523 5.38534 13.3331 4.70719 13.3331 4.00008C13.3331 3.29298 13.0523 2.61482 12.5523 2.11475C12.0523 1.61483 11.3741 1.33398 10.667 1.33398C9.9599 1.33398 9.28175 1.61483 8.78167 2.11475L3.17167 7.83808C2.42146 8.58829 2 9.60579 2 10.6667C2 11.7277 2.42146 12.7452 3.17167 13.4954C3.92188 14.2456 4.93938 14.6671 6.00034 14.6671C7.06129 14.6671 8.0788 14.2456 8.82901 13.4954" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        Adjuntar archivo (Opcional)
+                    </label>
+                    <input
+                        #fileInput
+                        type="file"
+                        multiple
+                        accept=".pdf,.jpg,.jpeg,.png,.heic,.mov,.mp4,"
+                        (change)="onFilesSelected($event)"
+                        class="file-input"
+                        hidden
+                    />
+                    <div class="file-upload">
+                        <div class="file-upload-buttons">
+                            <button type="button" class="file-upload-button" (click)="fileInput.click()">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8.82227 13.5015L13.9996 8.2002" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M10.667 4.00008L5.05767 9.72408C4.80771 9.97412 4.66729 10.3132 4.66729 10.6667C4.66729 11.0203 4.80771 11.3594 5.05767 11.6094C5.30771 11.8594 5.64679 11.9998 6.00034 11.9998C6.35389 11.9998 6.69297 11.8594 6.94301 11.6094L12.5523 5.88541C13.0523 5.38534 13.3331 4.70719 13.3331 4.00008C13.3331 3.29298 13.0523 2.61482 12.5523 2.11475C12.0523 1.61483 11.3741 1.33398 10.667 1.33398C9.9599 1.33398 9.28175 1.61483 8.78167 2.11475L3.17167 7.83808C2.42146 8.58829 2 9.60579 2 10.6667C2 11.7277 2.42146 12.7452 3.17167 13.4954C3.92188 14.2456 4.93938 14.6671 6.00034 14.6671C7.06129 14.6671 8.0788 14.2456 8.82901 13.4954" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Seleccionar archivos
+                            </button>
+                            <button 
+                                *ngIf="selectedFiles.length > 0"
+                                type="button" 
+                                class="file-remove-all-button" 
+                                (click)="removeFiles()"
+                                title="Eliminar todos los archivos"
+                                aria-label="Eliminar todos los archivos seleccionados">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 4H14M12.6667 4V13.3333C12.6667 13.6869 12.5357 14.0261 12.3095 14.2856C12.0834 14.545 11.7754 14.6667 11.4545 14.6667H4.54545C4.22464 14.6667 3.91656 14.545 3.69047 14.2856C3.46438 14.0261 3.33333 13.6869 3.33333 13.3333V4M5.33333 4V2.66667C5.33333 2.47492 5.40714 2.29112 5.53809 2.15408C5.66905 2.01705 5.85181 1.93333 6.04545 1.93333H9.95455C10.1482 1.93333 10.3309 2.01705 10.4619 2.15408C10.5929 2.29112 10.6667 2.47492 10.6667 2.66667V4" stroke="#DC2626" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Limpiar todo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- File List -->
+                    <div *ngIf="selectedFiles.length > 0" class="file-list">
+                        <div *ngFor="let file of selectedFiles; let i = index" class="file-item">
+                            <div class="file-info">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V9L13 2Z" stroke="#1268C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M13 2V9H20" stroke="#1268C4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <div class="file-details">
+                                    <p class="file-name">{{ file.name }}</p>
+                                    <p class="file-size">{{ formatFileSize(file.size) }}</p>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="file-item-remove"
+                                (click)="removeFile(i)"
+                                title="Eliminar archivo"
+                                aria-label="Eliminar archivo">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 4L4 12M4 4L12 12" stroke="#DC2626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="form-hint">Formatos aceptados: PDF, JPG, JPEG, PNG, HEIC, MOV, MP4 (Máx. 5 archivos)</p>
+                </div>
+
                 <!-- Info Box -->
                 <div class="info-box">
                     <div class="info-icon">

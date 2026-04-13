@@ -45,15 +45,14 @@ export class CrearAnuncioComponent implements OnInit {
       const usuarioId = localStorage.getItem('id') || '';
       const { asunto, descripcion } = this.anuncioForm.value;
 
-      const anuncioData: Comentario = {
-        asunto: asunto,
-        descripcion: descripcion,
-        tipo: 'Anuncio',
-        usuarioId: usuarioId,
-        usuarioLigado: null
-      };
+      const formData = new FormData();
+      formData.append('asunto', asunto);
+      formData.append('descripcion', descripcion);
+      formData.append('tipo', 'Anuncio');
+      formData.append('usuarioId', usuarioId);
+      formData.append('usuarioLigado', '');
 
-      this.comentarioService.addComentario(anuncioData).subscribe({
+      this.comentarioService.addComentario(formData).subscribe({
         next: (res) => {
           alert('Anuncio publicado exitosamente');
           this.router.navigate(['/anuncios/admin']);

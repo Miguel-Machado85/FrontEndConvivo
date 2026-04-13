@@ -37,7 +37,7 @@ export const EspaciosRoutes: Routes = [
                 loadComponent: () => import('./editarEspacioAdmin/editarEspacioAdmin.component').then(m => m.EditarEspacioAdminComponent),
                 canActivate: [roleGuard],
                 data: { role: 'administrador' }
-            }
+            },
         ]
     }
 ];
