@@ -15,7 +15,6 @@
         </div>
         <div class="comentarios-section">
             <h2>Mis Comentarios</h2>
-            <!-- Comentario de ejemplo -->
             <div class="comentario-card" *ngFor="let comentario of comentarios">
                 <div class="card-top">
                     <div class="comentario-info">
@@ -31,19 +30,6 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <!-- <div class="footer-item">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_342_38)">
-                                <path d="M8 4V8L10.6667 9.33333" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M8.00065 14.6668C11.6826 14.6668 14.6673 11.6821 14.6673 8.00016C14.6673 4.31826 11.6826 1.3335 8.00065 1.3335C4.31875 1.3335 1.33398 4.31826 1.33398 8.00016C1.33398 11.6821 4.31875 14.6668 8.00065 14.6668Z" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_342_38">
-                                    <rect width="16" height="16" fill="white"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
-                    </div> -->
                     <div class="footer-item">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12.6673 14V12.6667C12.6673 11.9594 12.3864 11.2811 11.8863 10.781C11.3862 10.281 10.7079 10 10.0007 10H6.00065C5.29341 10 4.61513 10.281 4.11503 10.781C3.61494 11.2811 3.33398 11.9594 3.33398 12.6667V14" stroke="#6A7282" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
@@ -51,7 +37,68 @@
                         </svg>
                         <span>Relacionado: {{comentario.usuarioLigado?.nombreCompleto}}</span>
                     </div>
+                    <div class="footer-item footer-action" *ngIf="comentario.adjuntos && comentario.adjuntos.length > 0">
+                        <button type="button" class="view-attachment-btn" aria-label="Ver archivo adjunto del comentario" (click)="openFileModal(comentario.adjuntos)">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.82227 13.5015L13.9996 8.2002" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10.667 4.00008L5.05767 9.72408C4.80771 9.97412 4.66729 10.3132 4.66729 10.6667C4.66729 11.0203 4.80771 11.3594 5.05767 11.6094C5.30771 11.8594 5.64679 11.9998 6.00034 11.9998C6.35389 11.9998 6.69297 11.8594 6.94301 11.6094L12.5523 5.88541C13.0523 5.38534 13.3331 4.70719 13.3331 4.00008C13.3331 3.29298 13.0523 2.61482 12.5523 2.11475C12.0523 1.61483 11.3741 1.33398 10.667 1.33398C9.9599 1.33398 9.28175 1.61483 8.78167 2.11475L3.17167 7.83808C2.42146 8.58829 2 9.60579 2 10.6667C2 11.7277 2.42146 12.7452 3.17167 13.4954C3.92188 14.2456 4.93938 14.6671 6.00034 14.6671C7.06129 14.6671 8.0788 14.2456 8.82901 13.4954" stroke="#0A0A0A" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Ver archivo{{ comentario.adjuntos.length > 1 ? 's' : '' }} adjunto{{ comentario.adjuntos.length > 1 ? 's' : '' }}
+                        </button>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ver archivo -->
+    <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeFileModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h3>Archivo adjunto</h3>
+                <button type="button" class="modal-close-btn" (click)="closeFileModal()" aria-label="Cerrar modal">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 5L5 15M5 5L15 15" stroke="#364153" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="currentAdjunto" class="file-section">
+                    <div class="file-icon-container">
+                        <div class="file-icon">
+                            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22.5 3H9C8.20435 3 7.44129 3.31607 6.87868 3.87868C6.31607 4.44129 6 5.20435 6 6V30C6 30.7956 6.31607 31.5587 6.87868 32.1213C7.44129 32.6839 8.20435 33 9 33H27C27.7956 33 28.5587 32.6839 29.1213 32.1213C29.6839 31.5587 30 30.7956 30 30V10.5L22.5 3Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 3V9C21 9.79565 21.3161 10.5587 21.8787 11.1213C22.4413 11.6839 23.2044 12 24 12H30" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M15 13.5H12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 19.5H12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M24 25.5H12" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="file-info">
+                        <p class="file-name">{{ currentAdjunto.nombre_original }}</p>
+                        <p class="file-description">Archivo adjunto al comentario</p>
+                    </div>
+                    
+                    <!-- Lista de archivos si hay múltiples -->
+                    <div *ngIf="selectedAdjuntos.length > 1" class="file-list">
+                        <p class="file-list-title">Archivos adjuntos:</p>
+                        <div class="file-items">
+                            <button type="button" *ngFor="let adjunto of selectedAdjuntos; let i = index" 
+                                    (click)="selectAdjunto(i)" 
+                                    [class.active]="i === currentAdjuntoIndex"
+                                    class="file-item-btn">
+                                {{ adjunto.nombre_original }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a [href]="'http://localhost:3000' + currentAdjunto?.url" target="_blank" class="download-button">
+                    <mat-icon>open_in_new</mat-icon>
+                    Ver archivo
+                </a>
             </div>
         </div>
     </div>

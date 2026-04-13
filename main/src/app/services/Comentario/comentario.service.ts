@@ -11,13 +11,19 @@ export class ComentarioService {
 
   constructor(private http: HttpClient) { }
 
-  addComentario(comentario: Comentario): Observable<any> {
+  addComentario(comentario: Comentario): Observable<any>;
+  addComentario(formData: FormData): Observable<any>;
+  addComentario(payload: Comentario | FormData): Observable<any> {
     const endpoint = `${this.api_url}/create`;
-    const headers = {
-      'Content-Type': "application/json",
+    const headers: { [key: string]: string } = {
       'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
     };
-    return this.http.post(endpoint, comentario, {headers});
+
+    if (!(payload instanceof FormData)) {
+      headers['Content-Type'] = 'application/json';
+    }
+
+    return this.http.post(endpoint, payload, { headers });
   }
 
   getComentario(id: string): Observable<Comentario> {
