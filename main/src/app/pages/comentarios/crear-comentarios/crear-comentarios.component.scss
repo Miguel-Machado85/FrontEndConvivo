@@ -150,6 +150,219 @@
     }
   }
 
+  .file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    min-height: 40px;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .file-upload-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #717182;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .file-upload-button {
+    min-width: 160px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 1px solid #d0dce6;
+    background-color: #ffffff;
+    color: #364153;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .file-upload-button:hover {
+    background-color: #f9fafb;
+  }
+
+  .file-upload-button:active {
+    background-color: #f3f3f5;
+  }
+
+  .file-upload-buttons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .file-remove-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    background-color: #fef2f2;
+    color: #dc2626;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .file-remove-button:hover {
+    background-color: #fee2e2;
+    border-color: #fca5a5;
+  }
+
+  .file-remove-button:active {
+    background-color: #fecaca;
+  }
+
+  .file-remove-all-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    background-color: #fef2f2;
+    color: #dc2626;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    gap: 6px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .file-remove-all-button:hover {
+    background-color: #fee2e2;
+    border-color: #fca5a5;
+  }
+
+  .file-remove-all-button:active {
+    background-color: #fecaca;
+  }
+
+  .file-list {
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #f9fafb;
+    border: 1px solid #e4e7eb;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background-color: white;
+    border: 1px solid #d0dce6;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #b8c6d4;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+
+    svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: #1268c4;
+    }
+  }
+
+  .file-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    flex: 1;
+
+    .file-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #101828;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-size {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: #6a7282;
+      margin: 0;
+    }
+  }
+
+  .file-item-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    margin-left: 8px;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+    background-color: transparent;
+    color: #dc2626;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    &:hover {
+      background-color: #fef2f2;
+      border-color: #fca5a5;
+    }
+
+    &:active {
+      background-color: #fee2e2;
+    }
+  }
+
   .form-textarea {
     resize: vertical;
     min-height: 100px;

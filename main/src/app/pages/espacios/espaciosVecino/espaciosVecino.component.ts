@@ -234,7 +234,7 @@ export class EspaciosVecinoComponent implements OnInit {
 
     this.reservaService.createReserva(reservaData).subscribe({
       next: (res) => {
-        alert('Reserva creada con éxito');
+        alert('Reserva creada con éxito. Pronto recibirás un correo para confirmarla.');
         this.router.navigate(['/menu/vecino']);
       },
       error: (err) => {
