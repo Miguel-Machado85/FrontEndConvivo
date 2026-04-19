@@ -1,0 +1,157 @@
+<div class="detalle-pago-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading" style="min-height: 400px; display: flex; align-items: center; justify-content: center;">
+    <p>Cargando detalle de pago...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!isLoading && !pago" class="empty-state" style="min-height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    <p>No se pudo cargar el pago</p>
+    <button class="btn btn-primary" (click)="volverLista()">Volver a la lista</button>
+  </div>
+
+  <!-- Content (shows only when pago is loaded) -->
+  <ng-container *ngIf="pago && !isLoading">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-top">
+      <button class="btn-back" (click)="volverLista()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12l4.58-4.59z" fill="currentColor"/>
+        </svg>
+      </button>
+      <div class="header-info">
+        <h1>{{ pago.descripcion }}</h1>
+        <p class="header-subtitle">
+          <span class="monto-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+            </svg>
+            {{ formatCurrency(pago.monto) }} por residente
+          </span>
+          <span class="fecha-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="currentColor"/>
+            </svg>
+            Vence: {{ formatDate(pago.fechaDebida) }}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid" *ngIf="pago">
+    <!-- Pagos Recibidos -->
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Pagos Recibidos</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor" class="icon-paid"/>
+        </svg>
+      </div>
+      <p class="stat-main">{{ getPagadosCount() }}</p>
+      <p class="stat-detail">{{ formatCurrency(getMontoRecaudado()) }} recaudados</p>
+    </div>
+
+    <!-- Pendientes -->
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Pendientes</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-.5-13H11v6l5.2 3.2.9-1.5-4.6-2.7z" fill="currentColor" class="icon-time"/>
+        </svg>
+      </div>
+      <p class="stat-main">{{ (pago?.totalCount || 0) - getPagadosCount() }}</p>
+      <p class="stat-detail">{{ formatCurrency(getMontoPendiente()) }} por recaudar</p>
+    </div>
+
+    <!-- Progreso -->
+    <div class="stat-card">
+      <div class="stat-header">
+        <span class="stat-label">Progreso</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor" class="icon-progress"/>
+        </svg>
+      </div>
+      <p class="stat-main">{{ getProgress() }}%</p>
+      <p class="stat-detail">{{ getPagadosCount() }} de {{ pago?.totalCount || 0 }} residentes</p>
+    </div>
+  </div>
+
+  <!-- Search and Filters -->
+  <div class="search-filter-section">
+    <div class="search-box">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+      </svg>
+      <input
+        type="text"
+        placeholder="Buscar residente o apartamento..."
+        (keyup)="applyFilters()"
+        [(ngModel)]="searchText"
+        class="search-input"
+      >
+    </div>
+
+    <div class="filter-tabs">
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'todos'"
+        (click)="setFiltro('todos')"
+      >
+        Todos ({{ pago.totalCount }})
+      </button>
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'pagados'"
+        (click)="setFiltro('pagados')"
+      >
+        Pagados ({{ getPagadosCount() }})
+      </button>
+      <button
+        class="filter-tab"
+        [class.active]="filtroSeleccionado === 'pendientes'"
+        (click)="setFiltro('pendientes')"
+      >
+        Pendientes ({{ (pago?.totalCount || 0) - getPagadosCount() }})
+      </button>
+    </div>
+  </div>
+
+  <!-- Residents Table -->
+  <div class="table-section">
+    <table class="residents-table" *ngIf="detallesFiltrados.length > 0">
+      <thead>
+        <tr>
+          <th>Residente</th>
+          <th>Apartamento</th>
+          <th>Estado</th>
+          <th>Fecha de Pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detalle of detallesFiltrados">
+          <td>{{ detalle.usuarioId?.nombreCompleto || 'Sin nombre' }}</td>
+          <td>{{ detalle.usuarioId?.numeroApartamento || '-' }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [class.__paid]="detalle.estado === 'Paid'"
+              [class.__pending]="detalle.estado === 'Pending'"
+              [class.__overdue]="detalle.estado === 'Overdue'"
+            >
+              {{ getStatusBadge(detalle).text }}
+            </span>
+          </td>
+          <td>{{ formatDate(detalle.fechaPago) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="empty-results" *ngIf="detallesFiltrados.length === 0">
+      <p>No hay resultados para los filtros seleccionados</p>
+    </div>
+  </div>
+  </ng-container><!-- End ng-container wrapper -->
+</div>

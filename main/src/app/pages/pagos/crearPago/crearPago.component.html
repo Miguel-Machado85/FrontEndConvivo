@@ -1,0 +1,119 @@
+<div class="crear-pago-container">
+  <div class="form-header">
+    <div class="header-content">
+      <button class="back-btn" type="button" (click)="volverLista()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="#1268C4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="header-text">
+        <h1 class="title">Crear Nuevo Cargo</h1>
+        <p class="subtitle">Define el cargo que se aplicará a todos los residentes</p>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="pagoForm" class="pago-form" (ngSubmit)="createPago()">
+    <div class="form-card">
+      <!-- Nombre del Cargo / Descripción -->
+      <div class="form-section">
+        <div class="field-header">
+          <svg class="field-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm0 18c-4.419 0-8-3.581-8-8s3.581-8 8-8 8 3.581 8 8-3.581 8-8 8z"/>
+          </svg>
+          <label class="field-label">Nombre del Cargo *</label>
+        </div>
+        <input
+          type="text"
+          class="form-input"
+          placeholder="Ej: Administración Abril 2026"
+          formControlName="descripcion"
+        >
+        <mat-error *ngIf="f.descripcion.errors?.['required'] && f.descripcion.touched">
+          Ingrese el nombre del cargo
+        </mat-error>
+        <mat-error *ngIf="f.descripcion.errors?.['minlength'] && f.descripcion.touched">
+          Nombre de cargo demasiado corto
+        </mat-error>
+        <p class="field-help">Un nombre descriptivo que identifique el cargo</p>
+      </div>
+
+      <!-- Monto -->
+      <div class="form-section">
+        <div class="field-header">
+          <svg class="field-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm0 18c-4.419 0-8-3.581-8-8s3.581-8 8-8 8 3.581 8 8-3.581 8-8 8z"/>
+          </svg>
+          <label class="field-label">Monto *</label>
+        </div>
+        <div class="monto-input-wrapper">
+          <span class="currency-symbol">$</span>
+          <input
+            type="number"
+            class="form-input monto-input"
+            placeholder="150000"
+            formControlName="monto"
+          >
+        </div>
+        <mat-error *ngIf="f.monto.errors?.['required'] && f.monto.touched">
+          Ingrese el monto del cargo
+        </mat-error>
+        <mat-error *ngIf="f.monto.errors?.['min'] && f.monto.touched">
+          El monto debe ser mayor a 0
+        </mat-error>
+        <p class="field-help">El monto que cada residente debe pagar (en pesos colombianos)</p>
+      </div>
+
+      <!-- Fecha de Vencimiento -->
+      <div class="form-section">
+        <div class="field-header">
+          <svg class="field-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M16 2h-2V0h-2v2H8V0H6v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H4V7h12v9z"/>
+          </svg>
+          <label class="field-label">Fecha de Vencimiento *</label>
+        </div>
+        <input
+          type="date"
+          class="form-input"
+          formControlName="fechaDebida"
+        >
+        <mat-error *ngIf="f.fechaDebida.errors?.['required'] && f.fechaDebida.touched">
+          Ingrese la fecha de vencimiento
+        </mat-error>
+        <mat-error *ngIf="f.fechaDebida.errors?.['fechaMinima'] && f.fechaDebida.touched">
+          La fecha no puede ser anterior a hoy
+        </mat-error>
+        <p class="field-help">Fecha límite para que los residentes realicen el pago</p>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zm0 18c-4.419 0-8-3.581-8-8s3.581-8 8-8 8 3.581 8 8-3.581 8-8 8zm0-13c-.553 0-1 .447-1 1s.447 1 1 1 1-.447 1-1-.447-1-1-1zm1 7h-2v-5h2v5z"/>
+        </svg>
+        <p class="info-text">
+          <strong>Nota:</strong> Una vez creado el cargo, todos los residentes lo verán en su portal de pagos.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="this.pagoForm.invalid || isSubmitting"
+        >
+          {{ isSubmitting ? 'Creando...' : 'Crear Cargo' }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="volverLista()"
+          [disabled]="isSubmitting"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

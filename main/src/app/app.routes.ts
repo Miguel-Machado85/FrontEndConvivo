@@ -63,6 +63,17 @@ export const routes: Routes = [
     ]
   },
   {
+    path: 'pagos',
+    component: FullComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/pagos/pagos.routes').then((m) => m.PAGOS_ROUTES)
+      }
+    ]
+  },
+  {
     path: 'vecinos',
     component: FullComponent,
     children: [
