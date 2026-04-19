@@ -1,0 +1,144 @@
+<div class="pagos-admin-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <div>
+        <h1 class="page-title">Gestión de Pagos</h1>
+        <p class="page-subtitle">Administra los cobros de tu conjunto residencial</p>
+      </div>
+      <button class="btn btn-primary btn-lg" (click)="crearCargo()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 5v14m7-7H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Crear Cargo
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <!-- Total Recaudado -->
+    <div class="stat-card">
+      <div class="stat-icon success">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Total Recaudado</p>
+        <p class="stat-value">{{ formatCurrency(totalRecaudado) }}</p>
+      </div>
+    </div>
+
+    <!-- Pagos Pendientes -->
+    <div class="stat-card">
+      <div class="stat-icon warning">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Pagos Pendientes</p>
+        <p class="stat-value">{{ pagosPendientes }}</p>
+      </div>
+    </div>
+
+    <!-- Total Cargos -->
+    <div class="stat-card">
+      <div class="stat-icon info">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="32" width="32">
+            <g id="Attach-Money">
+                <path id="Union" fill="currentColor" d="M13 5.12598C14.7252 5.57002 16 7.13616 16 9h-2c0 -1.10457 -0.8954 -2 -2 -2s-2 0.89543 -2 2c0 0.73733 0.2422 1.0721 0.5479 1.3076 0.3932 0.303 0.9552 0.4904 1.749 0.7373 0.706 0.2197 1.6443 0.4989 2.376 1.0625C15.4922 12.7386 16 13.6708 16 15c0 1.8638 -1.2748 3.43 -3 3.874V21h-2v-2.126C9.27477 18.43 8 16.8638 8 15h2c0 1.1046 0.8954 2 2 2s2 -0.8954 2 -2c0 -0.7373 -0.2422 -1.0721 -0.5479 -1.3076 -0.3932 -0.303 -0.9552 -0.4904 -1.749 -0.7373 -0.706 -0.2197 -1.6443 -0.4989 -2.37595 -1.0625C8.50781 11.2614 8 10.3292 8 9c0 -1.86384 1.27477 -3.42998 3 -3.87402V3h2z" stroke-width="1"></path>
+            </g>
+        </svg>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Total Cargos</p>
+        <p class="stat-value">{{ totalCargos }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagos List -->
+  <div class="pagos-section">
+    <h2 class="section-title">Todos los Cargos</h2>
+
+    <div *ngIf="isLoading" class="loading">
+      <p>Cargando pagos...</p>
+    </div>
+
+    <div *ngIf="!isLoading && pagos.length === 0" class="empty-state">
+      <p>No hay cargos creados aún</p>
+      <button class="btn btn-primary" (click)="crearCargo()">Crear Primer Cargo</button>
+    </div>
+
+    <div *ngIf="!isLoading && pagos.length > 0" class="pagos-list">
+      <div *ngFor="let pago of pagos" class="pago-card">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="header-title">
+            <h3>{{ pago.descripcion }}</h3>
+            <div class="status-badge" [ngClass]="'badge-' + getStatusBadge(pago).color">
+              {{ getStatusBadge(pago).text }}
+            </div>
+            <a href="javascript:void(0)" class="ver-detalle-link" (click)="verDetalle(pago._id || '')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+              </svg>
+              Ver Detalle
+            </a>
+          </div>
+        </div>
+
+        <!-- Card Details -->
+        <div class="card-details">
+          <div class="detail-item">
+            <span class="detail-icon">$</span>
+            <span class="detail-content">{{ formatCurrency(pago.monto) }}</span>
+          </div>
+          <div class="detail-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" fill="currentColor"/>
+            </svg>
+            <span class="detail-content">Vence: {{ formatDate(pago.fechaDebida) }}</span>
+          </div>
+          <div class="detail-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.5 1.1 2.5 2.05 2.5 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="currentColor"/>
+            </svg>
+            <span class="detail-content">{{ pago.totalCount }} residentes</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Progreso de pagos</span>
+            <span class="progress-count">{{ pago.pagadosCount }} / {{ pago.totalCount }}</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="pago.porcentajePagados"></div>
+            </div>
+          </div>
+          <div class="progress-stats">
+            <div class="stat-paid">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+              </svg>
+              <span>{{ pago.pagadosCount }} pagados</span>
+            </div>
+            <div class="stat-pending">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/>
+              </svg>
+              <span>{{ pago.totalCount - pago.pagadosCount }} pendientes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
