@@ -6,6 +6,7 @@ export const navItemsAdmin: NavItemAdmin[] = [
   { displayName: 'Mi Perfil', iconName: 'solar:user-line-duotone', route: '/perfil/admin' },
   { displayName: 'Espacios Comunes', iconName: 'teenyicons:pin-outline', route: '/espacios/list' },
   { displayName: 'Mis Vecinos', iconName: 'solar:users-group-two-rounded-line-duotone', route: '/vecinos/ver-vecinos' },
+  { displayName: 'Pagos', iconName: 'solar:dollar-minimalistic-linear', route: '/pagos/list'},
   { displayName: 'Anuncios del conjunto', iconName: 'ri:news-line', route: '/anuncios/admin' },
   { displayName: 'Reportes', iconName: 'solar:chart-line-duotone', route: '/admin-dashboard/reportes' },
 ];
