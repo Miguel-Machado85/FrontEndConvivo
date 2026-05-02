@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MaterialModule } from 'src/app/material.module';
 import { PagoService } from 'src/app/services/Pago/pago.service';
 import { MiPago, EstadoPago } from 'src/app/models/pago.model';
+import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/stripe-js';
 
 /**
  * Payment Confirmation Dialog Component
@@ -56,9 +57,16 @@ import { MiPago, EstadoPago } from 'src/app/models/pago.model';
           </div>
         </div>
 
+         <!-- Stripe Card Element -->
+        <div class="stripe-element-wrapper">
+          <label for="card-element">Información de la Tarjeta</label>
+          <div id="card-element"></div>
+          <div id="card-errors"></div>
+        </div>
+
         <!-- Note -->
         <div class="note-section">
-          <p><strong>Nota:</strong> Esta es una simulación de pago. En producción, aquí se integraría con una pasarela de pagos real.</p>
+          <p><strong>Nota:</strong> Tu información de tarjeta es procesada de forma segura por Stripe. Los datos nunca se guardan en nuestros servidores.</p>
         </div>
       </div>
 
@@ -226,6 +234,33 @@ import { MiPago, EstadoPago } from 'src/app/models/pago.model';
       }
     }
 
+    .stripe-element-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0;
+
+      label {
+        font-size: 12px;
+        font-weight: 500;
+        color: #0a0a0a;
+      }
+
+      #card-element {
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        padding: 12px;
+        background-color: white;
+        font-size: 14px;
+      }
+
+      #card-errors {
+        color: #fa755a;
+        font-size: 11px;
+        min-height: 16px;
+      }
+    }
+
     .dialog-actions {
       display: flex;
       gap: 8px;
@@ -338,14 +373,92 @@ import { MiPago, EstadoPago } from 'src/app/models/pago.model';
     }
   `]
 })
-export class PaymentConfirmationDialogComponent {
+export class PaymentConfirmationDialogComponent implements AfterViewInit {
   isProcessing = false;
+  stripe: Stripe | null = null;
+  elements: StripeElements | null = null;
+  cardElement: StripeCardElement | null = null;
+  paymentIntentId: string | null = null;
+  clientSecret: string | null = null;
+  error: string | null = null;
+
+  @ViewChild('cardElement', { static: false }) cardElementRef!: ElementRef;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public pago: MiPago,
     private dialogRef: MatDialogRef<PaymentConfirmationDialogComponent>,
     private pagoService: PagoService
   ) {}
+
+  async ngAfterViewInit() {
+    // Create PaymentIntent first; backend will return publishableKey; initialize Stripe with it.
+    this.createPaymentIntent();
+  }
+
+  /**
+   * Initialize Stripe and create card element
+   */
+  private async initializeStripe(stripePublicKey?: string): Promise<void> {
+    const publicKey = stripePublicKey || 'pk_test_51TSB1R6XKgXrj6I0bDndhbSPdklH7LqJbUQKXrA4WK8QFAeWCBK7QH0z9FG3YL3Wh2QSdPaGN5R0l0rXu8dYUuHj00VdOzqtZW';
+    this.stripe = await loadStripe(publicKey);
+    
+    if (!this.stripe) {
+      this.error = 'No se pudo cargar Stripe. Por favor, intenta de nuevo.';
+      return;
+    }
+
+    this.elements = this.stripe.elements();
+    this.cardElement = this.elements?.create('card', {
+      style: {
+        base: {
+          color: '#32325d',
+          fontFamily: 'Segoe UI, sans-serif',
+          fontSmoothing: 'antialiased',
+          fontSize: '14px',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#fa755a',
+          iconColor: '#fa755a'
+        }
+      }
+    });
+
+    if (this.cardElement) {
+      this.cardElement.mount('#card-element');
+      this.cardElement.on('change', (event: any) => {
+        const displayError = document.getElementById('card-errors');
+        if (event.error) {
+          displayError && (displayError.textContent = event.error.message);
+          this.error = event.error.message;
+        } else {
+          displayError && (displayError.textContent = '');
+          this.error = null;
+        }
+      });
+    }
+  }
+
+  /**
+   * Create PaymentIntent on backend and initialize Stripe with returned publishable key
+   */
+  private createPaymentIntent(): void {
+    this.pagoService.createPaymentIntent(this.pago.pagoId).subscribe({
+      next: (response) => {
+        this.paymentIntentId = response.paymentIntentId;
+        this.clientSecret = response.clientSecret;
+        const publishableKey = response.publishableKey || undefined;
+        // Initialize Stripe only after getting publishable key
+        this.initializeStripe(publishableKey);
+      },
+      error: (err) => {
+        console.error('Error creating payment intent:', err);
+        this.error = 'Error al crear la intención de pago. Por favor, intenta de nuevo.';
+      }
+    });
+  }
 
   formatCurrency(value: number): string {
     return new Intl.NumberFormat('es-CO', {
@@ -377,19 +490,59 @@ export class PaymentConfirmationDialogComponent {
     }).format(dateObj);
   }
 
-  onConfirm(): void {
+  async onConfirm(): Promise<void> {
+    if (!this.stripe || !this.cardElement || !this.clientSecret) {
+      this.error = 'Stripe no está correctamente inicializado.';
+      return;
+    }
+
     this.isProcessing = true;
-    this.pagoService.pagarSimulado(this.pago.pagoId).subscribe({
-      next: () => {
+    this.error = null;
+
+    try {
+      // Confirm card payment with Stripe
+      const { error, paymentIntent } = await this.stripe.confirmCardPayment(
+        this.clientSecret,
+        {
+          payment_method: {
+            card: this.cardElement
+          }
+        }
+      );
+
+      if (error) {
+        this.error = error.message || 'El pago fue rechazado.';
         this.isProcessing = false;
-        this.dialogRef.close(true);
-      },
-      error: (err) => {
-        console.error('Error procesando pago:', err);
-        this.isProcessing = false;
-        alert('Error al procesar el pago. Por favor, intenta de nuevo.');
+        return;
       }
-    });
+
+      if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment succeeded on Stripe side - now confirm on backend
+        const paymentIntentId = this.paymentIntentId!;
+        this.pagoService.confirmPayment(this.pago.pagoId, paymentIntentId).subscribe({
+          next: () => {
+            this.isProcessing = false;
+            this.dialogRef.close(true);
+          },
+          error: (err) => {
+            console.error('Error confirming payment on backend:', err);
+            this.error = 'El pago fue procesado pero hubo un error al actualizar la información. Por favor contacta al soporte.';
+            this.isProcessing = false;
+          }
+        });
+      } else if (paymentIntent && paymentIntent.status === 'requires_action') {
+        // 3D Secure or other authentication required
+        this.error = 'Tu banco requiere verificación adicional. Por favor completa el proceso.';
+        this.isProcessing = false;
+      } else {
+        this.error = 'Estado de pago inesperado. Por favor intenta de nuevo.';
+        this.isProcessing = false;
+      }
+    } catch (err: any) {
+      console.error('Payment error:', err);
+      this.error = err.message || 'Ocurrió un error al procesar el pago.';
+      this.isProcessing = false;
+    }
   }
 
   onCancel(): void {

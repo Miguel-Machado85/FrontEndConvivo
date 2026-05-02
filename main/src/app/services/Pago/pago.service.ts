@@ -72,4 +72,29 @@ export class PagoService {
     };
     return this.http.patch<Payment>(endpoint, body, { headers });
   }
+
+  /**
+   * Create a PaymentIntent for Stripe payment
+   */
+  createPaymentIntent(pagoId: string): Observable<any> {
+    const endpoint = `${this.api_url}/${pagoId}/create-payment-intent`;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.post<any>(endpoint, {}, { headers });
+  }
+
+  /**
+   * Confirm a payment with Stripe PaymentIntent
+   */
+  confirmPayment(pagoId: string, paymentIntentId: string): Observable<Payment> {
+    const endpoint = `${this.api_url}/${pagoId}/confirm-payment`;
+    const body = { paymentIntentId };
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    };
+    return this.http.patch<Payment>(endpoint, body, { headers });
+  }
 }

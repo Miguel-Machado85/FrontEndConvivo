@@ -23,6 +23,7 @@
     "@ng-matero/extensions": "^17.0.0",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@stripe/stripe-js": "^3.0.0",
     "angular-tabler-icons": "^3.26.0",
     "apexcharts": "^4.7.0",
     "iconify": "^1.4.0",
