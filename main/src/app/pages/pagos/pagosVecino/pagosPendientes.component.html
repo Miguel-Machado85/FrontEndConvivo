@@ -1,0 +1,131 @@
+<div class="pagos-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Mis Pagos</h1>
+      <p class="page-subtitle">Consulta y paga tus cargos del conjunto residencial</p>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <!-- Por Pagar -->
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon warning">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Por Pagar</p>
+        <p class="stat-value">{{ formatCurrency(totalPendiente) }}</p>
+        <p class="stat-detail">{{ pagospendientes.length }} cargos</p>
+      </div>
+    </div>
+
+    <!-- Pagado -->
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Pagado</p>
+        <p class="stat-value">{{ formatCurrency(totalPagado) }}</p>
+        <p class="stat-detail">{{ pagosHistorial.length }} cargos</p>
+      </div>
+    </div>
+
+    <!-- Total Cargos -->
+    <div class="stat-card">
+      <div class="stat-top">
+        <div class="stat-icon info">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="32" width="32">
+            <g id="Attach-Money">
+              <path id="Union" fill="currentColor" d="M13 5.12598C14.7252 5.57002 16 7.13616 16 9h-2c0 -1.10457 -0.8954 -2 -2 -2s-2 0.89543 -2 2c0 0.73733 0.2422 1.0721 0.5479 1.3076 0.3932 0.303 0.9552 0.4904 1.749 0.7373 0.706 0.2197 1.6443 0.4989 2.376 1.0625C15.4922 12.7386 16 13.6708 16 15c0 1.8638 -1.2748 3.43 -3 3.874V21h-2v-2.126C9.27477 18.43 8 16.8638 8 15h2c0 1.1046 0.8954 2 2 2s2 -0.8954 2 -2c0 -0.7373 -0.2422 -1.0721 -0.5479 -1.3076 -0.3932 -0.303 -0.9552 -0.4904 -1.749 -0.7373 -0.706 -0.2197 -1.6443 -0.4989 -2.37595 -1.0625C8.50781 11.2614 8 10.3292 8 9c0 -1.86384 1.27477 -3.42998 3 -3.87402V3h2z" stroke-width="1"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="stat-content">
+        <p class="stat-label">Total Cargos</p>
+        <p class="stat-value">{{ misPagos.length }}</p>
+        <p class="stat-detail">Este período</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Cargando pagos...</p>
+  </div>
+
+  <!-- Cargos Pendientes Section -->
+  <div *ngIf="!isLoading" class="section-cargos-pendientes">
+    <div class="section-header">
+      <h2 class="section-title">Cargos Pendientes</h2>
+      <div *ngIf="getOverdueCount() > 0" class="overdue-badge">
+        ⏰ {{ getOverdueCount() }} vencido(s)
+      </div>
+    </div>
+
+    <div *ngIf="pagospendientes.length === 0" class="empty-state">
+      <p>No tienes cargos pendientes</p>
+      <p class="empty-subtitle">¡Excelente! Todos tus pagos están al día</p>
+    </div>
+
+    <div *ngIf="pagospendientes.length > 0" class="cargos-grid">
+      <div *ngFor="let pago of pagospendientes" class="cargo-card" [class.overdue]="isOverdue(pago)">
+        <div class="cargo-header">
+          <h3 class="cargo-title">{{ pago.descripcion }}</h3>
+          <span *ngIf="isOverdue(pago)" class="cargo-badge vencido">Vencido</span>
+        </div>
+        <div class="cargo-amount">$ {{ formatCurrencySimple(pago.monto) }}</div>
+        <div class="cargo-due-date">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z" fill="currentColor"/>
+          </svg>
+          Vence: {{ formatDate(pago.fechaDebida) }}
+        </div>
+        <button class="cargo-btn" (click)="openPaymentDialog(pago)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M20 8H4V6h16m0 10H4v-2h16m0 6H4v-2h16m1-18H3c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V2c0-1.1-.9-2-2-2z" fill="currentColor"/>
+          </svg>
+          Pagar Ahora
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Historial de Pagos Section -->
+  <div *ngIf="!isLoading" class="section-historial">
+    <h2 class="section-title">Historial de Pagos</h2>
+
+    <div *ngIf="pagosHistorial.length === 0" class="empty-state">
+      <p>No hay historial de pagos</p>
+      <p class="empty-subtitle">Tus pagos completados aparecerán aquí</p>
+    </div>
+
+    <div *ngIf="pagosHistorial.length > 0" class="historial-list">
+      <div *ngFor="let pago of pagosHistorial" class="historial-item">
+        <div class="historial-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="historial-content">
+          <div class="historial-title">{{ pago.descripcion }}</div>
+          <div class="historial-date">Pagado el {{ formatDate(pago.fechaPago) }}</div>
+        </div>
+        <div class="historial-amount">$ {{ formatCurrencySimple(pago.montoReal || pago.monto) }}</div>
+        <div class="historial-status">Pagado</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,4 +17,8 @@ export class MenuVecinoComponent {
   goToReservar(): void {
     this.router.navigate(['/espacios/reservar']);
   }
+
+  goToPagos(): void {
+    this.router.navigate(['/pagos/mis-pendientes']);
+  }
 }
