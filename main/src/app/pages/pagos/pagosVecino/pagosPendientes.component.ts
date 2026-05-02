@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild, ElementRef, AfterViewInit } from 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MaterialModule } from 'src/app/material.module';
 import { PagoService } from 'src/app/services/Pago/pago.service';
 import { MiPago, EstadoPago } from 'src/app/models/pago.model';
@@ -13,7 +14,7 @@ import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/s
 @Component({
   selector: 'app-payment-confirmation-dialog',
   standalone: true,
-  imports: [CommonModule, MaterialModule, MatDialogModule],
+  imports: [CommonModule, MaterialModule, MatDialogModule, MatSnackBarModule],
   template: `
     <div class="confirmation-dialog">
       <!-- Header -->
@@ -68,6 +69,7 @@ import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/s
         <div class="note-section">
           <p><strong>Nota:</strong> Tu información de tarjeta es procesada de forma segura por Stripe. Los datos nunca se guardan en nuestros servidores.</p>
         </div>
+        <div *ngIf="error" class="error-message" style="background:#fee2e2;color:#b91c1c;padding:8px;border-radius:6px;margin-top:8px;">{{ error }}</div>
       </div>
 
       <!-- Actions -->
@@ -382,12 +384,43 @@ export class PaymentConfirmationDialogComponent implements AfterViewInit {
   clientSecret: string | null = null;
   error: string | null = null;
 
+  // Frontend translations for Stripe error messages (fallbacks)
+  private stripeErrorTranslations: { [key: string]: string } = {
+    'insufficient_funds': 'Tu tarjeta no tiene fondos suficientes.',
+    'your card has insufficient funds': 'Fondos insuficientes.',
+    'expired_card' : 'Tu tarjeta ha expirado. Intenta una diferente',
+    'card_declined': 'Tu tarjeta fue rechazada.',
+    'your card was declined': 'Tu tarjeta fue rechazada.',
+    'your card has expired': 'Tu tarjeta ha expirado.',
+    'incorrect_cvc': 'El código de seguridad (CVC) es incorrecto.',
+    'incorrect cvc': 'El código de seguridad (CVC) es incorrecto.',
+    'processing error': 'Error al procesar tu tarjeta. Por favor intenta de nuevo.',
+    'processing_error': 'Error al procesar tu tarjeta. Por favor intenta de nuevo.',
+    'authentication_required': 'Se requiere autenticación adicional.',
+    'do_not_honor': 'Tu banco rechazó el pago.',
+    'default': 'El pago fue rechazado.'
+  };
+
+  private translateStripeError(message: string | null | undefined): string {
+    if (!message) return 'Error al procesar el pago';
+    const lower = message.toLowerCase();
+    for (const key of Object.keys(this.stripeErrorTranslations)) {
+      if (key === 'default') continue;
+      if (lower.includes(key.toLowerCase())) {
+        return this.stripeErrorTranslations[key];
+      }
+    }
+    // Fallback: return original message (usually English) so user can see details
+    return message;
+  }
+
   @ViewChild('cardElement', { static: false }) cardElementRef!: ElementRef;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public pago: MiPago,
     private dialogRef: MatDialogRef<PaymentConfirmationDialogComponent>,
-    private pagoService: PagoService
+    private pagoService: PagoService,
+    private snackBar: MatSnackBar
   ) {}
 
   async ngAfterViewInit() {
@@ -511,7 +544,10 @@ export class PaymentConfirmationDialogComponent implements AfterViewInit {
       );
 
       if (error) {
-        this.error = error.message || 'El pago fue rechazado.';
+        const raw = (error as any)?.message || (error as any)?.code || (error as any)?.decline_code || null;
+        const translated = this.translateStripeError(raw);
+        this.error = translated;
+        this.snackBar.open(translated, 'Cerrar', { duration: 7000 });
         this.isProcessing = false;
         return;
       }
@@ -522,25 +558,38 @@ export class PaymentConfirmationDialogComponent implements AfterViewInit {
         this.pagoService.confirmPayment(this.pago.pagoId, paymentIntentId).subscribe({
           next: () => {
             this.isProcessing = false;
+            const successMsg = 'Pago realizado con éxito.';
+            this.snackBar.open(successMsg, 'Cerrar', { duration: 5000 });
             this.dialogRef.close(true);
           },
           error: (err) => {
             console.error('Error confirming payment on backend:', err);
-            this.error = 'El pago fue procesado pero hubo un error al actualizar la información. Por favor contacta al soporte.';
+            const backendErr = err?.error;
+            let message = 'El pago fue procesado pero hubo un error al actualizar la información. Por favor contacta al soporte.';
+            if (backendErr) {
+              if (typeof backendErr === 'string') message = backendErr;
+              else message = backendErr.stripeError || backendErr.error || backendErr.message || message;
+            }
+            this.error = message;
+            this.snackBar.open(message, 'Cerrar', { duration: 7000 });
             this.isProcessing = false;
           }
         });
       } else if (paymentIntent && paymentIntent.status === 'requires_action') {
         // 3D Secure or other authentication required
         this.error = 'Tu banco requiere verificación adicional. Por favor completa el proceso.';
+        this.snackBar.open(this.error, 'Cerrar', { duration: 7000 });
         this.isProcessing = false;
       } else {
         this.error = 'Estado de pago inesperado. Por favor intenta de nuevo.';
+        this.snackBar.open(this.error, 'Cerrar', { duration: 7000 });
         this.isProcessing = false;
       }
     } catch (err: any) {
       console.error('Payment error:', err);
-      this.error = err.message || 'Ocurrió un error al procesar el pago.';
+      const message = err?.message || 'Ocurrió un error al procesar el pago.';
+      this.error = message;
+      this.snackBar.open(message, 'Cerrar', { duration: 7000 });
       this.isProcessing = false;
     }
   }
